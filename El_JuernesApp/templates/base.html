@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <title>
+            {% block title %} El Juernes {% endblock %}
+        </title>
+        <!--Meta information-->
+        {% block head-meta %}
+            <meta charset="utf-8">
+            <meta name="description" content="{% block metadescription %}{% endblock metadescription %}">
+            <meta name="keywords" content="{% block metakeywords%}{% endblock metakeywords %}">
+        {% endblock %}
+
+        <!--Add additional CSS in static file-->
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    </head>
+    <body>
+        <!--Insert default navigation text for every page-->
+        <div class="sidebar">
+            {% block sidebar %}
+            <ul class="sidebar-nav">
+                <li><a href="{% url 'index' %}">Home</a></li>
+                <li><a href="">Contact us</a></li>
+            </ul>
+            {% endblock %}
+        </div>
+        <!--Default content text-->
+        <div class="content">
+            {% block content %}
+
+            {% endblock %}
+        </div>
+        <footer></footer>
+    </body>
+</html>
