@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Accounts',
+    'AfeNews', #Afegir nom de les apps que creem
 ]
 
 TEMPLATE_DIRS = (
