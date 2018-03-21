@@ -1,11 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
-<h2>Login: </h2>
+<HEAD>
+    <title>El Juernes</title>
+</HEAD>
+<BODY style="text-align:center;">
+
+<h1 style="font-size: 80px" ;> EL JUERNES</h1>
+<h1 style="font-size:40px;">INICI DE SESSIÓ: </h1>
+<p>
 <form method="post">
-
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Login</button>
-
+    <button>Recorda'm</button>
+    <button type="submit">Inicia sessió</button>
 </form>
+</p>
+
+</BODY>
+</html>
