@@ -37,6 +37,7 @@ def save_news_to_db(json_data):
             new.title = json_data["articles"][i]["title"]
             new.description = json_data["articles"][i]["description"]
             new.body = json_data["articles"][i]["body"]
+            new.type = json_data["articles"][i]["type"]["name"]
 
             try:
                 author = Author.objects.get(username=json_data["articles"][i]["author"]["username"])
