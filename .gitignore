@@ -99,3 +99,14 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+# idea from PyCharm
+.idea/El_Juernes.iml
+.idea/misc.xml
+.idea/modules.xml
+.idea/workspace.xml
+
+# Database sqlite3
+El_JuernesApp/db.sqlite3
+
+

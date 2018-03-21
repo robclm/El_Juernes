@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Afe News List</title>
+</head>
+
+<body>
+
+{% block content %}
+    <h1>Afe News List</h1>
+
+    {% if articles %}
+        <ul>
+
+            {% for article in articles %}
+                <li>
+                    <h4>{{ article.title }}</h4>
+                    <ul>
+                        {{ article.description }}
+                    </ul>
+
+
+                </li>
+            {% endfor %}
+
+        </ul>
+
+    {% else %}
+        <p>There are no news in AFE.</p>
+    {% endif %}
+
+{% endblock %}
+
+</body>
+
+
+</html>
