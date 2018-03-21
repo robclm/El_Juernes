@@ -9,6 +9,7 @@ class Subscriber(models.Model):
 
 class Copywriter(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    speciality = models.CharField(max_length=140, )
 
 
 class Head_copywriter(models.Model):
