@@ -28,6 +28,7 @@ ALLOWED_HOSTS = []
 
 # Redirect login to home page
 LOGIN_REDIRECT_URL = 'account-redirect'
+LOGOUT_REDIRECT_URL = 'home'
 
 # Application definition
 
