@@ -1,10 +1,9 @@
 import json
 from urllib.request import urlopen
 
+from AfeNews.models import New, Author
 from django.http import HttpResponse
 from django.template.loader import get_template
-
-from AfeNews.models import New, Author
 
 
 def Afe_News_List(request):

@@ -18,10 +18,21 @@
     </head>
     <body>
         <!--Insert default navigation text for every page-->
+        <div id="header">
+            {% block header %}
+                {% if user.is_authenticated %}
+                    <p>User: {{ user.username }} |
+                        <a href="{% url 'logout' %}">logout</a></p>
+                {% else %}
+                    <p><a href="{% url 'login' %}">login</a></p>
+                {% endif %}
+            {% endblock %}
+        </div>
+
         <div class="sidebar">
             {% block sidebar %}
             <ul class="sidebar-nav">
-                <li><a href="{% url 'index' %}">Home</a></li>
+                <li><a href="">Home</a></li>
                 <li><a href="">Contact us</a></li>
             </ul>
             {% endblock %}
