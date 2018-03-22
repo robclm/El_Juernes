@@ -1,13 +1,13 @@
 
 <html lang="es">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>El Juernes</title>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>El Juernes</title>
 
-    </head>
-    <body>
-        <div class="login"
-             style="margin: 250px auto;
+</head>
+<body>
+<div class="login"
+     style="margin: 250px auto;
              width: 600px;
              padding: 30px 25px;
              background-color: #57b846;
@@ -20,11 +20,11 @@
 
                 <h2 class="subtitle">Inici de sessió:</h2>
             </span>
-            <form method="post" style="text-align: center; ">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit"
-                        style="color: black;
+    <form method="post" style="text-align: center; ">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit"
+                style="color: black;
                         text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
                         display: flex;
                         justify-content: center;
@@ -43,10 +43,10 @@
                         -o-transition: all 0.4s;
                         -moz-transition: all 0.4s;
                         transition: all 0.4s;">Inicia sessió
-                </button>
-            </form>
-        </div>
-        <footer style="
+        </button>
+    </form>
+</div>
+<footer style="
             text-align: center;
             background: #f3f3f3;
             margin-top: 3rem;
@@ -55,10 +55,10 @@
             bottom: 0;
             width: 100%;
             ">
-            <a class="footer-page">El Juernes</a>
-            <span class="attribution">
+    <a class="footer-page">El Juernes</a>
+    <span class="attribution">
                 © 2018. An University of Lleida project by GR-5 Join Project
             </span>
-        </footer>
-    </body>
+</footer>
+</body>
 </html>

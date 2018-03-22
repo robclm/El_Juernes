@@ -8,27 +8,27 @@
 <body>
 
 {% block content %}
-    <h1>Afe News List</h1>
+<h1>Afe News List</h1>
 
-    {% if articles %}
+{% if articles %}
+<ul>
+
+    {% for article in articles %}
+    <li>
+        <h4>{{ article.title }}</h4>
         <ul>
-
-            {% for article in articles %}
-                <li>
-                    <h4>{{ article.title }}</h4>
-                    <ul>
-                        {{ article.description }}
-                    </ul>
-
-
-                </li>
-            {% endfor %}
-
+            {{ article.description }}
         </ul>
 
-    {% else %}
-        <p>There are no news in AFE.</p>
-    {% endif %}
+
+    </li>
+    {% endfor %}
+
+</ul>
+
+{% else %}
+<p>There are no news in AFE.</p>
+{% endif %}
 
 {% endblock %}
 
