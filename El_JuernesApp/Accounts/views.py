@@ -23,7 +23,6 @@ def Home(request, pk, name):
             template = 'Accounts/Home/graphic_reporter.html'
         elif rol == "Layout_designer":
             template = 'Accounts/Home/layout_designer.html'
-
     except:
         template = 'home.html'
 
