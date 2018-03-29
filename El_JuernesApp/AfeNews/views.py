@@ -1,9 +1,11 @@
+import codecs
 import json
 from urllib.request import urlopen
 
-from AfeNews.models import New, Author
 from django.http import HttpResponse
 from django.template.loader import get_template
+
+from AfeNews.models import New, Author
 
 
 def Afe_News_List(request):
@@ -16,8 +18,8 @@ def Afe_News_List(request):
 
 def get_json_AFE_news():
     json_obj = urlopen("http://enigmatic-waters-71955.herokuapp.com/api/news")
-    json_data = json.load(json_obj)
-
+    reader = codecs.getreader("utf-8")
+    json_data = json.load(reader(json_obj))
     save_news_to_db(json_data)
 
     return json_data
