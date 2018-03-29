@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2>Head_copywriter </h2>
+    <div class="sidebar">
+        {% block tasks %}
+            <ul class="sidebar-nav">
+                <li><a href="{% url 'AFE' %}">Noves notícies</a></li>
+            </ul>
+        {% endblock %}
+
+{% endblock %}

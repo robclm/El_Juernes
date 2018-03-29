@@ -9,7 +9,6 @@ https://docs.djangoproject.com/en/2.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.0/ref/settings/
 """
-
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -27,6 +26,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# Redirect login to home page
+LOGIN_REDIRECT_URL = 'account-redirect'
+LOGOUT_REDIRECT_URL = 'home'
 
 # Application definition
 
@@ -37,6 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'AfeNews',
+    'Accounts',
+
 ]
 
 MIDDLEWARE = [
@@ -78,6 +83,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'USER': 'dbuser', 'PASSWORD': 'dbpassword',
     }
 }
 
