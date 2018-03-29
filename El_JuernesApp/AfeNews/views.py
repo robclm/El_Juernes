@@ -2,20 +2,27 @@ import codecs
 import json
 from urllib.request import urlopen
 
-from django.http import HttpResponse
-from django.template.loader import get_template
+from django.contrib.auth.models import User
+from django.shortcuts import render
 from django.views import generic
 
 from AfeNews.models import New, Author
 
 
 def Afe_News_List(request):
-    template = get_template("AfeNews/AfeNewsList.html")
-    json_data = get_json_AFE_news()
+    template = 'home.html'
+    json_data = None
+    try:
+        user = User.objects.get(username=request.user.username)
+        rol = user.user_profile.role
+        if rol == "Head_copywriter":
+            template = 'AfeNews/AfeNewsList.html'
+        json_data = get_json_AFE_news()
+    except:
+        template = 'home.html'
 
-    output = template.render(json_data)
-    print(json_data)
-    return HttpResponse(output)
+    return render(request, template, json_data)
+
 
 
 def get_json_AFE_news():
@@ -61,7 +68,19 @@ class full_new_and_assignations(generic.DetailView):
     model = New
     context_object_name = 'new'
     queryset = New.objects.all()
-    template_name = 'AfeNews/New.html'
+
 
     def get_queryset(self, **kwargs):
         return self.queryset.filter(slug=self.kwargs['slug'])
+
+    def get_template_names(self):
+        template = 'home.html'
+        try:
+            user = User.objects.get(username=self.request.user.username)
+            rol = user.user_profile.role
+            if rol == "Head_copywriter":
+                template = 'AfeNews/New.html'
+        except:
+            template = 'home.html'
+
+        return template
