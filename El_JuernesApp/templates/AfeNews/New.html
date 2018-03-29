@@ -2,17 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Afe News List</title>
+    <title>{{ new.title }}</title>
 </head>
 
 <body>
 
 {% block content %}
-    <h1>New</h1>
-    <h4>{{ new.title }}</h4>
-    <h5>{{ new.description }}</h5>
 
+
+    <h1>{{ new.title }}</h1>
+    <p>
+    <h4>{{ new.description }}</h4><br/>
     {{ new.body }}
+    </p>
 
 {% endblock %}
 

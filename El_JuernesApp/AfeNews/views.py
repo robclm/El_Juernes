@@ -66,12 +66,13 @@ def save_news_to_db(json_data):
 
 class full_new_and_assignations(generic.DetailView):
     model = New
-    context_object_name = 'new'
-    queryset = New.objects.all()
+    context_object_name = 'new_and_assignation'
 
-
-    def get_queryset(self, **kwargs):
-        return self.queryset.filter(slug=self.kwargs['slug'])
+    def get_context_data(self, **kwargs):
+        context = super(full_new_and_assignations, self).get_context_data(**kwargs)
+        context['redactors'] = User.objects.get(username=self.request.user.username)
+        context['new'] = New.objects.get(slug=self.kwargs['slug'])
+        return context
 
     def get_template_names(self):
         template = 'home.html'
