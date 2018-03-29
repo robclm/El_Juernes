@@ -4,6 +4,7 @@ from urllib.request import urlopen
 
 from django.http import HttpResponse
 from django.template.loader import get_template
+from django.views import generic
 
 from AfeNews.models import New, Author
 
@@ -13,6 +14,7 @@ def Afe_News_List(request):
     json_data = get_json_AFE_news()
 
     output = template.render(json_data)
+    print(json_data)
     return HttpResponse(output)
 
 
@@ -53,3 +55,13 @@ def save_news_to_db(json_data):
 
             new.author = author
             new.save()
+
+
+class full_new_and_assignations(generic.DetailView):
+    model = New
+    context_object_name = 'new'
+    queryset = New.objects.all()
+    template_name = 'AfeNews/New.html'
+
+    def get_queryset(self, **kwargs):
+        return self.queryset.filter(slug=self.kwargs['slug'])

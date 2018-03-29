@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Afe News List</title>
+</head>
+
+<body>
+
+{% block content %}
+    <h1>New</h1>
+    <h4>{{ new.title }}</h4>
+    <h5>{{ new.description }}</h5>
+
+    {{ new.body }}
+
+{% endblock %}
+
+</body>
+
+
+</html>
