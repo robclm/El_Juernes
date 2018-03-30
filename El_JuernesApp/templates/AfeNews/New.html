@@ -16,6 +16,17 @@
     {{ new.body }}
     </p>
 
+    <h3>
+        <form action="/Assigned/" method="post">
+            <label for="team_name"> Assignar la notícia a un redactor: </label>
+            <select name="copywriters">
+                {% for redactor in redactors %}
+                    <option value={{ redactor.user }}>{{ redactor.user }}</option>
+                {% endfor %}
+            </select>
+            <input type="submit" value="Assignar">
+        </form>
+    </h3>
 {% endblock %}
 
 </body>

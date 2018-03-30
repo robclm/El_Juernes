@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import render
 from django.views import generic
 
+from Accounts.models import User_profile
 from AfeNews.models import New, Author
 
 
@@ -70,7 +71,7 @@ class full_new_and_assignations(generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(full_new_and_assignations, self).get_context_data(**kwargs)
-        context['redactors'] = User.objects.get(username=self.request.user.username)
+        context['redactors'] = User_profile.objects.filter(role='Copywriter')
         context['new'] = New.objects.get(slug=self.kwargs['slug'])
         return context
 
