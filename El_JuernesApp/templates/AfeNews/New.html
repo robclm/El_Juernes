@@ -2,18 +2,31 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Afe News List</title>
+    <title>{{ new.title }}</title>
 </head>
 
 <body>
 
 {% block content %}
-    <h1>New</h1>
-    <h4>{{ new.title }}</h4>
-    <h5>{{ new.description }}</h5>
 
+
+    <h1>{{ new.title }}</h1>
+    <p>
+    <h4>{{ new.description }}</h4><br/>
     {{ new.body }}
+    </p>
 
+    <h3>
+        <form action="/Assigned/" method="post">
+            <label for="team_name"> Assignar la notícia a un redactor: </label>
+            <select name="copywriters">
+                {% for redactor in redactors %}
+                    <option value={{ redactor.user }}>{{ redactor.user }}</option>
+                {% endfor %}
+            </select>
+            <input type="submit" value="Assignar">
+        </form>
+    </h3>
 {% endblock %}
 
 </body>
