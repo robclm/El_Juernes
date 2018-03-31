@@ -3,6 +3,7 @@ import json
 from urllib.request import urlopen
 
 from django.contrib.auth.models import User
+from django.shortcuts import HttpResponse
 from django.shortcuts import render
 from django.views import generic
 
@@ -11,18 +12,30 @@ from AfeNews.models import New, Author
 
 
 def Afe_News_List(request):
-    template = 'home.html'
-    json_data = None
-    try:
-        user = User.objects.get(username=request.user.username)
-        rol = user.user_profile.role
-        if rol == "Head_copywriter":
-            template = 'AfeNews/AfeNewsList.html'
-        json_data = get_json_AFE_news()
-    except:
+    if request.method == 'POST':
+        var = request.POST.dict()
+        name = var['new'].split('/')
+        writer = var['copywriters']
+        prioritat = var['priority']
+        new_obj = New.objects.get(slug=name[0])
+        user = User.objects.get(username=writer)
+        new_obj.assigned = user.username
+        new_obj.priority = prioritat
+        new_obj.save()
+        return HttpResponse("SLUG NOTICIA: "+ name[0] + " " + "NOM REDACTOR: " + str(writer) + " Prioritat: " + str(prioritat))
+    else:
         template = 'home.html'
+        json_data = None
+        try:
+            user = User.objects.get(username=request.user.username)
+            rol = user.user_profile.role
+            if rol == "Head_copywriter":
+                template = 'AfeNews/AfeNewsList.html'
+            json_data = get_json_AFE_news()
+        except:
+            template = 'home.html'
 
-    return render(request, template, json_data)
+        return render(request, template, json_data)
 
 
 
