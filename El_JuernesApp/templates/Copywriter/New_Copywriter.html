@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ new.title }}</title>
+</head>
+<br>
+{% block content %}
+    <p>
+    <h4>Prioritat: {{ new.priority }}</h4>
+    <h1>{{ new.title }}</h1>
+    <h4>{{ new.description }}</h4><br/>
+    {{ new.body }}
+    </p>
+
+
+    <h4>Entrega l'article</h4>
+    <form action="/Redactor/" method="post"> {% csrf_token %}
+        <input type="text" size="50" maxlength="140" value="Introdueix el titol del article" name="title"> <input
+                type="submit" value="Entrega"><br>
+        <input type="text" size="50" maxlength="140" value="Introdueix la descripcio de l'article" name="description">
+        <br><br>
+        <textarea name="body" rows="10" cols="40">Introdueix el cos de l'article</textarea>
+        <input type="hidden" name="new" value="{{ new.slug }}"/>
+    </form>
+{% endblock %}
+</body>
+</html>
