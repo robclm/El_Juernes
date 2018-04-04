@@ -2,18 +2,41 @@ import codecs
 import json
 from urllib.request import urlopen
 
-from django.http import HttpResponse
-from django.template.loader import get_template
-
+from Accounts.models import User_profile
 from AfeNews.models import New, Author
+from django.contrib.auth.models import User
+from django.shortcuts import redirect
+from django.shortcuts import render
+from django.views import generic
 
 
 def Afe_News_List(request):
-    template = get_template("AfeNews/AfeNewsList.html")
-    json_data = get_json_AFE_news()
+    if request.method == 'POST':
+        var = request.POST.dict()
+        name = var['new'].split('/')
+        writer = var['copywriters']
+        prioritat = var['priority']
+        new_obj = New.objects.get(slug=name[0])
+        user = User.objects.get(username=writer)
+        new_obj.assigned = user.username
+        new_obj.priority = prioritat
+        new_obj.save()
+        template = 'http://127.0.0.1:8000/AFE/new/' + name[0]
+        return redirect(template)
+    else:
+        template = 'home.html'
+        json_data = None
+        try:
+            user = User.objects.get(username=request.user.username)
+            rol = user.user_profile.role
+            if rol == "Head_copywriter":
+                template = 'AfeNews/AfeNewsList.html'
+            json_data = get_json_AFE_news()
+        except:
+            template = 'home.html'
 
-    output = template.render(json_data)
-    return HttpResponse(output)
+        return render(request, template, json_data)
+
 
 
 def get_json_AFE_news():
@@ -53,3 +76,26 @@ def save_news_to_db(json_data):
 
             new.author = author
             new.save()
+
+
+class full_new_and_assignations(generic.DetailView):
+    model = New
+    context_object_name = 'new_and_assignation'
+
+    def get_context_data(self, **kwargs):
+        context = super(full_new_and_assignations, self).get_context_data(**kwargs)
+        context['redactors'] = User_profile.objects.filter(role='Copywriter')
+        context['new'] = New.objects.get(slug=self.kwargs['slug'])
+        return context
+
+    def get_template_names(self):
+        template = 'home.html'
+        try:
+            user = User.objects.get(username=self.request.user.username)
+            rol = user.user_profile.role
+            if rol == "Head_copywriter":
+                template = 'AfeNews/New.html'
+        except:
+            template = 'home.html'
+
+        return template

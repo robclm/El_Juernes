@@ -1,7 +1,5 @@
 from django.db import models
 
-# Create your models here.
-
 class New(models.Model):
     slug = models.CharField(max_length=140)
     title = models.CharField(max_length=140)
@@ -9,6 +7,8 @@ class New(models.Model):
     body = models.TextField()
     type = models.CharField(max_length=140)
     author = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
+    assigned = models.CharField(max_length=140,default="Cap redactor assignat")
+    priority = models.CharField(max_length=140)
 
 class Author(models.Model):
     username = models.CharField(max_length=140)
