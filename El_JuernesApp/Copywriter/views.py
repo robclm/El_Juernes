@@ -1,15 +1,16 @@
-from AfeNews.models import New
-from Copywriter.models import Article
 from django.contrib.auth.models import User
 from django.shortcuts import redirect
 from django.shortcuts import render
 from django.views import generic
 
+from AfeNews.models import New
+from Copywriter.models import Article
+
 
 # Create your views here.
 
 def News_assigned(request):
-    template = 'home.html'
+    template = 'Home_News.html'
     context = None
     try:
         user = User.objects.get(username=request.user.username)
@@ -40,7 +41,7 @@ def News_assigned(request):
             "articles": New.objects.filter(assigned=request.user.username)
         }
     except:
-        template = 'home.html'
+        template = 'Home_News.html'
 
     return render(request, template, context)
 
@@ -55,13 +56,13 @@ class new_copywriter(generic.DetailView):
         return context
 
     def get_template_names(self):
-        template = 'home.html'
+        template = 'Home_News.html'
         try:
             user = User.objects.get(username=self.request.user.username)
             rol = user.user_profile.role
             if rol == "Copywriter":
                 template = 'Copywriter/New_Copywriter.html'
         except:
-            template = 'home.html'
+            template = 'Home_News.html'
 
         return template
