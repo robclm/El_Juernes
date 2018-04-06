@@ -3,7 +3,7 @@
 <html lang="en">
     <head>
         <title>
-            {% block title %} El Juernes {% endblock %}
+            {% block title %}  El Juernes {% endblock %}
         </title>
         <!--Meta information-->
         {% block head-meta %}
@@ -16,12 +16,13 @@
         {% load static %}
         <link rel="stylesheet" href="{% static 'css/base.css' %}"/>
         <style>
-            ul {
+            .bar-nav{
                 list-style-type: none;
                 margin: 0;
                 padding: 0;
                 overflow: hidden;
                 background-color: #333;
+                height: 47px;
             }
             li {
                 float: left;
@@ -40,6 +41,10 @@
                 color: green;
                 padding-left: 5px;
             }
+            #title a{
+                color: #FFFFFF;
+                text-decoration: none;
+            }
             #header{
                 text-align: left;
                 background-color: green;
@@ -47,11 +52,9 @@
             #header p{
                 list-style-type: none;
                 margin: 0;
-                padding: 0;
                 overflow: hidden;
                 display: inline-block;
                 color: white;
-                color
                 text-align: center;
                 padding: 14px 16px;
                 text-decoration: none;
@@ -59,31 +62,52 @@
             .link{
                 color: white;
             }
+            .login{
+                margin-top: 0px;
+                float: right;
+
+            }
+            .login p{
+                color: #FFFFFF;
+                margin-top: 0px;
+            }
+            .login a{
+                color: #FFFFFF;
+            }
         </style>
     </head>
     <body>
         <!--Insert default navigation text for every page-->
-        <h2>EL JUERNES</h2>
+        <div id="title">
+            <a href="{% url 'account-redirect' %}"><h2>EL JUERNES</h2></a>
+        </div>
         <div id="header">
-            {% block header %}
-                {% if user.is_authenticated %}
-                    <p>Benvingut: {{ user.username }} |
-                        <a class="link" href="{% url 'logout' %}">logout</a></p>
-                {% else %}
-                    <p><a class="link" href="{% url 'login' %}">login</a></p>
-                {% endif %}
-            {% endblock %}
+
         </div>
 
-        <div class="sidebar">
+        <div class="navbar">
             {% block sidebar %}
-            <ul class="sidebar-nav">
-                <li><a href="{% url 'account-redirect' %}">Inici</a></li>
+            <ul class="bar-nav">
+                <li><a href="{% url 'account-redirect' %}">Home</a></li>
                 <li><a href="">News</a></li>
                 <li><a href="">Contact with us</a></li>
+                <li class="login">
+                    {% if user.is_authenticated %}
+                    <p>Benvingut: {{ user.username }} |
+                        <a class="link" href="{% url 'logout' %}">logout</a></p>
+                    {% else %}
+                    <p><a class="link" href="{% url 'login' %}">login</a></p>
+                    {% endif %}
+
+                </li>
             </ul>
             {% endblock %}
         </div>
+        <div class="sidebar">
+            <p>Barra lateral amb les funcionalitats especifiques de cadascun dels rols</p>
+        </div>
+
+
         <!--Default content text-->
         <div class="content">
             {% block content %}
