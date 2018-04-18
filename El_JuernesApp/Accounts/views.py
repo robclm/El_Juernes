@@ -9,7 +9,7 @@ def account_redirect(request):
 
 
 def Home(request, pk, name):
-    template = 'home.html'
+    template = 'Home_News.html'
     try:
         user = User.objects.get(username=request.user.username)
         rol = user.user_profile.role
@@ -24,6 +24,6 @@ def Home(request, pk, name):
         elif rol == "Layout_designer":
             template = 'Accounts/Home/layout_designer.html'
     except:
-        template = 'home.html'
+        template = 'Home_News.html'
 
     return render(request, template)

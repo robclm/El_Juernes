@@ -2,12 +2,13 @@ import codecs
 import json
 from urllib.request import urlopen
 
-from Accounts.models import User_profile
-from AfeNews.models import New, Author
 from django.contrib.auth.models import User
 from django.shortcuts import redirect
 from django.shortcuts import render
 from django.views import generic
+
+from Accounts.models import User_profile
+from AfeNews.models import New, Author
 
 
 def Afe_News_List(request):
@@ -24,7 +25,7 @@ def Afe_News_List(request):
         template = 'http://127.0.0.1:8000/AFE/new/' + name[0]
         return redirect(template)
     else:
-        template = 'home.html'
+        template = 'Home_News.html'
         json_data = None
         try:
             user = User.objects.get(username=request.user.username)
@@ -33,7 +34,7 @@ def Afe_News_List(request):
                 template = 'AfeNews/AfeNewsList.html'
             json_data = get_json_AFE_news()
         except:
-            template = 'home.html'
+            template = 'Home_News.html'
 
         return render(request, template, json_data)
 
@@ -89,13 +90,13 @@ class full_new_and_assignations(generic.DetailView):
         return context
 
     def get_template_names(self):
-        template = 'home.html'
+        template = 'Home_News.html'
         try:
             user = User.objects.get(username=self.request.user.username)
             rol = user.user_profile.role
             if rol == "Head_copywriter":
                 template = 'AfeNews/New.html'
         except:
-            template = 'home.html'
+            template = 'Home_News.html'
 
         return template
