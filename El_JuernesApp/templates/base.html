@@ -24,8 +24,12 @@
                 background-color: #333;
                 height: 47px;
             }
+            ul{
+                 text-decoration: none;
+            }
             li {
                 float: left;
+                background-color: #333;
             }
             li a {
                 display: inline-block;
@@ -74,6 +78,9 @@
             .login a{
                 color: #FFFFFF;
             }
+            .content{
+
+            }
         </style>
     </head>
     <body>
@@ -89,7 +96,7 @@
             {% block sidebar %}
             <ul class="bar-nav">
                 <li><a href="{% url 'account-redirect' %}">Home</a></li>
-                <li><a href="">News</a></li>
+                <li><a href="{% url 'AFE' %}">News</a></li>
                 <li><a href="">Contact with us</a></li>
                 <li class="login">
                     {% if user.is_authenticated %}
@@ -104,7 +111,7 @@
             {% endblock %}
         </div>
         <div class="sidebar">
-            <p>Barra lateral amb les funcionalitats especifiques de cadascun dels rols</p>
+
         </div>
 
 
