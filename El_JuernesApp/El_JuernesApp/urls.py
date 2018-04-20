@@ -10,4 +10,5 @@ urlpatterns = [
     path('', TemplateView.as_view(template_name="Home_News.html"), name="Home_News"),
     path('AFE/', include('AfeNews.urls')),
     path('Redactor/', include('Copywriter.urls')),
+    path('RedactorCap/', include('HeadCopywriter_ArticleValidation.urls')),
 ]

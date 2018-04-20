@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'AfeNews',
     'Accounts',
     'Copywriter',
+    'HeadCopywriter_ArticleValidation'
 ]
 
 MIDDLEWARE = [
