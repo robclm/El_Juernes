@@ -78,8 +78,51 @@
             .login a{
                 color: #FFFFFF;
             }
-            .content{
 
+            /*Scroll*/
+
+            .content{
+                owerflow:scroll;
+            }
+            body::-webkit-scrollbar {
+                width: 1em;
+            }
+
+            body::-webkit-scrollbar-track {
+                -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+            }
+
+            body::-webkit-scrollbar-thumb {
+              background-color: darkgrey;
+              outline: 1px solid slategrey;
+            }
+            .sidebar{
+                /*background-color: #333;*/
+                border-right:1px solid #e5e5e5;
+                height:100%;
+                width: 200px;
+
+                /*overflow:hidden;*/
+            }
+            .sidebar ul{
+                padding-left: 0px;
+                list-style:none;
+                
+            }
+            .sidebar li a{
+                display: block;
+                /*margin: 2px;*/
+                padding: 14px 16px;
+                text-align: center;
+                text-decoration: none;
+            }
+            #footer{
+                text-align: center;
+                background: #f3f3f3;
+                position: absolute;
+                bottom: 0px;
+                width: 100%;
+                overflow: hidden;
             }
         </style>
     </head>
@@ -110,9 +153,6 @@
             </ul>
             {% endblock %}
         </div>
-        <div class="sidebar">
-
-        </div>
 
 
         <!--Default content text-->
@@ -121,19 +161,11 @@
 
             {% endblock %}
         </div>
-        <footer style="
-            text-align: center;
-            background: #f3f3f3;
-            margin-top: 3rem;
-            padding: 1rem 0;
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            ">
+        <div id="footer">
             <a class="footer-page">El Juernes</a>
             <span class="attribution">
                 <p> © 2018. An University of Lleida project by GR-5 Join Project</p>
             </span>
-        </footer>
+        </div>
     </body>
 </html>
