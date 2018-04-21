@@ -10,6 +10,20 @@
 
 {% block content %}
     <h2>Banc d'imatges</h2>
+
+
+    <p>Imatges</p>
+    <ul>
+        {% for img in images %}
+            <li>
+                <img src="{{ img.image.url }}" alt="image-{{ post.title }}"
+                     width="200" height="200"/>
+                <br>
+            </li>
+
+        {% endfor %}
+    </ul>
+
 {% endblock %}
 
 </body>

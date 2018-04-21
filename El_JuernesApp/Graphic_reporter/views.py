@@ -1,5 +1,7 @@
 from django.shortcuts import render
 
+from Graphic_reporter.models import Image
+
 
 def News_assigned(request):
     template = 'Graphic_reporter/assigned_news.html'
@@ -10,6 +12,6 @@ def News_assigned(request):
 
 def Image_bank(request):
     template = 'Graphic_reporter/image_bank.html'
-    context = None
+    images = Image.objects.all()
 
-    return render(request, template, context)
+    return render(request, template, {'images': images})
