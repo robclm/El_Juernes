@@ -1,5 +1,6 @@
 from django.shortcuts import render
 
+from Graphic_reporter.forms import ImageForm
 from Graphic_reporter.models import Image
 
 
@@ -14,4 +15,17 @@ def Image_bank(request):
     template = 'Graphic_reporter/image_bank.html'
     images = Image.objects.all()
 
-    return render(request, template, {'images': images})
+    if request.method == 'POST':
+        form = ImageForm(request.POST or None, request.FILES or None)
+
+        if form.is_valid():
+            img_post = Image()
+
+            img_post.description = form.clean_description()
+            img_post.image = form.clean_image()
+
+            img_post.save()
+
+    form = ImageForm()
+
+    return render(request, template, {'images': images, 'form': form})
