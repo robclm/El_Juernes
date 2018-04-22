@@ -16,8 +16,10 @@
     <ul>
         {% for img in images %}
             <li>
-                <img src="{{ img.image.url }}" alt="image-{{ post.title }}"
-                     width="200" height="200"/>
+                <a href="{{ img.image.url }}">
+                    <img src="{{ img.image.url }}" alt="image-{{ post.title }}"
+                         width="200" height="200"/>
+                </a>
                 <br>
             </li>
 
