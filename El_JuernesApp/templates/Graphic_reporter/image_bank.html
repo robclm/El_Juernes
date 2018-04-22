@@ -18,19 +18,35 @@
         <button type="submit">Pujar</button>
     </form>
 
-    <p>Imatges</p>
-    <ul>
-        {% for img in images %}
-            <li>
-                <a href="{{ img.image.url }}">
-                    <img src="{{ img.image.url }}" alt="image-{{ post.title }}"
-                         width="200" height="200"/>
-                </a>
-                <br>
-            </li>
 
-        {% endfor %}
-    </ul>
+    <hr>
+    <p>Imatges: </p>
+
+    <form type="get" action="." style="margin: 0">
+        <input id="search_box" type="text" name="search_box" value={{ search_query }}>
+        <button id="search_submit" type="submit">Cercar</button>
+    </form>
+    <br>
+
+
+
+    {% if images %}
+        <ul>
+            {% for img in images %}
+                <li>
+                    <a href="{{ img.image.url }}">
+                        <img src="{{ img.image.url }}" alt="image-{{ post.title }}"
+                             width="200" height="200"/>
+                    </a>
+                    <br>
+                </li>
+
+            {% endfor %}
+        </ul>
+
+    {% else %}
+        <p>No hi ha imatges disponibles.</p>
+    {% endif %}
 
 {% endblock %}
 

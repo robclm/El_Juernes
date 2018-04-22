@@ -4,17 +4,21 @@ from Graphic_reporter.forms import ImageForm
 from Graphic_reporter.models import Image
 
 
-def News_assigned(request):
+def news_assigned(request):
     template = 'Graphic_reporter/assigned_news.html'
     context = None
 
     return render(request, template, context)
 
 
-def Image_bank(request):
+def image_bank(request):
     template = 'Graphic_reporter/image_bank.html'
+    search_query = ""
+
+    # Display all images
     images = Image.objects.all()
 
+    # Upload Images
     if request.method == 'POST':
         form = ImageForm(request.POST or None, request.FILES or None)
 
@@ -25,7 +29,12 @@ def Image_bank(request):
             img_post.image = form.clean_image()
 
             img_post.save()
+    else:
+        # Search images
+        search_query = request.GET.get('search_box', None)
+        images = images.filter(description__icontains=search_query)
 
+    # Form to update images
     form = ImageForm()
 
-    return render(request, template, {'images': images, 'form': form})
+    return render(request, template, {'images': images, 'form': form, 'search_query': search_query})
