@@ -10,7 +10,14 @@ class New(models.Model):
     assigned = models.CharField(max_length=140,default="Cap redactor assignat")
     priority = models.CharField(max_length=140)
 
+    def __str__(self):
+        return 'New: ' + self.title
+
+
 class Author(models.Model):
     username = models.CharField(max_length=140)
     bio = models.CharField(max_length=140)
     image = models.CharField(max_length=140)
+
+    def __str__(self):
+        return 'Author: ' + self.username
