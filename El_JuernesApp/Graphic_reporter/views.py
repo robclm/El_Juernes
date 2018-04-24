@@ -30,9 +30,11 @@ def image_bank(request):
 
             img_post.save()
     else:
-        # Search images
-        search_query = request.GET.get('search_box', None)
-        images = images.filter(description__icontains=search_query)
+        # Search if there is something to search
+        search_query = request.GET.get('search_box', '')
+
+        if search_query is not None:
+            images = images.filter(description__icontains=search_query)
 
     # Form to update images
     form = ImageForm()
