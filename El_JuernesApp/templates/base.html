@@ -16,6 +16,9 @@
         {% load static %}
         <link rel="stylesheet" href="{% static 'css/base.css' %}"/>
         <style>
+            body{
+                scroll-behavior: smooth;
+            }
             .bar-nav{
                 list-style-type: none;
                 margin: 0;
@@ -82,47 +85,34 @@
             /*Scroll*/
 
             .content{
-                owerflow:scroll;
-            }
-            body::-webkit-scrollbar {
-                width: 1em;
+                position: relative;
+                min-height: 800px;
+                owerflow:auto;
+
             }
 
-            body::-webkit-scrollbar-track {
-                -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-            }
-
-            body::-webkit-scrollbar-thumb {
-              background-color: darkgrey;
-              outline: 1px solid slategrey;
-            }
             .sidebar{
-                /*background-color: #333;*/
-                border-right:1px solid #e5e5e5;
                 height:100%;
-                width: 200px;
+                width: 100px;
 
                 /*overflow:hidden;*/
             }
             .sidebar ul{
                 padding-left: 0px;
                 list-style:none;
-                
             }
             .sidebar li a{
                 display: block;
-                /*margin: 2px;*/
-                padding: 14px 16px;
                 text-align: center;
                 text-decoration: none;
             }
             #footer{
                 text-align: center;
                 background: #f3f3f3;
-                position: absolute;
-                bottom: 0px;
+                position: fixed;
+                bottom: 0;
                 width: 100%;
-                overflow: hidden;
+                margin: 0 auto;
             }
         </style>
     </head>
@@ -136,7 +126,7 @@
         </div>
 
         <div class="navbar">
-            {% block sidebar %}
+            {% block navbar %}
             <ul class="bar-nav">
                 <li><a href="{% url 'account-redirect' %}">Home</a></li>
                 <li><a href="{% url 'AFE' %}">News</a></li>
