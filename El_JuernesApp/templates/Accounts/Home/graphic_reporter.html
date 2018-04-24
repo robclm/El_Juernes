@@ -1,10 +1,18 @@
 {% extends "base.html" %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Home</title>
-</head>
-<body>
-<h2>Home page</h2>
-</body>
-</html>
+
+{% block content %}
+    <h2>Reporter Gràfic</h2>
+
+    <div class="sidebar">
+
+        {% block tasks %}
+            <ul class="sidebar-nav">
+                <li><a href="{% url 'gr_assigned_news' %}">Notícies assignades</a></li>
+                <li><a href="{% url 'gr_image_bank' %}">Banc d'imatges</a></li>
+
+            </ul>
+        {% endblock %}
+
+    </div>
+
+{% endblock %}

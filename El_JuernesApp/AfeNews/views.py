@@ -22,7 +22,10 @@ def Afe_News_List(request):
         new_obj.assigned = user.username
         new_obj.priority = prioritat
         new_obj.save()
+
+        # FIXME: Heroku deployment could be problematic
         template = 'http://127.0.0.1:8000/AFE/new/' + name[0]
+
         return redirect(template)
     else:
         template = 'Home_News.html'
