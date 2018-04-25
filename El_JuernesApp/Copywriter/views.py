@@ -23,6 +23,8 @@ def News_assigned(request):
                 body = var['body']
                 name = var['new'].split('/')
                 new_obj = New.objects.get(slug=name[0])
+                new_obj.tovalidate = True
+                new_obj.save()
 
                 article = Article()
                 article.slug = name[0]

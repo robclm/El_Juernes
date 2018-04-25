@@ -8,15 +8,32 @@
 {% block content %}
     <h1>Articles pendents de validació</h1>
 
-    {% with priority="null" %}
-        {% for article in articles %}
-            {% if priority != article.priority %}
-                {% priority="hola" %}
-                {{ priority }}
+    {% if articles %}
+        <ul>
+            {% with prioritat="null" %}
+                {% for article in articles %}
+                    {% if prioritat != article.priority %}
 
-            {% endif %}
-        {% endfor %}
-    {% endwith %}
+                        {% with prioritat=article.priority %}
+
+
+                            <h2>Prioritat: {{ article.priority }}</h2>
+
+                        {% endwith %}
+
+                    {% endif %}
+
+                    <h4><a href="/RedactorCap/validació/{{ article.slug }}">{{ article.title }}</a></h4>
+                    <ul>
+                        {{ article.description }}
+                    </ul>
+                {% endfor %}
+            {% endwith %}
+        </ul>
+
+    {% else %}
+        <p>No hi ha articles a validar.</p>
+    {% endif %}
 
 {% endblock %}
 </body>
