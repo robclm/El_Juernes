@@ -8,49 +8,15 @@
 {% block content %}
     <h1>Articles pendents de validació</h1>
 
-    {% if articles %}
-        <ul>
+    {% with priority="null" %}
+        {% for article in articles %}
+            {% if priority != article.priority %}
+                {% priority="hola" %}
+                {{ priority }}
 
-            {% for article in articles %}
-                {% if article.priority == "alta" %}
-                    <h4><a href="/Redactor/assigned/{{ article.slug }}">{{ article.title }}</a></h4>
-                    <ul>
-                        {{ article.description }}
-                    </ul>
-
-                    <ul>
-                        <h4> Prioritat: {{ article.priority }} </h4>
-                    </ul>
-                {% endif %}
-            {% endfor %}
-            {% for article in articles %}
-                {% if article.priority == "mitjana" %}
-                    <h4><a href="/Redactor/assigned/{{ article.slug }}">{{ article.title }}</a></h4>
-                    <ul>
-                        {{ article.description }}
-                    </ul>
-                    <ul>
-                        <h4> Prioritat: {{ article.priority }} </h4>
-                    </ul>
-                {% endif %}
-            {% endfor %}
-            {% for article in articles %}
-                {% if article.priority == "baixa" %}
-                    <h4><a href="/Redactor/assigned/{{ article.slug }}">{{ article.title }}</a></h4>
-                    <ul>
-                        {{ article.description }}
-                    </ul>
-                    <ul>
-                        <h4> Prioritat: {{ article.priority }} </h4>
-                    </ul>
-                {% endif %}
-            {% endfor %}
-
-        </ul>
-
-    {% else %}
-        <p>No hi ha articles a validar.</p>
-    {% endif %}
+            {% endif %}
+        {% endfor %}
+    {% endwith %}
 
 {% endblock %}
 </body>
