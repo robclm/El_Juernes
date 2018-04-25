@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ new.title }}</title>
+</head>
+<br>
+{% block content %}
+    <p>
+    <h4>Prioritat: {{ new.priority }}</h4>
+    <h1>{{ new.title }}</h1>
+    <h4>{{ new.description }}</h4><br/>
+    {{ new.body }}
+    </p>
+
+
+    <h3>Descargar l'article:</h3>
+
+    <button type="button">Escollir imatges</button> Imatges asociades | </p>
+
+    Introdueix els comentaris pel redactor:
+    <button type="button">Escull un fitxer</button> | </p>
+
+    <button type="button">Acceptar</button>
+    <button type="button">Denegar</button>
+    <a href="/AFE/new/{{ new.slug }}">
+        <button type="button">Reassignar</button>
+    </a>
+
+    <button type="button">Enviar comentaris al redactor</button>
+
+
+
+
+{% endblock %}
+</html>
