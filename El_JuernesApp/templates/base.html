@@ -15,18 +15,15 @@
         <!--Add additional CSS in static file-->
         {% load static %}
         <link rel="stylesheet" href="{% static 'css/base.css' %}"/>
+
         <style>
-            body{
-                scroll-behavior: smooth;
-            }
+
             .bar-nav{
                 list-style-type: none;
                 margin: 0;
                 padding: 0;
                 overflow: hidden;
-                /*background-color: #9BEB78;*/
                 background-color: #50B85F;
-                /*border-color: black;*/
                 height: 47px;
             }
             ul{
@@ -53,6 +50,9 @@
             h2{
                 color: green;
                 padding-left: 5px;
+            }
+            #title{
+                font-family: Verdana;
             }
             #title a{
                 color: #FFFFFF;
@@ -94,21 +94,21 @@
                 /*position: relative;*/
                 min-height: 800px;
                 owerflow:auto;
-                margin-left: 120px;
+                margin-left: 130px;
+                overflow-y: scroll;
             }
 
             .sidebar{
-                height:100%;
-                width: 100px;
-
-                /*overflow:hidden;*/
+                width: 120px;
             }
-            .sidebar ul{
+
+            .sidebar-nav{
                 padding-left: 0px;
                 list-style:none;
                 background-color: #50B85F;
             }
             .sidebar li a{
+
                 display: block;
                 text-align: center;
                 text-decoration: none;
@@ -151,6 +151,9 @@
             </ul>
             {% endblock %}
         </div>
+
+        <!-- Barra lateral-->
+
         <div class="sidebar">
             <ul class="sidebar-nav">
                 {% block sidebar %}
@@ -158,12 +161,17 @@
                 {% endblock %}
             </ul>
         </div>
-        <!--Default content text-->
+
+        <!--Contingut-->
+
         <div class="content">
             {% block content %}
 
             {% endblock %}
         </div>
+
+        <!--Footer-->
+
         <div id="footer">
             <a class="footer-page">El Juernes</a>
             <span class="attribution">
