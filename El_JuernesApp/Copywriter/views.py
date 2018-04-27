@@ -23,6 +23,8 @@ def News_assigned(request):
                 body = var['body']
                 name = var['new'].split('/')
                 new_obj = New.objects.get(slug=name[0])
+                new_obj.tovalidate = True
+                new_obj.save()
 
                 article = Article()
                 article.slug = name[0]
@@ -38,7 +40,9 @@ def News_assigned(request):
 
             template = 'Copywriter/AssignedNewsList.html'
         context = {
-            "articles": New.objects.filter(assigned=request.user.username)
+            "articles_alta": New.objects.filter(assigned=request.user.username, priority='alta'),
+            "articles_mitjana": New.objects.filter(assigned=request.user.username, priority='mitjana'),
+            "articles_baixa": New.objects.filter(assigned=request.user.username, priority='baixa')
         }
     except:
         template = 'Home_News.html'

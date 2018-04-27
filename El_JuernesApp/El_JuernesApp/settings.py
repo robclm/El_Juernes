@@ -42,7 +42,9 @@ INSTALLED_APPS = [
     'AfeNews',
     'Accounts',
     'Copywriter',
+    'HeadCopywriter_ArticleValidation'
     'Graphic_reporter'
+
 ]
 
 MIDDLEWARE = [
