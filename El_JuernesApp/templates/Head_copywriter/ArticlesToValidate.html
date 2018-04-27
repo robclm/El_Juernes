@@ -2,20 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Notícies assignades</title>
+    <title>Articles pendents de validació</title>
 </head>
 <body>
 {% block content %}
-    <h1>Notícies assignades</h1>
+    <h1>Articles pendents de validació</h1>
 
     {% if articles_alta or articles_mitjana or articles_baixa %}
 
         {% if articles_alta %}
             <h3>Prioritat: Alta</h3>
             {% for article in articles_alta %}
-                    <ul>
-                        <h4><a href="/RedactorCap/validació/{{ article.slug }}">{{ article.title }}</a></h4>
-                    </ul>
+                <ul>
+                    <h4><a href="/RedactorCap/validació/{{ article.slug }}">{{ article.title }}</a></h4>
+                </ul>
                 {{ article.description }}
             {% endfor %}
         {% endif %}
@@ -27,23 +27,21 @@
                         <h4><a href="/RedactorCap/validació/{{ article.slug }}">{{ article.title }}</a></h4>
                     </ul>
                 {{ article.description }}
-            {% endfor %}
+                {% endfor %}
         {% endif %}
 
         {% if articles_baixa %}
             <h3>Prioritat:Baixa</h3>
             {% for article in articles_baixa %}
-                    <ul>
-                        <h4><a href="/RedactorCap/validació/{{ article.slug }}">{{ article.title }}</a></h4>
-                    </ul>
+                <ul>
+                    <h4><a href="/RedactorCap/validació/{{ article.slug }}">{{ article.title }}</a></h4>
+                </ul>
                 {{ article.description }}
             {% endfor %}
         {% endif %}
 
     {% else %}
-
-        <p>No s'ha assignat cap notícia.</p>
-
+        <p>No hi ha articles a validar.</p>
     {% endif %}
 
 {% endblock %}
