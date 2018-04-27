@@ -8,7 +8,7 @@ class New(models.Model):
     type = models.CharField(max_length=140)
     author = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
     assigned = models.CharField(max_length=140,default="Cap redactor assignat")
-    priority = models.CharField(max_length=140)
+    priority = models.CharField(max_length=140, default="")
     tovalidate = models.BooleanField(default=False)
 
     def __str__(self):
