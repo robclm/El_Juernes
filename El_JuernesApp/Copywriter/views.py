@@ -40,7 +40,9 @@ def News_assigned(request):
 
             template = 'Copywriter/AssignedNewsList.html'
         context = {
-            "articles": New.objects.filter(assigned=request.user.username)
+            "articles_alta": New.objects.filter(assigned=request.user.username, priority='alta'),
+            "articles_mitjana": New.objects.filter(assigned=request.user.username, priority='mitjana'),
+            "articles_baixa": New.objects.filter(assigned=request.user.username, priority='baixa')
         }
     except:
         template = 'Home_News.html'

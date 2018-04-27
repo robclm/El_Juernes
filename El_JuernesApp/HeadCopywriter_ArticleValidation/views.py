@@ -17,7 +17,9 @@ def Article_validation_list(request):
         if rol == "Head_copywriter":
             template = 'Head_copywriter/ArticlesToValidate.html'
         context = {
-            "articles": New.objects.filter(tovalidate=True)
+            "articles_alta": New.objects.filter(tovalidate=True, priority='alta'),
+            "articles_mitjana": New.objects.filter(tovalidate=True, priority='mitjana'),
+            "articles_baixa": New.objects.filter(tovalidate=True, priority='baixa'),
         }
     except:
         template = 'Home_News.html'
