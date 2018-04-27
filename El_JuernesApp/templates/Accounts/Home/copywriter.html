@@ -1,11 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
-    <h2>Copywriter Workspace </h2>
-    <div class="sidebar">
-        {% block tasks %}
-            <ul class="sidebar-nav">
-                <li><a href="{% url 'assigned' %}">Noticies assignades</a></li>
-            </ul>
-        {% endblock %}
-    </div>
+    <h2>Redactor</h2>
 {% endblock %}
+{% block sidebar %}
+    <li><a href="{% url 'assigned' %}">Noticies assignades</a></li>
+    <li><a href="">Imatges rebudes</a></li>
+{% endblock %}
+

@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Banc d'imatges</title>
+</head>
+
+<body>
+
+
+{% block content %}
+    <h2>Banc d'imatges</h2>
+
+
+    <form method="post" enctype="multipart/form-data">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Pujar</button>
+    </form>
+
+
+    <hr>
+    <p>Imatges: </p>
+
+    <form type="get" action="." style="margin: 0">
+        <input id="search_box" type="text" name="search_box" value={{ search_query }}>
+        <button id="search_submit" type="submit">Cercar</button>
+    </form>
+    <br>
+
+
+
+    {% if images %}
+        <ul>
+            {% for img in images %}
+                <li>
+                    <a href="{{ img.image.url }}">
+                        <img src="{{ img.image.url }}" alt="image-{{ post.title }}"
+                             width="200" height="200"/>
+                    </a>
+                    <br>
+                </li>
+
+            {% endfor %}
+        </ul>
+
+    {% else %}
+        <p>No hi ha imatges disponibles.</p>
+    {% endif %}
+
+{% endblock %}
+
+</body>
+
+</html>
