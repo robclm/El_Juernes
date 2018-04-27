@@ -15,8 +15,8 @@
             {% for article in articles_alta %}
                 <ul>
                     <h4><a href="/RedactorCap/validació/{{ article.slug }}">{{ article.title }}</a></h4>
+                    {{ article.description }}
                 </ul>
-                {{ article.description }}
             {% endfor %}
         {% endif %}
 
@@ -25,8 +25,8 @@
             {% for article in articles_mitjana %}
                     <ul>
                         <h4><a href="/RedactorCap/validació/{{ article.slug }}">{{ article.title }}</a></h4>
+                        {{ article.description }}
                     </ul>
-                {{ article.description }}
                 {% endfor %}
         {% endif %}
 
@@ -35,8 +35,8 @@
             {% for article in articles_baixa %}
                 <ul>
                     <h4><a href="/RedactorCap/validació/{{ article.slug }}">{{ article.title }}</a></h4>
+                    {{ article.description }}
                 </ul>
-                {{ article.description }}
             {% endfor %}
         {% endif %}
 
