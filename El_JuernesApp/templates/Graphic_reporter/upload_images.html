@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pujar imatges</title>
+</head>
+
+<body>
+{% block content %}
+    <h2>Pujar imatges</h2>
+
+    <form method="post" enctype="multipart/form-data" onsubmit="location.href='{% url 'gr_image_bank' %}'">
+        {% csrf_token %}
+        {{ image_form.as_p }}
+        <button type="submit">Pujar</button>
+    </form>
+
+{% endblock %}
+</body>
+
+</html>

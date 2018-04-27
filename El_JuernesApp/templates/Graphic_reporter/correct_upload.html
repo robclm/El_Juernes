@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Notícies assignades</title>
+</head>
+
+<body>
+{% block content %}
+    <h1>Les imatges s'han pujat correctament</h1>
+
+    <input class="button" type="button" value="Tornar al banc d'imatges"
+           onclick="location.href='{% url 'gr_image_bank' %}'"/>
+{% endblock %}
+</body>
+
+</html>
