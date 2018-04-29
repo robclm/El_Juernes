@@ -49,6 +49,11 @@ def send_new(request):
             article.file = form.clean_file()
             article.slug = var['slug']
             article.save()
+
+            new=New.objects.get(slug=var['slug'])
+            new.tovalidate = True
+            new.save()
+
         template = 'http://127.0.0.1:8000/accounts'
 
     return redirect(template)
