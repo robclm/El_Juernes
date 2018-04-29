@@ -26,11 +26,7 @@ def image_bank(request):
         images = images.filter(name__icontains=search_name_query,
                                category__icontains=search_category_query)
 
-    # Form to update images
-    image_form = ImageForm()
-
     return render(request, template, {'images': images,
-                                      'image_form': image_form,
                                       'search_category_form': search_category_form,
                                       'search_name_query': search_name_query,
                                       'search_category_query': search_category_query})
@@ -48,6 +44,7 @@ def upload_images(request):
 
             img_post.name = image_form.clean_name()
             img_post.image = image_form.clean_image()
+            img_post.category = image_form.clean_category()
 
             img_post.save()
 

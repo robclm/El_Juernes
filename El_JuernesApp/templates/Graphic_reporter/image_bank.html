@@ -13,8 +13,6 @@
     <h2>Banc d'imatges</h2>
 
 
-
-
     <input class="button" type="button" value="Pujar imatges"
            onclick="location.href='{% url 'gr_upload_images' %}'"/>
 
@@ -36,6 +34,8 @@
 
         <button id="search_submit" type="submit">Cercar</button>
     </form>
+
+
     <br>
     <form action="" method="post">
         {% csrf_token %}

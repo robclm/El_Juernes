@@ -6,7 +6,9 @@ NATURE = "Natura"
 MUSIC = "Musica"
 ART = "Art"
 VEHICLE = "Vehicle"
+GAMES = "Videojocs"
 OTHER = "Altres"
+
 
 
 class Image(models.Model):
@@ -17,6 +19,7 @@ class Image(models.Model):
         (MUSIC, "Musica"),
         (ART, "Art"),
         (VEHICLE, "Vehicle"),
+        (GAMES, "Videojocs"),
         (OTHER, "Altres"),
     )
 

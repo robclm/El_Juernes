@@ -2,22 +2,48 @@ from django import forms
 
 from Graphic_reporter.models import Image
 
+POLITICS = "Política"
+SPORTS = "Esports"
+NATURE = "Natura"
+MUSIC = "Musica"
+ART = "Art"
+VEHICLE = "Vehicle"
+GAMES = "Videojocs"
+OTHER = "Altres"
+
 
 class ImageForm(forms.Form):
-    name = forms.CharField(max_length=140,
-                           label="Introdueix el nom de la imatge")
+    CATEGORIES = (
+        ('', '- - -'),
+        (POLITICS, "Política"),
+        (SPORTS, "Esports"),
+        (NATURE, "Natura"),
+        (MUSIC, "Musica"),
+        (ART, "Art"),
+        (VEHICLE, "Vehicle"),
+        (GAMES, "Videojocs"),
+        (OTHER, "Altres"),
+    )
 
-    image = forms.ImageField(label='Selecciona una imatge')
+    name = forms.CharField(max_length=140,
+                           label='Introdueix el nom de la imatge',
+                           required=True)
+
+    image = forms.ImageField(label='Selecciona una imatge',
+                             required=True)
+
+    category = forms.ChoiceField(label='Categoria',
+                                 choices=CATEGORIES,
+                                 required=True)
 
     def clean_name(self):
-        name = self.cleaned_data['name']
-
-        return name
+        return self.cleaned_data['name']
 
     def clean_image(self):
-        image = self.cleaned_data['image']
+        return self.cleaned_data['image']
 
-        return image
+    def clean_category(self):
+        return self.cleaned_data['category']
 
 
 class SearchImageForm(forms.ModelForm):
@@ -27,5 +53,4 @@ class SearchImageForm(forms.ModelForm):
         labels = {
             'name': 'Nom',
             'category': 'Categoria'
-
         }
