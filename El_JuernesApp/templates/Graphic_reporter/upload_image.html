@@ -10,9 +10,9 @@
 {% block content %}
     <h2>Pujar imatge</h2>
 
-    <form method="post" enctype="multipart/form-data" onsubmit="location.href='{% url 'gr_image_bank' %}'">
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ image_form.as_p }}
+        {{ upload_image_form.as_p }}
         <button type="submit">Pujar</button>
     </form>
 

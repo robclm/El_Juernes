@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from Graphic_reporter.forms import UploadImageForm, SearchImageForm
+from Graphic_reporter.forms import UploadImageForm, SearchImageForm, EditImageForm
 from Graphic_reporter.models import Image
 
 
@@ -56,10 +56,14 @@ def upload_image(request):
         # Show empty form
         image_form = UploadImageForm()
 
-    return render(request, template, {'image_form': image_form})
+    return render(request, template, {'upload_image_form': image_form})
 
 
 def edit_image(request, pk):
     template = 'Graphic_reporter/edit_image.html'
+    image = Image.objects.get(pk=pk)
 
-    return render(request, template, {})
+    edit_image_form = EditImageForm(instance=image)
+
+    return render(request, template, {'edit_image_form': edit_image_form,
+                                      'image': image})

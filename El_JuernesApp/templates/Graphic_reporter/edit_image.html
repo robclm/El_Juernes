@@ -10,6 +10,30 @@
 {% block content %}
     <h2>Editar imatge</h2>
 
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <b1>Nom:</b1>
+        {{ edit_image_form.name }}
+        <br><br>
+
+        <b1>Imatge actual:</b1>
+        <br>
+
+        <a href="{{ image.image.url }} ">
+            <img src="{{ image.image.url }}" width="200" height="200"/>
+        </a>
+        <br>
+        {{ edit_image_form.image }}
+        <br><br>
+
+        <b1>Categoria:</b1>
+        {{ edit_image_form.category }}
+        <br><br>
+
+
+        <button type="submit">Pujar</button>
+    </form>
 
 {% endblock %}
 </body>
