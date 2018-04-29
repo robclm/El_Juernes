@@ -58,7 +58,7 @@ class SearchImageForm(forms.Form):
     )
 
     name = forms.CharField(max_length=140,
-                           label='Nom de la imatge',
+                           label='Nom',
                            required=False)
 
     category = forms.ChoiceField(label='Categoria',

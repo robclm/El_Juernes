@@ -35,8 +35,8 @@ def image_bank(request):
                                       'search_images_form': search_images_form})
 
 
-def upload_images(request):
-    template = 'Graphic_reporter/upload_images.html'
+def upload_image(request):
+    template = 'Graphic_reporter/upload_image.html'
 
     # Upload Images
     if request.method == 'POST':
@@ -57,3 +57,9 @@ def upload_images(request):
         image_form = UploadImageForm()
 
     return render(request, template, {'image_form': image_form})
+
+
+def edit_image(request, pk):
+    template = 'Graphic_reporter/edit_image.html'
+
+    return render(request, template, {})
