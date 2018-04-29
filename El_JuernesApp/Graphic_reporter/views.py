@@ -38,7 +38,7 @@ def image_bank(request):
 def upload_image(request):
     template = 'Graphic_reporter/upload_image.html'
 
-    # Upload Images
+    # Upload Image
     if request.method == 'POST':
         image_form = UploadImageForm(request.POST or None, request.FILES or None)
 
@@ -63,7 +63,25 @@ def edit_image(request, pk):
     template = 'Graphic_reporter/edit_image.html'
     image = Image.objects.get(pk=pk)
 
-    edit_image_form = EditImageForm(instance=image)
+    # Edit Image
+    if request.method == 'POST':
+        edit_image_form = EditImageForm(request.POST, request.FILES, instance=image)
+
+        if edit_image_form.is_valid():
+
+            image.name = edit_image_form.clean_name()
+            image.category = edit_image_form.clean_category()
+
+            if edit_image_form.clean_image() is not None:
+                image.image = edit_image_form.clean_image()
+
+            image.save()
+
+            return redirect('gr_correct_edit')
+
+    else:
+        # Image to edit
+        edit_image_form = EditImageForm(instance=image)
 
     return render(request, template, {'edit_image_form': edit_image_form,
                                       'image': image})
