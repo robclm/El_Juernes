@@ -1,8 +1,11 @@
-from Copywriter import views
 from django.conf.urls import url
 from django.urls import path
 
+from Copywriter import views
+
 urlpatterns = [
-    path('', views.News_assigned, name="assigned"),
+
+    url(r'^send_article/$', views.send_new, name='send'),
     url(r'^assigned/(?P<slug>[\w-]+)/$', views.new_copywriter.as_view(), name='new_copywriter'),
+    path('', views.News_assigned, name="assigned"),
 ]
