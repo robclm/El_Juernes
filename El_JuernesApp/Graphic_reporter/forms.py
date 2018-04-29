@@ -1,7 +1,5 @@
 from django import forms
 
-from Graphic_reporter.models import Image
-
 POLITICS = "Política"
 SPORTS = "Esports"
 NATURE = "Natura"
@@ -12,7 +10,7 @@ GAMES = "Videojocs"
 OTHER = "Altres"
 
 
-class ImageForm(forms.Form):
+class UploadImageForm(forms.Form):
     CATEGORIES = (
         ('', '- - -'),
         (POLITICS, "Política"),
@@ -46,11 +44,29 @@ class ImageForm(forms.Form):
         return self.cleaned_data['category']
 
 
-class SearchImageForm(forms.ModelForm):
-    class Meta:
-        model = Image
-        fields = ['name', 'category']
-        labels = {
-            'name': 'Nom',
-            'category': 'Categoria'
-        }
+class SearchImageForm(forms.Form):
+    CATEGORIES = (
+        ('', 'Totes'),
+        (POLITICS, "Política"),
+        (SPORTS, "Esports"),
+        (NATURE, "Natura"),
+        (MUSIC, "Musica"),
+        (ART, "Art"),
+        (VEHICLE, "Vehicle"),
+        (GAMES, "Videojocs"),
+        (OTHER, "Altres"),
+    )
+
+    name = forms.CharField(max_length=140,
+                           label='Nom de la imatge',
+                           required=False)
+
+    category = forms.ChoiceField(label='Categoria',
+                                 choices=CATEGORIES,
+                                 required=False)
+
+    def clean_name(self):
+        return self.cleaned_data['name']
+
+    def clean_category(self):
+        return self.cleaned_data['category']

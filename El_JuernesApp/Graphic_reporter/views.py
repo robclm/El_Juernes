@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 
-from Graphic_reporter.forms import ImageForm, SearchImageForm
+from Graphic_reporter.forms import UploadImageForm, SearchImageForm
 from Graphic_reporter.models import Image
 
 
@@ -13,23 +13,26 @@ def news_assigned(request):
 
 def image_bank(request):
     template = 'Graphic_reporter/image_bank.html'
-    search_category_form = SearchImageForm
 
     # Display all images
     images = Image.objects.all()
 
-    # Search if there is something to search
-    search_name_query = request.GET.get('search_name_box', '')
-    search_category_query = request.GET.get('search_category_box', '')
+    # Search images
+    if request.method == "POST":
+        search_images_form = SearchImageForm(request.POST)
 
-    if search_name_query is not None:
-        images = images.filter(name__icontains=search_name_query,
-                               category__icontains=search_category_query)
+        if search_images_form.is_valid():
+            name = search_images_form.clean_name()
+            category = search_images_form.clean_category()
+
+            images = images.filter(name__icontains=name,
+                                   category__icontains=category)
+    else:
+        # Empty search form
+        search_images_form = SearchImageForm()
 
     return render(request, template, {'images': images,
-                                      'search_category_form': search_category_form,
-                                      'search_name_query': search_name_query,
-                                      'search_category_query': search_category_query})
+                                      'search_images_form': search_images_form})
 
 
 def upload_images(request):
@@ -37,7 +40,7 @@ def upload_images(request):
 
     # Upload Images
     if request.method == 'POST':
-        image_form = ImageForm(request.POST or None, request.FILES or None)
+        image_form = UploadImageForm(request.POST or None, request.FILES or None)
 
         if image_form.is_valid():
             img_post = Image()
@@ -51,6 +54,6 @@ def upload_images(request):
             return redirect('gr_correct_upload')
     else:
         # Show empty form
-        image_form = ImageForm()
+        image_form = UploadImageForm()
 
     return render(request, template, {'image_form': image_form})

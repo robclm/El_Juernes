@@ -16,30 +16,12 @@
     <input class="button" type="button" value="Pujar imatges"
            onclick="location.href='{% url 'gr_upload_images' %}'"/>
 
-
-
     <hr>
     <p>Imatges: </p>
 
-    <form type="get" action="." style="margin: 0">
-        <input id="search_name_box" type="text" name="search_name_box" value={{ search_name_query }}>
-        <input id="search_category_box" type="text" name="search_category_box" value={{ search_category_query }}>
-
-        <select name="search_category_box">
-            {% for category in categories %}
-                <option value={{ category.user }}>{{ redactor.user }}</option>
-            {% endfor %}
-        </select>
-
-
-        <button id="search_submit" type="submit">Cercar</button>
-    </form>
-
-
-    <br>
     <form action="" method="post">
         {% csrf_token %}
-        {{ search_category_form.as_p }}
+        {{ search_images_form.as_p }}
         <input type="submit" value="Cercar"/>
     </form>
 
