@@ -13,5 +13,7 @@ urlpatterns = [
                   path('Redactor/', include('Copywriter.urls')),
                   path('Reporter_grafic/', include('Graphic_reporter.urls')),
                   path('Maquetador/', include('Layout_designer.urls')),
+                  path('access_denegat/', TemplateView.as_view(template_name="access_denied.html"),
+                       name="access_denied")
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,17 +1,29 @@
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
 from Graphic_reporter.forms import UploadImageForm, SearchImageForm, EditImageForm
 from Graphic_reporter.models import Image
 
 
+@login_required(login_url='/accounts/login')
 def news_assigned(request):
+    # Check if the role is correct
+    if not role_is_graphic_reporter(request.user.username):
+        return redirect('access_denied')
+
     template = 'Graphic_reporter/assigned_news.html'
     context = None
 
     return render(request, template, context)
 
 
+@login_required(login_url='/accounts/login')
 def image_bank(request):
+    # Check if the role is correct
+    if not role_is_graphic_reporter(request.user.username):
+        return redirect('access_denied')
+
     template = 'Graphic_reporter/image_bank.html'
 
     # Display all images
@@ -35,8 +47,17 @@ def image_bank(request):
                                       'search_images_form': search_images_form})
 
 
+@login_required(login_url='/accounts/login')
 def upload_image(request):
+    # Check if the role is correct
+    if not role_is_graphic_reporter(request.user.username):
+        return redirect('access_denied')
+
     template = 'Graphic_reporter/upload_image.html'
+
+    # Check the role is correct
+    if not role_is_graphic_reporter(request.user.username):
+        return redirect('access_denied')
 
     # Upload Image
     if request.method == 'POST':
@@ -59,7 +80,12 @@ def upload_image(request):
     return render(request, template, {'upload_image_form': image_form})
 
 
+@login_required(login_url='/accounts/login')
 def edit_image(request, pk):
+    # Check if the role is correct
+    if not role_is_graphic_reporter(request.user.username):
+        return redirect('access_denied')
+
     template = 'Graphic_reporter/edit_image.html'
     image = Image.objects.get(pk=pk)
 
@@ -85,3 +111,13 @@ def edit_image(request, pk):
 
     return render(request, template, {'edit_image_form': edit_image_form,
                                       'image': image})
+
+
+def role_is_graphic_reporter(username):
+    # Check if the user is a layout designer
+    user = User.objects.get(username=username)
+
+    if user.user_profile.role == "Graphic_reporter":
+        return True
+    else:
+        return False

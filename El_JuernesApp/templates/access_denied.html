@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Accés denegat</title>
+</head>
+
+<body>
+{% block content %}
+    <h1>No tens permís per accedir a aquest espai</h1>
+
+    <input class="button" type="button" value="Tornar a la pàgina principal"
+           onclick="location.href='{% url 'Home_News' %}'"/>
+{% endblock %}
+</body>
+
+</html>
