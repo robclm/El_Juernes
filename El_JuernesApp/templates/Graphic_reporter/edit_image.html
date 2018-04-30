@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar imatge</title>
+</head>
+
+<body>
+{% block content %}
+    <h2>Editar imatge</h2>
+
+    <div class="sidebar">
+
+        {% block tasks %}
+            <ul class="sidebar-nav">
+                <li><a href="{% url 'gr_assigned_news' %}">Notícies assignades</a></li>
+                <li><a href="{% url 'gr_image_bank' %}">Banc d'imatges</a></li>
+
+            </ul>
+        {% endblock %}
+
+    </div>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <b1>Nom:</b1>
+        {{ edit_image_form.name }}
+        <br><br>
+
+        <b1>Imatge actual:</b1>
+        <br>
+
+        <a href="{{ image.image.url }} ">
+            <img src="{{ image.image.url }}" width="200" height="200"/>
+        </a><br>
+
+        {{ edit_image_form.image }}<br><br>
+
+        <b1>Categoria:</b1>
+        {{ edit_image_form.category }}<br><br>
+
+
+        <button type="submit">Pujar</button>
+    </form>
+
+{% endblock %}
+</body>
+
+</html>
