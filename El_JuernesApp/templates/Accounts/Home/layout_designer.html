@@ -1,23 +1,8 @@
 {% extends "base.html" %}
 
-
 {% block content %}
     <h2>Maquetador</h2>
-
-    <div class="sidebar">
-
-        {% block tasks %}
-            <ul class="sidebar-nav">
-                <li><a href="{% url 'ld_assigned_news' %}">Notícies assignades</a></li>
-
-            </ul>
-        {% endblock %}
-
-    </div>
-    <div id="content-main">
-        <h3>Articles a maquetar: </h3>
-
-    </div>
-
-
+{% endblock %}
+{% block sidebar %}
+    <li><a href="">Articles a maquetat</a></li>
 {% endblock %}

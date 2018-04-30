@@ -15,16 +15,15 @@
         <!--Add additional CSS in static file-->
         {% load static %}
         <link rel="stylesheet" href="{% static 'css/base.css' %}"/>
+
         <style>
-            body{
-                scroll-behavior: smooth;
-            }
+
             .bar-nav{
                 list-style-type: none;
                 margin: 0;
                 padding: 0;
                 overflow: hidden;
-                background-color: #333;
+                background-color: #50B85F;
                 height: 47px;
             }
             ul{
@@ -32,7 +31,7 @@
             }
             li {
                 float: left;
-                background-color: #333;
+                background-color: #50B85F;
             }
             li a {
                 display: inline-block;
@@ -41,12 +40,20 @@
                 padding: 14px 16px;
                 text-decoration: none;
             }
+
             li a:hover {
-                background-color: green;
+                background-color: gainsboro;
+                color:black
+            }
+            .active{
+                background-color: gainsboro;
             }
             h2{
                 color: green;
                 padding-left: 5px;
+            }
+            #title{
+                font-family: Verdana;
             }
             #title a{
                 color: #FFFFFF;
@@ -54,7 +61,7 @@
             }
             #header{
                 text-align: left;
-                background-color: green;
+                background-color: black;
             }
             #header p{
                 list-style-type: none;
@@ -86,25 +93,30 @@
 
             .content{
                 position: relative;
+                margin-top: -815px;
+                margin-left:150px;
                 min-height: 800px;
-                owerflow:auto;
-
+                overflow-y: scroll;
+                /*border-style: dashed;*/
             }
 
             .sidebar{
-                height:100%;
-                width: 100px;
-
-                /*overflow:hidden;*/
+                width: 120px;
+                /*border-style: dashed;*/
             }
-            .sidebar ul{
+
+            .sidebar-nav{
                 padding-left: 0px;
+                min-height: 800px;
                 list-style:none;
+                background-color: #50B85F;
+                /*border-style: dashed;*/
             }
             .sidebar li a{
                 display: block;
                 text-align: center;
                 text-decoration: none;
+                max-width: 120px;
             }
             #footer{
                 text-align: center;
@@ -114,6 +126,7 @@
                 width: 100%;
                 margin: 0 auto;
             }
+
         </style>
     </head>
     <body>
@@ -128,10 +141,9 @@
         <div class="navbar">
             {% block navbar %}
             <ul class="bar-nav">
-                <li><a href="{% url 'account-redirect' %}">Home</a></li>
-                <li><a href="{% url 'AFE' %}">News</a></li>
-
-                <li><a href="">Contact with us</a></li>
+                <li><a class="active" href="{% url 'account-redirect' %}">Home</a></li>
+                <li><a href="{% url 'Home_News' %}">News</a></li>
+                <li><a href="#">Contact with us</a></li>
                 <li class="login">
                     {% if user.is_authenticated %}
                     <p>Benvingut: {{ user.username }} |
@@ -145,13 +157,26 @@
             {% endblock %}
         </div>
 
+        <!-- Barra lateral-->
 
-        <!--Default content text-->
+        <div class="sidebar">
+            <ul class="sidebar-nav">
+                {% block sidebar %}
+
+                {% endblock %}
+            </ul>
+        </div>
+
+        <!--Contingut-->
+
         <div class="content">
             {% block content %}
 
             {% endblock %}
         </div>
+
+        <!--Footer-->
+
         <div id="footer">
             <a class="footer-page">El Juernes</a>
             <span class="attribution">

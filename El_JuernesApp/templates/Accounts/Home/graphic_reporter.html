@@ -1,18 +1,8 @@
 {% extends "base.html" %}
-
 {% block content %}
-    <h2>Reporter Gràfic</h2>
-
-    <div class="sidebar">
-
-        {% block tasks %}
-            <ul class="sidebar-nav">
-                <li><a href="{% url 'gr_assigned_news' %}">Notícies assignades</a></li>
-                <li><a href="{% url 'gr_image_bank' %}">Banc d'imatges</a></li>
-
-            </ul>
-        {% endblock %}
-
-    </div>
-
+    <h2>Reporter grafic</h2>
+{% endblock %}
+{% block sidebar %}
+    <li><a href="{% url 'gr_assigned_news' %}">Peticions d'imatges</a></li>
+    <li><a href="{% url 'gr_image_bank' %}">Banc d'imatges</a></li>
 {% endblock %}
