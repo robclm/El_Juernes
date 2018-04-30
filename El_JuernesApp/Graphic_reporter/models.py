@@ -8,3 +8,5 @@ class Image(models.Model):
 
     def __str__(self):
         return 'Image: ' + self.description
+
+

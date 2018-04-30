@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.shortcuts import redirect
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
 from django.views import generic
 
 from AfeNews.models import New
@@ -48,6 +48,38 @@ def News_assigned(request):
         template = 'Home_News.html'
 
     return render(request, template, context)
+
+
+def Image_management(request):
+    context = {
+        "articles_alta": New.objects.filter(assigned=request.user.username, priority='alta'),
+        "articles_mitjana": New.objects.filter(assigned=request.user.username, priority='mitjana'),
+        "articles_baixa": New.objects.filter(assigned=request.user.username, priority='baixa')
+    }
+    return render(request,'Copywriter/ImageManagement.html',context)
+
+class images_copywriter(generic.DetailView):
+    model = New
+    context_object_name = 'new_copywriter'
+
+    def get_context_data(self, **kwargs):
+        context = super(images_copywriter, self).get_context_data(**kwargs)
+        context['new'] = New.objects.get(slug=self.kwargs['slug'])
+        return context
+
+    def get_template_names(self):
+        template = 'Home_News.html'
+        try:
+            user = User.objects.get(username=self.request.user.username)
+            rol = user.user_profile.role
+            if rol == "Copywriter":
+                template = 'Copywriter/New_ImageManagement'
+        except:
+            template = 'Home_News.html'
+
+        return template
+
+
 
 
 class new_copywriter(generic.DetailView):
