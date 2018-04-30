@@ -8,7 +8,18 @@
 
 <body>
 {% block content %}
-    <h1>La imatge s'ha pujat correctament</h1>
+    <h2>La imatge s'ha pujat correctament</h2>
+    <div class="sidebar">
+
+        {% block tasks %}
+            <ul class="sidebar-nav">
+                <li><a href="{% url 'gr_assigned_news' %}">Notícies assignades</a></li>
+                <li><a href="{% url 'gr_image_bank' %}">Banc d'imatges</a></li>
+
+            </ul>
+        {% endblock %}
+
+    </div>
 
     <input class="button" type="button" value="Tornar al banc d'imatges"
            onclick="location.href='{% url 'gr_image_bank' %}'"/>

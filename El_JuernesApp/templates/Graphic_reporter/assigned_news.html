@@ -9,6 +9,17 @@
 <body>
 {% block content %}
     <h2>Notícies assignades</h2>
+    <div class="sidebar">
+
+        {% block tasks %}
+            <ul class="sidebar-nav">
+                <li><a href="{% url 'gr_assigned_news' %}">Notícies assignades</a></li>
+                <li><a href="{% url 'gr_image_bank' %}">Banc d'imatges</a></li>
+
+            </ul>
+        {% endblock %}
+
+    </div>
 {% endblock %}
 </body>
 
