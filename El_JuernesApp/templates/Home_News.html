@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 
 {% block navbar %}
-    <li><a href="{% url 'account-redirect' %}">Home</a></li>
+    {% if user.is_authenticated %}
+        <li><a href="{% url 'account-redirect' %}">Home</a></li>
+    {% endif %}
     <li><a href="{% url 'Home_News' %}" class="current">News</a></li>
     <li><a href="#">Contact with us</a></li>
     <li class="login">

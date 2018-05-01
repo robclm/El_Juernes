@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block navbar %}
-    <li><a href="{% url 'account-redirect' %}" class="">Home</a></li>
+    <li><a href="{% url 'account-redirect' %}">Home</a></li>
     <li><a href="{% url 'Home_News' %}">News</a></li>
     <li><a href="#">Contact with us</a></li>
     <li class="login">
@@ -39,6 +39,6 @@
 {% endblock %}
 
 {% block sidebar %}
-    <li><a href="{% url 'AFE' %}">Noves notícies</a></li>
+    <li><a href="{% url 'AFE' %}" class="current">Noves notícies</a></li>
     <li><a href="{% url 'Articles' %}">Article a revisar</a></li>
 {% endblock %}
