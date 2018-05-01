@@ -1,7 +1,23 @@
 {% extends "base.html" %}
+
+{% block navbar %}
+    <li><a href="{% url 'account-redirect' %}" class="current">Home</a></li>
+    <li><a href="{% url 'Home_News' %}">News</a></li>
+    <li><a href="#">Contact with us</a></li>
+    <li class="login">
+        {% if user.is_authenticated %}
+        <p>Benvingut: {{ user.username }} |
+            <a class="link" href="{% url 'logout' %}">logout</a></p>
+        {% else %}
+        <p><a class="link" href="{% url 'login' %}">login</a></p>
+        {% endif %}
+    </li>
+{% endblock %}
+
 {% block content %}
     <h2>Maquetador</h2>
 {% endblock %}
+
 {% block sidebar %}
     <li><a href="">Articles a maquetat</a></li>
 {% endblock %}
