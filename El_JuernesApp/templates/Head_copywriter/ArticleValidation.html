@@ -21,8 +21,13 @@
     Introdueix els comentaris pel redactor:
     <button type="button">Escull un fitxer</button> | </p>
 
-    <button type="button">Acceptar</button>
+    <form action="/RedactorCap/Acceptat/" method="post"> {% csrf_token %}
+        <input type="hidden" name="slug" value={{ new.slug }}/>
+        <input type="submit" value="Acceptar">
+    </form>
+
     <button type="button">Denegar</button>
+
     <a href="/AFE/new/{{ new.slug }}">
         <button type="button">Reassignar</button>
     </a>

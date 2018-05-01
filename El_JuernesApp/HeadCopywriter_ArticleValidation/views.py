@@ -1,8 +1,7 @@
+from AfeNews.models import New
 from django.contrib.auth.models import User
 from django.shortcuts import render
 from django.views import generic
-
-from AfeNews.models import New
 
 
 # Create your views here.
@@ -47,3 +46,28 @@ class Article_validation(generic.DetailView):
             template = 'Home_News.html'
 
         return template
+
+
+# Article acceptat
+
+def Article_accepted(request):
+    template = 'Home_News.html'
+
+    try:
+        user = User.objects.get(username=request.user.username)
+        rol = user.user_profile.role
+        if rol == "Head_copywriter":
+            template = 'Head_copywriter/Correct_Validation.html'
+    except Exception as e:
+        print("%s (%s)" % (e.args, type(e)))
+
+    if request.method == 'POST':
+        var = request.POST.dict()
+        name = var['slug'].split('/')
+
+        new = New.objects.get(slug=name[0])
+        new.tovalidate = False
+        new.tomaquetar = True
+        new.save()
+
+    return render(request, template)
