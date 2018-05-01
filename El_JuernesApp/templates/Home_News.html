@@ -2,10 +2,10 @@
 
 {% block navbar %}
     {% if user.is_authenticated %}
-        <li><a href="{% url 'account-redirect' %}">Home</a></li>
+        <li><a href="{% url 'account-redirect' %}">El meu espai de treball</a></li>
     {% endif %}
-    <li><a href="{% url 'Home_News' %}" class="current">News</a></li>
-    <li><a href="#">Contact with us</a></li>
+    <li><a href="{% url 'Home_News' %}" class="current">Noticies</a></li>
+    <li><a href="#">Contacta'ns</a></li>
     <li class="login">
         {% if user.is_authenticated %}
         <p>Benvingut: {{ user.username }} |
@@ -18,5 +18,9 @@
 
 {% block content %}
 <h2>Notícies</h2>
+    <p>
+
+
+    </p>
 </body>
 {% endblock %}
