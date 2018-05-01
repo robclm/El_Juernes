@@ -1,6 +1,7 @@
 from django import forms
 
-class ArticleForm(forms.Form):
+
+class ArticleComentatForm(forms.Form):
     file = forms.FileField(label="Selecciona un fitxer")
 
     def clean_file(self):

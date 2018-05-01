@@ -18,8 +18,14 @@
 
     <button type="button">Escollir imatges</button> Imatges asociades | </p>
 
-    Introdueix els comentaris pel redactor:
-    <button type="button">Escull un fitxer</button> | </p>
+
+    <h4>Introdueix els comentaris pel redactor:</h4>
+    <form action="/RedactorCap/Comentat/" method="post" enctype="multipart/form-data">{% csrf_token %}
+        {{ form.as_p }}
+        <input type="hidden" name="slug" value="{{ new.slug }}"/>
+        <button type="submit">Enviar comentaris al redactor</button>
+    </form>
+
 
     <form action="/RedactorCap/Acceptat/" method="post"> {% csrf_token %}
         <input type="hidden" name="slug" value={{ new.slug }}/>
@@ -32,7 +38,7 @@
         <button type="button">Reassignar</button>
     </a>
 
-    <button type="button">Enviar comentaris al redactor</button>
+
 
 
 
