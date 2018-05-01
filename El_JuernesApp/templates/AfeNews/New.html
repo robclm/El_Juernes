@@ -1,12 +1,4 @@
 {% extends "base.html" %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ new.title }}</title>
-</head>
-
-<body>
-
 {% block content %}
 
     <p>
@@ -38,8 +30,7 @@
         </form>
     </h3>
 {% endblock %}
-
-</body>
-
-
-</html>
+{% block sidebar %}
+    <li><a href="{% url 'AFE' %}">Noves notícies</a></li>
+    <li><a href="{% url 'Articles' %}">Article a revisar</a></li>
+{% endblock %}

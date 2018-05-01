@@ -1,26 +1,6 @@
 {% extends "base.html" %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Pujar imatge</title>
-</head>
-
-<body>
 {% block content %}
     <h2>Pujar imatge</h2>
-
-    <div class="sidebar">
-
-        {% block tasks %}
-            <ul class="sidebar-nav">
-                <li><a href="{% url 'gr_assigned_news' %}">Notícies assignades</a></li>
-                <li><a href="{% url 'gr_image_bank' %}">Banc d'imatges</a></li>
-
-            </ul>
-        {% endblock %}
-
-    </div>
 
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
@@ -29,6 +9,8 @@
     </form>
 
 {% endblock %}
-</body>
 
-</html>
+{% block sidebar %}
+    <li><a href="{% url 'gr_assigned_news' %}">Notícies assignades</a></li>
+    <li><a href="{% url 'gr_image_bank' %}">Banc d'imatges</a></li>
+{% endblock %}

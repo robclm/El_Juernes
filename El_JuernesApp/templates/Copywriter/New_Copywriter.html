@@ -1,10 +1,4 @@
 {% extends "base.html" %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ new.title }}</title>
-</head>
-<br>
 {% block content %}
     <p>
     <h4>Prioritat: {{ new.priority }}</h4>
@@ -24,5 +18,7 @@
         <input type="hidden" name="new" value="{{ new.slug }}"/>
     </form>
 {% endblock %}
-</body>
-</html>
+{% block sidebar %}
+    <li><a href="{% url 'assigned' %}">Noticies assignades</a></li>
+    <li><a href="">Imatges rebudes</a></li>
+{% endblock %}
