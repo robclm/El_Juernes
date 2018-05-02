@@ -10,6 +10,7 @@ class New(models.Model):
     assigned = models.CharField(max_length=140,default="Cap redactor assignat")
     priority = models.CharField(max_length=140, default="")
     tovalidate = models.BooleanField(default=False)
+    tomaquetar = models.BooleanField(default=False)
 
     def __str__(self):
         return 'New: ' + self.title
