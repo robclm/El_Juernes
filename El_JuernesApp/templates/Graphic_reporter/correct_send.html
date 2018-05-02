@@ -15,19 +15,10 @@
 {% endblock %}
 
 {% block content %}
-    <h2>Notícia</h2>
+    <h2>Les imatges s'han enviat correctament</h2>
 
-    <p>
-    <h4>Redactor assignat: {{ image_request.noticia.assigned }}</h4>
-    <h4>Prioritat: {{ image_request.noticia.priority }}</h4>
-    <h1>{{ image_request.noticia.title }}</h1>
-    <h4>{{ image_request.noticia.description }}</h4><br/>
-    {{ image_request.noticia.body }}
-    </p>
-
-    <input class="button" type="button" value="Seleccionar imatges"
-           onclick="location.href='{% url 'gr_select_images' pk=image_request.pk %}'"/>
-
+    <input class="button" type="button" value="Tornar a les notícies assignades"
+           onclick="location.href='{% url 'gr_assigned_news' %}'"/>
 {% endblock %}
 
 {% block sidebar %}

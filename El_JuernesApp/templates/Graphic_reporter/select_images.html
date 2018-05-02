@@ -19,14 +19,19 @@
 
     <p>Imatges a enviar: </p>
     {% if images_to_send %}
-        <ul>
-            {% for img in images_to_send %}
-                <img src="{{ img.image.url }}" width="200" height="200"/>
-            {% endfor %}
+        {% for img in images_to_send %}
 
-        </ul>
+            <form action="" method="post" style="display: inline;">
+                {% csrf_token %}
+                <input type="hidden" name="eliminated_image" value={{ img.pk }}>
+                <input type="image" name="image" src="{{ img.image.url }}" width="200" height="200"/>
+            </form>
+
+        {% endfor %}
+
+        <br>
         <input class="button" type="button" value="Enviar imatges"
-               onclick="location.href='{% url 'gr_correct_upload' %}'"/>
+               onclick="location.href='{% url 'gr_correct_send_images' pk=image_request.pk %}'"/>
 
     {% else %}
         <ul>
@@ -34,6 +39,8 @@
         </ul>
     {% endif %}
     <hr>
+
+
 
     <p>Cercar imatges: </p>
 
@@ -64,6 +71,6 @@
 {% endblock %}
 
 {% block sidebar %}
-    <li><a href="{% url 'gr_assigned_news' %}">Notícies assignades</a></li>
-    <li><a href="{% url 'gr_image_bank' %}" class="current">Banc d'imatges</a></li>
+    <li><a href="{% url 'gr_assigned_news' %}" class="current">Notícies assignades</a></li>
+    <li><a href="{% url 'gr_image_bank' %}">Banc d'imatges</a></li>
 {% endblock %}

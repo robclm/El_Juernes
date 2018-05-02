@@ -23,4 +23,7 @@ urlpatterns = [
     path('noticies_assignades/noticia/<int:pk>/seleccionar_imatges/',
          views.select_images, name="gr_select_images"),
 
+    path('noticies_assignades/noticia/<int:pk>/imatges_enviades_correctament',
+         views.send_images, name="gr_correct_send_images"),
+
 ]
