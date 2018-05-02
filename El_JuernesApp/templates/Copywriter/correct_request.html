@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block navbar %}
-    <li><a href="{% url 'account-redirect' %}" class="current">Home</a></li>
+    <li><a href="{% url 'account-redirect' %}" class="">Home</a></li>
     <li><a href="{% url 'Home_News' %}">News</a></li>
     <li><a href="#">Contact with us</a></li>
     <li class="login">
@@ -15,10 +15,13 @@
 {% endblock %}
 
 {% block content %}
-    <h2>Redactor</h2>
+
+<h2>La petició s'ha efectuat correctament</h2>
+
+    <input class="button" type="button" value="Tornar"
+           onclick="location.href='{% url 'assigned' %}'"/>
 {% endblock %}
 
 {% block sidebar %}
-    <li><a href="{% url 'assigned' %}">Noticies assignades</a></li>
+    <li><a href="{% url 'assigned' %}" class="current">Noticies assignades</a></li>
 {% endblock %}
-

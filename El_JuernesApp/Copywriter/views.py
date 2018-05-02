@@ -29,6 +29,11 @@ def News_assigned(request):
     return render(request, template, context)
 
 
+
+def send_request(request):
+    template = 'Copywriter/correct_request.html'
+    return render(request,template)
+
 def send_new(request):
     template = 'http://127.0.0.1:8000'
 
