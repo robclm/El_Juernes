@@ -1,11 +1,12 @@
 from django.contrib.auth.models import User
 from django.shortcuts import redirect
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
 from django.views import generic
 
 from AfeNews.models import New
 from Copywriter.forms import ArticleForm
 from Copywriter.models import Article
+from Graphic_reporter.models import Image_request
 
 
 # Create your views here.
@@ -28,6 +29,30 @@ def News_assigned(request):
 
     return render(request, template, context)
 
+
+
+def send_request(request):
+    template = 'Copywriter/correct_request.html'
+
+    var = request.POST.dict()
+    new = New.objects.get(slug=var['slug'])
+    context = {}
+    image_request = Image_request()
+    try:
+        found = Image_request.objects.get(noticia=new)
+    except Image_request.DoesNotExist:
+        found = None
+    if found is not None:
+        context['found'] = "Una petició feta amb anterioritat ha estat actualitzada"
+        found.comment = var["body"]
+        found.save()
+    else:
+        context['found'] = "La petició ha estat enviada correctament"
+        image_request.noticia = new
+        image_request.state = "To do"
+        image_request.comment = var["body"]
+        image_request.save()
+    return render(request,template,context)
 
 def send_new(request):
     template = 'http://127.0.0.1:8000'

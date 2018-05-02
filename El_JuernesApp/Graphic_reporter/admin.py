@@ -1,5 +1,6 @@
 from django.contrib import admin
 
+
 from Graphic_reporter.models import *
 
 
@@ -8,3 +9,4 @@ class ImageAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Image, ImageAdmin)
+admin.site.register(Image_request)
