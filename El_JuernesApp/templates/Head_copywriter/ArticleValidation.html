@@ -41,7 +41,11 @@
         <input type="submit" value="Acceptar">
     </form>
 
-    <button type="button">Denegar</button>
+    <form action="/RedactorCap/Rebutjat/" method="post"> {% csrf_token %}
+        <input type="hidden" name="slug" value={{ new.slug }}/>
+        <input type="submit" value="Rebutjar">
+    </form>
+
 
     <a href="/AFE/new/{{ new.slug }}">
         <button type="button">Reassignar</button>

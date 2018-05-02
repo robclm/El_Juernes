@@ -20,9 +20,9 @@ def Article_validation_list(request):
         if rol == "Head_copywriter":
             template = 'Head_copywriter/ArticlesToValidate.html'
         context = {
-            "articles_alta": New.objects.filter(tovalidate=True, priority='alta'),
-            "articles_mitjana": New.objects.filter(tovalidate=True, priority='mitjana'),
-            "articles_baixa": New.objects.filter(tovalidate=True, priority='baixa'),
+            "articles_alta": New.objects.filter(state="Per validar", priority='alta'),
+            "articles_mitjana": New.objects.filter(state="Per validar", priority='mitjana'),
+            "articles_baixa": New.objects.filter(state="Per validar", priority='baixa'),
         }
     except:
         template = 'Home_News.html'
@@ -71,8 +71,7 @@ def Article_accepted(request):
         name = var['slug'].split('/')
 
         new = New.objects.get(slug=name[0])
-        new.tovalidate = False
-        new.tomaquetar = True
+        new.state = "Acceptat"
         new.save()
 
     return render(request, template)
@@ -102,7 +101,30 @@ def Article_Comentat(request):
             articleComentat.save()
 
             new = New.objects.get(slug=var['slug'])
-            new.tovalidate = False
+            new.state = "Comentat"
             new.save()
+
+    return render(request, template)
+
+
+# Article denegat
+def Article_rejected(request):
+    template = 'Home_News.html'
+
+    try:
+        user = User.objects.get(username=request.user.username)
+        rol = user.user_profile.role
+        if rol == "Head_copywriter":
+            template = 'Head_copywriter/Correct_Validation.html'
+    except Exception as e:
+        print("%s (%s)" % (e.args, type(e)))
+
+    if request.method == 'POST':
+        var = request.POST.dict()
+        name = var['slug'].split('/')
+
+        new = New.objects.get(slug=name[0])
+        new.state = "Rebutjada"
+        new.save()
 
     return render(request, template)

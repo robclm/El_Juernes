@@ -19,9 +19,10 @@ def News_assigned(request):
         if rol == "Copywriter":
             template = 'Copywriter/AssignedNewsList.html'
         context = {
-            "articles_alta": New.objects.filter(assigned=request.user.username, priority='alta'),
-            "articles_mitjana": New.objects.filter(assigned=request.user.username, priority='mitjana'),
-            "articles_baixa": New.objects.filter(assigned=request.user.username, priority='baixa')
+            "articles_alta": New.objects.filter(assigned=request.user.username, priority='alta', state="Assignada"),
+            "articles_mitjana": New.objects.filter(assigned=request.user.username, priority='mitjana',
+                                                   state="Assignada"),
+            "articles_baixa": New.objects.filter(assigned=request.user.username, priority='baixa', state="Assignada")
         }
     except Exception as e:
         print("%s (%s)" % (e.args, type(e)))
@@ -51,7 +52,7 @@ def send_new(request):
             article.save()
 
             new=New.objects.get(slug=var['slug'])
-            new.tovalidate = True
+            new.state = "Per validar"
             new.save()
 
         template = 'http://127.0.0.1:8000/accounts'
