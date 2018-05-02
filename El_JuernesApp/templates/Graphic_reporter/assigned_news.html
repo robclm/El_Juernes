@@ -16,6 +16,26 @@
 
 {% block content %}
     <h2>Notícies assignades</h2>
+
+    {% if requests %}
+        <ul>
+            {% for request in requests %}
+                <h4><a href="{% url 'gr_images_new_request' pk=request.pk %}">
+                    {{ request.noticia.title }}</a></h4>
+
+                <ul>
+                    {{ request.noticia.description }}
+                </ul>
+
+
+            {% endfor %}
+
+        </ul>
+
+    {% else %}
+        <p>No hi ha noves peticions.</p>
+    {% endif %}
+
 {% endblock %}
 
 {% block sidebar %}

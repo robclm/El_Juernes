@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block navbar %}
+    <li><a href="{% url 'account-redirect' %}" class="">Home</a></li>
+    <li><a href="{% url 'Home_News' %}">News</a></li>
+    <li><a href="#">Contact with us</a></li>
+    <li class="login">
+        {% if user.is_authenticated %}
+            <p>Benvingut: {{ user.username }} |
+                <a class="link" href="{% url 'logout' %}">logout</a></p>
+        {% else %}
+            <p><a class="link" href="{% url 'login' %}">login</a></p>
+        {% endif %}
+    </li>
+{% endblock %}
+
+{% block content %}
+    <h2>Notícia</h2>
+
+    <p>Imatges a enviar: </p>
+    {% if images_to_send %}
+        <ul>
+            {% for img in images_to_send %}
+                <img src="{{ img.image.url }}" width="200" height="200"/>
+            {% endfor %}
+
+        </ul>
+        <input class="button" type="button" value="Enviar imatges"
+               onclick="location.href='{% url 'gr_correct_upload' %}'"/>
+
+    {% else %}
+        <ul>
+            <p>No s'ha seleccionat cap imatge.</p>
+        </ul>
+    {% endif %}
+    <hr>
+
+    <p>Cercar imatges: </p>
+
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ search_images_form.as_p }}
+        <input type="submit" value="Cercar"/>
+    </form>
+
+    <br>
+    {% if images %}
+
+        {% for img in images %}
+            <form action="" method="post" style="display: inline;">
+                {% csrf_token %}
+                <input type="hidden" name="selected_image" value={{ img.pk }}>
+                <input type="image" name="image" src="{{ img.image.url }}" width="200" height="200"/>
+            </form>
+
+        {% endfor %}
+
+
+    {% else %}
+        <p>No hi ha imatges disponibles.</p>
+    {% endif %}
+
+
+{% endblock %}
+
+{% block sidebar %}
+    <li><a href="{% url 'gr_assigned_news' %}">Notícies assignades</a></li>
+    <li><a href="{% url 'gr_image_bank' %}" class="current">Banc d'imatges</a></li>
+{% endblock %}

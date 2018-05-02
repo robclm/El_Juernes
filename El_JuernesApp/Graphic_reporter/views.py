@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
 from Graphic_reporter.forms import UploadImageForm, SearchImageForm, EditImageForm
-from Graphic_reporter.models import Image
+from Graphic_reporter.models import *
 
 
 @login_required(login_url='/accounts/login')
@@ -13,7 +13,23 @@ def news_assigned(request):
         return redirect('access_denied')
 
     template = 'Graphic_reporter/assigned_news.html'
-    context = None
+
+    all_requests = Image_request.objects.all()
+    context = {'requests': all_requests}
+
+    return render(request, template, context)
+
+
+@login_required(login_url='/accounts/login')
+def images_new_request(request, pk):
+    if not role_is_graphic_reporter(request.user.username):
+        return redirect('access_denied')
+
+    template = 'Graphic_reporter/images_new_request.html'
+
+    image_request = Image_request.objects.get(pk=pk)
+
+    context = {'image_request': image_request}
 
     return render(request, template, context)
 
@@ -121,3 +137,38 @@ def role_is_graphic_reporter(username):
         return True
     else:
         return False
+
+
+@login_required(login_url='/accounts/login')
+def select_images(request, pk):
+    # Check if the role is correct
+    if not role_is_graphic_reporter(request.user.username):
+        return redirect('access_denied')
+
+    template = 'Graphic_reporter/select_images.html'
+
+    # Display all images
+    images = Image.objects.all()
+
+    # Search images
+    if request.method == "POST":
+        search_images_form = SearchImageForm(request.POST)
+
+        select_image = 'selected_image' in request.POST and request.POST['selected_image']
+        print(select_image)
+
+        if search_images_form.is_valid():
+            name = search_images_form.clean_name()
+            category = search_images_form.clean_category()
+
+            images = images.filter(name__icontains=name,
+                                   category__icontains=category)
+    else:
+        # Empty search form
+        search_images_form = SearchImageForm()
+
+    image_request = Image_request.objects.get(pk=pk)
+
+    return render(request, template, {'images': images,
+                                      'search_images_form': search_images_form,
+                                      'image_request': image_request})

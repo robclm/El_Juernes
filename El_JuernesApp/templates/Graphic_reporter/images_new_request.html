@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block navbar %}
+    <li><a href="{% url 'account-redirect' %}" class="">Home</a></li>
+    <li><a href="{% url 'Home_News' %}">News</a></li>
+    <li><a href="#">Contact with us</a></li>
+    <li class="login">
+        {% if user.is_authenticated %}
+            <p>Benvingut: {{ user.username }} |
+                <a class="link" href="{% url 'logout' %}">logout</a></p>
+        {% else %}
+            <p><a class="link" href="{% url 'login' %}">login</a></p>
+        {% endif %}
+    </li>
+{% endblock %}
+
+{% block content %}
+    <h2>Notícia</h2>
+
+    <p>
+    <h4>Redactor assignat: {{ image_request.noticia.assigned }}</h4>
+    <h4>Prioritat: {{ image_request.noticia.priority }}</h4>
+    <h1>{{ image_request.noticia.title }}</h1>
+    <h4>{{ image_request.noticia.description }}</h4><br/>
+    {{ image_request.noticia.body }}
+    </p>
+
+    <input class="button" type="button" value="Seleccionar imatges"
+           onclick="location.href='{% url 'gr_select_images' pk=image_request.pk %}'"/>
+
+{% endblock %}
+
+{% block sidebar %}
+    <li><a href="{% url 'gr_assigned_news' %}">Notícies assignades</a></li>
+    <li><a href="{% url 'gr_image_bank' %}" class="current">Banc d'imatges</a></li>
+{% endblock %}
