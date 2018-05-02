@@ -15,32 +15,30 @@
 {% endblock %}
 
 {% block content %}
-    <h2>Banc d'imatges</h2>
+    <h2>Editar imatge</h2>
 
-    <input class="button" type="button" value="Pujar imatges"
-           onclick="location.href='{% url 'gr_upload_image' %}'"/>
-
-    <hr>
-    <p>Cercar imatges: </p>
-
-    <form action="" method="post">
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ search_images_form.as_p }}
-        <input type="submit" value="Cercar"/>
+
+        <b1>Nom:</b1>
+        {{ edit_image_form.name }}
+        <br><br>
+
+        <b1>Imatge actual:</b1>
+        <br>
+
+        <a href="{{ image.image.url }} ">
+            <img src="{{ image.image.url }}" width="200" height="200"/>
+        </a><br>
+
+        {{ edit_image_form.image }}<br><br>
+
+        <b1>Categoria:</b1>
+        {{ edit_image_form.category }}<br><br>
+
+
+        <button type="submit">Pujar</button>
     </form>
-
-    <br>
-    {% if images %}
-        {% for img in images %}
-
-            <a href="editar_imatge/{{ img.pk }}">
-                <img src="{{ img.image.url }}" width="200" height="200"/>
-            </a>
-
-        {% endfor %}
-    {% else %}
-        <p>No hi ha imatges disponibles.</p>
-    {% endif %}
 
 {% endblock %}
 

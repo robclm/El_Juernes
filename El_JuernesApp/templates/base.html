@@ -92,35 +92,45 @@
             /*Scroll*/
 
             .content{
-                /*position: relative;*/
+                position: relative;
+                margin-top: -815px;
+                margin-left:150px;
                 min-height: 800px;
-                owerflow:auto;
-                margin-left: 130px;
-                overflow-y: scroll;
+                overflow-x: auto;
+                overflow-y: auto;
+                /*flex-direction: column;*/
+                /*border-style: dashed;*/
             }
 
             .sidebar{
                 width: 120px;
+                /*border-style: dashed;*/
             }
 
             .sidebar-nav{
                 padding-left: 0px;
+                min-height: 800px;
                 list-style:none;
                 background-color: #50B85F;
+                /*border-style: dashed;*/
             }
             .sidebar li a{
-
                 display: block;
                 text-align: center;
                 text-decoration: none;
+                max-width: 120px;
             }
             #footer{
                 text-align: center;
                 background: #f3f3f3;
-                position: fixed;
+                position: relative;
                 bottom: 0;
                 width: 100%;
                 margin: 0 auto;
+            }
+            a.current:link, a.current:visited {
+                color: white;
+                background-color: gainsboro;
             }
 
         </style>
@@ -135,22 +145,13 @@
         </div>
 
         <div class="navbar">
-            {% block navbar %}
-            <ul class="bar-nav">
-                <li><a class="active" href="{% url 'account-redirect' %}">Home</a></li>
-                <li><a href="{% url 'Home_News' %}">News</a></li>
-                <li><a href="#">Contact with us</a></li>
-                <li class="login">
-                    {% if user.is_authenticated %}
-                    <p>Benvingut: {{ user.username }} |
-                        <a class="link" href="{% url 'logout' %}">logout</a></p>
-                    {% else %}
-                    <p><a class="link" href="{% url 'login' %}">login</a></p>
-                    {% endif %}
 
-                </li>
+            <ul class="bar-nav">
+                {% block navbar %}
+
+                {% endblock %}
             </ul>
-            {% endblock %}
+
         </div>
 
         <!-- Barra lateral-->

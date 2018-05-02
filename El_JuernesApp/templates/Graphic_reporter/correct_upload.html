@@ -15,33 +15,10 @@
 {% endblock %}
 
 {% block content %}
-    <h2>Banc d'imatges</h2>
+    <h2>La imatge s'ha pujat correctament</h2>
 
-    <input class="button" type="button" value="Pujar imatges"
-           onclick="location.href='{% url 'gr_upload_image' %}'"/>
-
-    <hr>
-    <p>Cercar imatges: </p>
-
-    <form action="" method="post">
-        {% csrf_token %}
-        {{ search_images_form.as_p }}
-        <input type="submit" value="Cercar"/>
-    </form>
-
-    <br>
-    {% if images %}
-        {% for img in images %}
-
-            <a href="editar_imatge/{{ img.pk }}">
-                <img src="{{ img.image.url }}" width="200" height="200"/>
-            </a>
-
-        {% endfor %}
-    {% else %}
-        <p>No hi ha imatges disponibles.</p>
-    {% endif %}
-
+    <input class="button" type="button" value="Tornar al banc d'imatges"
+           onclick="location.href='{% url 'gr_image_bank' %}'"/>
 {% endblock %}
 
 {% block sidebar %}

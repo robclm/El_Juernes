@@ -1,11 +1,22 @@
 {% extends "base.html" %}
-{% block content %}
-<head>
-    <meta charset="UTF-8">
-    <title>Notícies</title>
-</head>
-<body>
 
+{% block navbar %}
+    {% if user.is_authenticated %}
+        <li><a href="{% url 'account-redirect' %}">Home</a></li>
+    {% endif %}
+    <li><a href="{% url 'Home_News' %}" class="current">News</a></li>
+    <li><a href="#">Contact with us</a></li>
+    <li class="login">
+        {% if user.is_authenticated %}
+        <p>Benvingut: {{ user.username }} |
+            <a class="link" href="{% url 'logout' %}">logout</a></p>
+        {% else %}
+        <p><a class="link" href="{% url 'login' %}">login</a></p>
+        {% endif %}
+    </li>
+{% endblock %}
+
+{% block content %}
 <h2>Notícies</h2>
 </body>
 {% endblock %}
