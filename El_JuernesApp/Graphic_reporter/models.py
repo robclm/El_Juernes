@@ -19,6 +19,7 @@ class Image_request(models.Model):
 
     noticia = models.ForeignKey(New,on_delete=models.CASCADE)
     state = models.CharField(max_length=30,choices=STATES)
+    comment = models.CharField(max_length=280,default="Cap comentari")
 
     def __str__(self):
         return 'Image_Request: ' + self.noticia.title

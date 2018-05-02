@@ -16,7 +16,8 @@
 
 {% block content %}
 
-<h2>La petició s'ha efectuat correctament</h2>
+<h2>{{ found }}</h2>
+
 
     <input class="button" type="button" value="Tornar"
            onclick="location.href='{% url 'assigned' %}'"/>
