@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block navbar %}
-    <li><a href="{% url 'account-redirect' %}" class="current">El meu espai de treball</a></li>
+    <li><a href="{% url 'account-redirect' %}">El meu espai de treball</a></li>
     <li><a href="{% url 'Home_News' %}">Noticies</a></li>
     <li><a href="#">Contacta'ns</a></li>
     <li class="login">
@@ -12,12 +12,22 @@
         <p><a class="link" href="{% url 'login' %}">login</a></p>
         {% endif %}
     </li>
+    
 {% endblock %}
 
 {% block content %}
-    <h2>Redactor</h2>
+
+    <h2>Article enviat correctament</h2>
+
+    <h3>Article:<a href="{{ article.file.url }}" download> {{ article.file.name }} </a></h3>
+
+    <a href="{% url 'account-redirect' %}">
+        <button type="button">Tornar al meu espai</button>
+    </a>
+
+
 {% endblock %}
 
 {% block sidebar %}
-    <li><a href="{% url 'assigned' %}">Noticies assignades</a></li>
+     <li><a href="{% url 'assigned' %}" class="">Noticies assignades</a></li>
 {% endblock %}

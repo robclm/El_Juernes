@@ -3,7 +3,6 @@ import json
 from urllib.request import urlopen
 
 from django.contrib.auth.models import User
-from django.shortcuts import redirect
 from django.shortcuts import render
 from django.views import generic
 
@@ -26,9 +25,11 @@ def Afe_News_List(request):
         new_obj.save()
 
         # FIXME: Heroku deployment could be problematic
-        template = 'http://127.0.0.1:8000/AFE/new/' + name[0]
-
-        return redirect(template)
+        template = 'Head_copywriter/Correct_Assigned.html'
+        context = {
+            "new": New.objects.get(slug=name[0])
+        }
+        return render(request, template, context)
     else:
         template = 'Home_News.html'
         json_data = None

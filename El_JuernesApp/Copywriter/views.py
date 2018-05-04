@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+
 from django.shortcuts import redirect
 from django.shortcuts import render
 from django.views import generic
@@ -71,6 +72,7 @@ def role_is_copywriter(username):
 
 @login_required(login_url='/accounts/login')
 def send_new(request):
+
     # Check if the role is correct
     if not role_is_copywriter(request.user.username):
         return redirect('access_denied')
@@ -100,6 +102,7 @@ def send_new(request):
             new = New.objects.get(slug=var['slug'])
             new.state = "Per validar"
             new.save()
+
 
             return redirect('cw_correct_send_article')
 

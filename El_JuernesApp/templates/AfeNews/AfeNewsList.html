@@ -18,20 +18,14 @@
     <h2>Afe News List</h2>
 
     {% if articles %}
-        <ul>
-
+        <ul class="articles-AFE">
             {% for article in articles %}
                 <h4><a href="/AFE/new/{{ article.slug }}">{{ article.title }}</a></h4>
-                <ul>
+                <ul class="articles-AFE-description">
                     {{ article.description }}
                 </ul>
-
-
-
             {% endfor %}
-
         </ul>
-
     {% else %}
         <p>No hi ha noves notícies.</p>
     {% endif %}
