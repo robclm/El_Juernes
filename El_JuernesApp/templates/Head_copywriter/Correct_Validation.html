@@ -15,9 +15,13 @@
 {% endblock %}
 
 {% block content %}
-    <h2>Notícies assignades</h2>
-
+    <h2>La valoració s'ha dut a terme correctament</h2>
+    <a href="{% url 'account-redirect' %}">
+        <button type="button">Tornar al meu espai</button>
+    </a>
 {% endblock %}
+
 {% block sidebar %}
-    <li><a href="">Articles a maquetat</a></li>
+    <li><a href="{% url 'AFE' %}">Noves notícies</a></li>
+    <li><a href="{% url 'Articles' %}" class="current">Article a revisar</a></li>
 {% endblock %}

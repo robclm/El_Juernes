@@ -1,6 +1,22 @@
 from django.db import models
 
+NEW = "Nova notícia"
+ASSIGNED = "Assignada"
+TO_VALIDATE = "Per validar"
+ACCEPTED = "Acceptat"
+REJECTED = "Rebutjada"
+COMMENTED = "Comentat"
+
 class New(models.Model):
+    STATES = (
+        (NEW, "Nova notícia"),
+        (ASSIGNED, "Assignada"),
+        (TO_VALIDATE, "Per validar"),
+        (ACCEPTED, "Acceptat"),
+        (REJECTED, "Rebutjada"),
+        (COMMENTED, "Comentat")
+    )
+
     slug = models.CharField(max_length=140)
     title = models.CharField(max_length=140)
     description = models.CharField(max_length=140)
@@ -9,7 +25,7 @@ class New(models.Model):
     author = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
     assigned = models.CharField(max_length=140,default="Cap redactor assignat")
     priority = models.CharField(max_length=140, default="")
-    tovalidate = models.BooleanField(default=False)
+    state = models.CharField(max_length=140, default="Nova notícia", choices=STATES)
 
     def __str__(self):
         return 'New: ' + self.title

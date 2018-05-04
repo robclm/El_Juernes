@@ -1,9 +1,25 @@
 {% extends "base.html" %}
+
+{% block navbar %}
+    <li><a href="{% url 'account-redirect' %}" class="current">El meu espai de treball</a></li>
+   <li><a href="{% url 'Home_News' %}">Noticies</a></li>
+    <li><a href="#">Contacta'ns</a></li>
+    <li class="login">
+        {% if user.is_authenticated %}
+        <p>Benvingut: {{ user.username }} |
+            <a class="link" href="{% url 'logout' %}">logout</a></p>
+        {% else %}
+        <p><a class="link" href="{% url 'login' %}">login</a></p>
+        {% endif %}
+    </li>
+{% endblock %}
+
 {% block content %}
     <p>
         <h2>Redactor en cap </h2>
     </p>
 {% endblock %}
+
 {% block sidebar %}
     <li><a href="{% url 'AFE' %}">Noves notícies</a></li>
     <li><a href="{% url 'Articles' %}">Article a revisar</a></li>

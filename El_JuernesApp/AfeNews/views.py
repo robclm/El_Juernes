@@ -12,6 +12,7 @@ from AfeNews.models import New, Author
 
 
 def Afe_News_List(request):
+    # Assignar notícia
     if request.method == 'POST':
         var = request.POST.dict()
         name = var['new'].split('/')
@@ -21,6 +22,7 @@ def Afe_News_List(request):
         user = User.objects.get(username=writer)
         new_obj.assigned = user.username
         new_obj.priority = prioritat
+        new_obj.state = "Assignada"
         new_obj.save()
 
         # FIXME: Heroku deployment could be problematic
@@ -30,16 +32,21 @@ def Afe_News_List(request):
     else:
         template = 'Home_News.html'
         json_data = None
+
         try:
             user = User.objects.get(username=request.user.username)
             rol = user.user_profile.role
+
             if rol == "Head_copywriter":
                 template = 'AfeNews/AfeNewsList.html'
-            json_data = get_json_AFE_news()
+
+            context = {
+                "articles": get_json_AFE_news(),
+            }
         except:
             template = 'Home_News.html'
 
-        return render(request, template, json_data)
+        return render(request, template, context)
 
 
 
@@ -48,8 +55,9 @@ def get_json_AFE_news():
     reader = codecs.getreader("utf-8")
     json_data = json.load(reader(json_obj))
     save_news_to_db(json_data)
+    new = New.objects.filter(state="Nova notícia")
 
-    return json_data
+    return new
 
 
 def save_news_to_db(json_data):

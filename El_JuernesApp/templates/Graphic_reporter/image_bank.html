@@ -1,55 +1,50 @@
 {% extends "base.html" %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Banc d'imatges</title>
-</head>
 
-<body>
-
+{% block navbar %}
+   <li><a href="{% url 'account-redirect' %}">El meu espai de treball</a></li>
+    <li><a href="{% url 'Home_News' %}">Noticies</a></li>
+    <li><a href="#">Contacta'ns</a></li>
+    <li class="login">
+        {% if user.is_authenticated %}
+        <p>Benvingut: {{ user.username }} |
+            <a class="link" href="{% url 'logout' %}">logout</a></p>
+        {% else %}
+        <p><a class="link" href="{% url 'login' %}">login</a></p>
+        {% endif %}
+    </li>
+{% endblock %}
 
 {% block content %}
     <h2>Banc d'imatges</h2>
 
-
-    <form method="post" enctype="multipart/form-data">{% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Pujar</button>
-    </form>
-
+    <input class="button" type="button" value="Pujar imatges"
+           onclick="location.href='{% url 'gr_upload_image' %}'"/>
 
     <hr>
-    <p>Imatges: </p>
+    <p>Cercar imatges: </p>
 
-    <form type="get" action="." style="margin: 0">
-        <input id="search_box" type="text" name="search_box" value={{ search_query }}>
-        <button id="search_submit" type="submit">Cercar</button>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ search_images_form.as_p }}
+        <input type="submit" value="Cercar"/>
     </form>
+
     <br>
-
-
-
     {% if images %}
-        <ul>
-            {% for img in images %}
-                <li>
-                    <a href="{{ img.image.url }}">
-                        <img src="{{ img.image.url }}" alt="image-{{ post.title }}"
-                             width="200" height="200"/>
-                    </a>
-                    <br>
-                </li>
+        {% for img in images %}
 
-            {% endfor %}
-        </ul>
+            <a href="{% url 'gr_edit_image' pk=img.pk %}">
+                <img src="{{ img.image.url }}" width="200" height="200"/>
+            </a>
 
+        {% endfor %}
     {% else %}
         <p>No hi ha imatges disponibles.</p>
     {% endif %}
 
 {% endblock %}
 
-</body>
-
-</html>
+{% block sidebar %}
+    <li><a href="{% url 'gr_assigned_news' %}">Notícies assignades</a></li>
+    <li><a href="{% url 'gr_image_bank' %}" class="current">Banc d'imatges</a></li>
+{% endblock %}

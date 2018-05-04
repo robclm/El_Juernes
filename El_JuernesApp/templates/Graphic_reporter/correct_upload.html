@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block navbar %}
-    <li><a href="{% url 'account-redirect' %}">El meu espai de treball</a></li>
+   <li><a href="{% url 'account-redirect' %}">El meu espai de treball</a></li>
     <li><a href="{% url 'Home_News' %}">Noticies</a></li>
     <li><a href="#">Contacta'ns</a></li>
     <li class="login">
@@ -15,9 +15,13 @@
 {% endblock %}
 
 {% block content %}
-    <h2>Notícies assignades</h2>
+    <h2>La imatge s'ha pujat correctament</h2>
 
+    <input class="button" type="button" value="Tornar al banc d'imatges"
+           onclick="location.href='{% url 'gr_image_bank' %}'"/>
 {% endblock %}
+
 {% block sidebar %}
-    <li><a href="">Articles a maquetat</a></li>
+    <li><a href="{% url 'gr_assigned_news' %}">Notícies assignades</a></li>
+    <li><a href="{% url 'gr_image_bank' %}" class="current">Banc d'imatges</a></li>
 {% endblock %}

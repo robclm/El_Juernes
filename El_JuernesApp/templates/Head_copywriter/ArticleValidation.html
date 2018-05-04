@@ -1,10 +1,19 @@
 {% extends "base.html" %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ new.title }}</title>
-</head>
-<br>
+
+{% block navbar %}
+   <li><a href="{% url 'account-redirect' %}">El meu espai de treball</a></li>
+    <li><a href="{% url 'Home_News' %}">Noticies</a></li>
+    <li><a href="#">Contacta'ns</a></li>
+    <li class="login">
+        {% if user.is_authenticated %}
+        <p>Benvingut: {{ user.username }} |
+            <a class="link" href="{% url 'logout' %}">logout</a></p>
+        {% else %}
+        <p><a class="link" href="{% url 'login' %}">login</a></p>
+        {% endif %}
+    </li>
+{% endblock %}
+
 {% block content %}
     <p>
     <h4>Prioritat: {{ new.priority }}</h4>
@@ -18,19 +27,33 @@
 
     <button type="button">Escollir imatges</button> Imatges asociades | </p>
 
-    Introdueix els comentaris pel redactor:
-    <button type="button">Escull un fitxer</button> | </p>
 
-    <button type="button">Acceptar</button>
-    <button type="button">Denegar</button>
+    <h4>Introdueix els comentaris pel redactor:</h4>
+    <form action="/RedactorCap/Comentat/" method="post" enctype="multipart/form-data">{% csrf_token %}
+        {{ form.as_p }}
+        <input type="hidden" name="slug" value="{{ new.slug }}"/>
+        <button type="submit">Enviar comentaris al redactor</button>
+    </form>
+
+
+    <form action="/RedactorCap/Acceptat/" method="post"> {% csrf_token %}
+        <input type="hidden" name="slug" value={{ new.slug }}/>
+        <input type="submit" value="Acceptar">
+    </form>
+
+    <form action="/RedactorCap/Rebutjat/" method="post"> {% csrf_token %}
+        <input type="hidden" name="slug" value={{ new.slug }}/>
+        <input type="submit" value="Rebutjar">
+    </form>
+
+
     <a href="/AFE/new/{{ new.slug }}">
         <button type="button">Reassignar</button>
     </a>
 
-    <button type="button">Enviar comentaris al redactor</button>
-
-
-
 
 {% endblock %}
-</html>
+{% block sidebar %}
+    <li><a href="{% url 'AFE' %}">Noves notícies</a></li>
+    <li><a href="{% url 'Articles' %}" class="current">Article a revisar</a></li>
+{% endblock %}

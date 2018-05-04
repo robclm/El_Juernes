@@ -18,6 +18,7 @@
 
         <style>
 
+            /*Barra menu horitzontal*/
             .bar-nav{
                 list-style-type: none;
                 margin: 0;
@@ -45,19 +46,18 @@
                 background-color: gainsboro;
                 color:black
             }
-            .active{
-                background-color: gainsboro;
-            }
             h2{
                 color: green;
-                padding-left: 5px;
+                /*padding-left: 5px;*/
             }
             #title{
                 font-family: Verdana;
+                padding-left: 5px;
             }
             #title a{
                 color: #FFFFFF;
                 text-decoration: none;
+                font-size: large;
             }
             #header{
                 text-align: left;
@@ -89,27 +89,54 @@
                 color: #FFFFFF;
             }
 
-            /*Scroll*/
+            /*Scroll-content*/
 
             .content{
                 position: relative;
-                margin-top: -815px;
+                margin-top: -915px;
                 margin-left:150px;
+                margin-bottom: 100px;
                 min-height: 800px;
-                overflow-y: scroll;
+                overflow-x: auto;
+                overflow-y: auto;
+                padding-left: 5px;
+                /*flex-direction: column;*/
                 /*border-style: dashed;*/
             }
 
+            /*---AfeNewsList---*/
+
+            .articles-AFE{
+
+            }
+            .articles-AFE a{
+                text-decoration: none;
+            }
+
+            .articles-AFE-description{
+
+            }
+
+            /*---New.html---*/
+
+            .ass-noticia{
+
+            }
+            /*Barra lateral*/
+
             .sidebar{
-                width: 120px;
+                width: 140px;
                 /*border-style: dashed;*/
             }
 
             .sidebar-nav{
                 padding-left: 0px;
-                min-height: 800px;
+                min-height: 900px;
                 list-style:none;
                 background-color: #50B85F;
+                {% block css %}
+
+                {% endblock %}
                 /*border-style: dashed;*/
             }
             .sidebar li a{
@@ -122,12 +149,20 @@
                 text-align: center;
                 background: #f3f3f3;
                 position: fixed;
-                bottom: 0;
+                bottom: 0px;
                 width: 100%;
-                margin: 0 auto;
+            }
+            a.current:link, a.current:visited {
+                color: black;
+                background-color: gainsboro;
+            }
+            a{
+                font-size: large;
             }
 
+
         </style>
+
     </head>
     <body>
         <!--Insert default navigation text for every page-->
@@ -139,22 +174,13 @@
         </div>
 
         <div class="navbar">
-            {% block navbar %}
-            <ul class="bar-nav">
-                <li><a class="active" href="{% url 'account-redirect' %}">Home</a></li>
-                <li><a href="{% url 'Home_News' %}">News</a></li>
-                <li><a href="#">Contact with us</a></li>
-                <li class="login">
-                    {% if user.is_authenticated %}
-                    <p>Benvingut: {{ user.username }} |
-                        <a class="link" href="{% url 'logout' %}">logout</a></p>
-                    {% else %}
-                    <p><a class="link" href="{% url 'login' %}">login</a></p>
-                    {% endif %}
 
-                </li>
+            <ul class="bar-nav">
+                {% block navbar %}
+
+                {% endblock %}
             </ul>
-            {% endblock %}
+
         </div>
 
         <!-- Barra lateral-->

@@ -4,7 +4,9 @@ from django.shortcuts import render, HttpResponse
 from django.views import generic
 
 from AfeNews.models import New
+from Copywriter.forms import ArticleForm
 from Copywriter.models import Article
+from Graphic_reporter.models import Image_request
 
 
 # Create your views here.
@@ -16,36 +18,15 @@ def News_assigned(request):
         user = User.objects.get(username=request.user.username)
         rol = user.user_profile.role
         if rol == "Copywriter":
-            if request.method == 'POST':
-                var = request.POST.dict()
-                title = var['title']
-                description = var['description']
-                body = var['body']
-                name = var['new'].split('/')
-                new_obj = New.objects.get(slug=name[0])
-                new_obj.tovalidate = True
-                new_obj.save()
-
-                article = Article()
-                article.slug = name[0]
-                article.title = title
-                article.description = description
-                article.body = body
-                article.assigned = new_obj.assigned
-                article.priority = new_obj.priority
-                article.save()
-
-                template = 'http://127.0.0.1:8000/accounts'
-                return redirect(template)
-
             template = 'Copywriter/AssignedNewsList.html'
         context = {
-            "articles_alta": New.objects.filter(assigned=request.user.username, priority='alta'),
-            "articles_mitjana": New.objects.filter(assigned=request.user.username, priority='mitjana'),
-            "articles_baixa": New.objects.filter(assigned=request.user.username, priority='baixa')
+            "articles_alta": New.objects.filter(assigned=request.user.username, priority='alta', state="Assignada"),
+            "articles_mitjana": New.objects.filter(assigned=request.user.username, priority='mitjana',
+                                                   state="Assignada"),
+            "articles_baixa": New.objects.filter(assigned=request.user.username, priority='baixa', state="Assignada")
         }
-    except:
-        template = 'Home_News.html'
+    except Exception as e:
+        print("%s (%s)" % (e.args, type(e)))
 
     return render(request, template, context)
 
@@ -80,6 +61,59 @@ class images_copywriter(generic.DetailView):
         return template
 
 
+def send_request(request):
+    template = 'Copywriter/correct_request.html'
+
+    var = request.POST.dict()
+    new = New.objects.get(slug=var['slug'])
+    context = {}
+    image_request = Image_request()
+    try:
+        found = Image_request.objects.get(noticia=new)
+    except Image_request.DoesNotExist:
+        found = None
+    if found is not None:
+        context['found'] = "Una petició feta amb anterioritat ha estat actualitzada"
+        found.comment = var["body"]
+        found.save()
+    else:
+        context['found'] = "La petició ha estat enviada correctament"
+        image_request.noticia = new
+        image_request.state = "To do"
+        image_request.comment = var["body"]
+        image_request.save()
+    return render(request,template,context)
+
+def send_new(request):
+    template = 'http://127.0.0.1:8000'
+
+    try:
+        user = User.objects.get(username=request.user.username)
+        rol = user.user_profile.role
+        if rol == "Copywriter":
+            template = 'Copywriter/New_Copywriter.html'
+    except Exception as e:
+        print("%s (%s)" % (e.args, type(e)))
+
+    if request.method == 'POST':
+        form = ArticleForm(request.POST or None, request.FILES or None)
+
+        if form.is_valid():
+            var = request.POST.dict()
+            article = Article()
+            article.file = form.clean_file()
+            article.slug = var['slug']
+            article.save()
+
+            new=New.objects.get(slug=var['slug'])
+            new.state = "Per validar"
+            new.save()
+
+        template = 'http://127.0.0.1:8000/accounts'
+
+    return redirect(template)
+
+
 
 
 class new_copywriter(generic.DetailView):
@@ -89,6 +123,7 @@ class new_copywriter(generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super(new_copywriter, self).get_context_data(**kwargs)
         context['new'] = New.objects.get(slug=self.kwargs['slug'])
+        context['form'] = ArticleForm()
         return context
 
     def get_template_names(self):

@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block navbar %}
+    <li><a href="{% url 'account-redirect' %}">El meu espai de treball</a></li>
+    <li><a href="{% url 'Home_News' %}">Noticies</a></li>
+    <li><a href="#">Contacta'ns</a></li>
+    <li class="login">
+        {% if user.is_authenticated %}
+        <p>Benvingut: {{ user.username }} |
+            <a class="link" href="{% url 'logout' %}">logout</a></p>
+        {% else %}
+        <p><a class="link" href="{% url 'login' %}">login</a></p>
+        {% endif %}
+    </li>
+{% endblock %}
+
+{% block content %}
+    <h2>Editar imatge</h2>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <b1>Nom:</b1>
+        {{ edit_image_form.name }}
+        <br><br>
+
+        <b1>Imatge actual:</b1>
+        <br>
+
+        <a href="{{ image.image.url }} ">
+            <img src="{{ image.image.url }}" width="200" height="200"/>
+        </a><br>
+
+        {{ edit_image_form.image }}<br><br>
+
+        <b1>Categoria:</b1>
+        {{ edit_image_form.category }}<br><br>
+
+
+        <button type="submit">Pujar</button>
+    </form>
+
+{% endblock %}
+
+{% block sidebar %}
+    <li><a href="{% url 'gr_assigned_news' %}">Notícies assignades</a></li>
+    <li><a href="{% url 'gr_image_bank' %}" class="current">Banc d'imatges</a></li>
+{% endblock %}
