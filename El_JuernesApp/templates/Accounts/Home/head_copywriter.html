@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
 {% block navbar %}
-    <li><a href="{% url 'account-redirect' %}" class="current">Home</a></li>
-    <li><a href="{% url 'Home_News' %}">News</a></li>
-    <li><a href="#">Contact with us</a></li>
+    <li><a href="{% url 'account-redirect' %}" class="current">El meu espai de treball</a></li>
+   <li><a href="{% url 'Home_News' %}">Noticies</a></li>
+    <li><a href="#">Contacta'ns</a></li>
     <li class="login">
         {% if user.is_authenticated %}
         <p>Benvingut: {{ user.username }} |
