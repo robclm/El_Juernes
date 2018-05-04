@@ -33,7 +33,7 @@
     {% if images %}
         {% for img in images %}
 
-            <a href="editar_imatge/{{ img.pk }}">
+            <a href="{% url 'gr_edit_image' pk=img.pk %}">
                 <img src="{{ img.image.url }}" width="200" height="200"/>
             </a>
 

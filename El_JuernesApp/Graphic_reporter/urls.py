@@ -18,4 +18,12 @@ urlpatterns = [
 
     path('banc_imatges/editar_imatge/<int:pk>', views.edit_image, name="gr_edit_image"),
 
+    path('noticies_assignades/noticia/<int:pk>', views.images_new_request, name="gr_images_new_request"),
+
+    path('noticies_assignades/noticia/<int:pk>/seleccionar_imatges/',
+         views.select_images, name="gr_select_images"),
+
+    path('noticies_assignades/noticia/<int:pk>/imatges_enviades_correctament',
+         views.send_images, name="gr_correct_send_images"),
+
 ]
