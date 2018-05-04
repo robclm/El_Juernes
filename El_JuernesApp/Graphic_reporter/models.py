@@ -53,4 +53,4 @@ class Image_request(models.Model):
     images = models.ManyToManyField(Image)
 
     def __str__(self):
-        return 'Image: ' + self.description
+        return 'Image_Request: ' + self.noticia.title
