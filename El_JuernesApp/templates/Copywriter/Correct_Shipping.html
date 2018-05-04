@@ -17,6 +17,15 @@
 
 {% block content %}
 
+    <h2>Article enviat correctament</h2>
+
+    <h3>Article:<a href="{{ article.file.url }}" download> {{ article.file.name }} </a></h3>
+
+    <a href="{% url 'account-redirect' %}">
+        <button type="button">Tornar al meu espai</button>
+    </a>
+
+
 {% endblock %}
 
 {% block sidebar %}

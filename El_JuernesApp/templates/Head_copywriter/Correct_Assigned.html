@@ -16,6 +16,20 @@
 {% endblock %}
 
 {% block content %}
+    <h2>Assignació Satisfactória</h2>
+
+    <h3>{{ new.title }}</h3>
+
+
+    <h4>Redactor assignat: {{ new.assigned }} &nbsp Prioritat: {{ new.priority }}</h4>
+
+    <a href="{% url 'account-redirect' %}">
+        <button type="button">Tornar al meu espai</button>
+    </a>
+    &nbsp
+    <a href="/AFE/new/{{ new.slug }}">
+        <button type="button">Reassignar</button>
+    </a>
 
 {% endblock %}
 

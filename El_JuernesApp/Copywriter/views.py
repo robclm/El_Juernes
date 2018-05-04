@@ -1,6 +1,5 @@
 from django.contrib.auth.models import User
-from django.shortcuts import redirect
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render
 from django.views import generic
 
 from AfeNews.models import New
@@ -56,7 +55,7 @@ def send_request(request):
     return render(request,template,context)
 
 def send_new(request):
-    template = 'http://127.0.0.1:8000'
+    template = 'Home_News.html'
 
     try:
         user = User.objects.get(username=request.user.username)
@@ -80,9 +79,12 @@ def send_new(request):
             new.state = "Per validar"
             new.save()
 
-        template = 'http://127.0.0.1:8000/accounts'
+        template = 'Copywriter/Correct_Shipping.html'
+        context = {
+            "article": article
+        }
 
-    return redirect(template)
+    return render(request, template, context)
 
 
 

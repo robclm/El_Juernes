@@ -22,7 +22,7 @@
     {{ new.body }}
     </p>
 
-
+    <hr/>
     <h3>Descargar l'article:</h3>
 
     <button type="button">Escollir imatges</button> Imatges asociades | </p>
@@ -34,7 +34,6 @@
         <input type="hidden" name="slug" value="{{ new.slug }}"/>
         <button type="submit">Enviar comentaris al redactor</button>
     </form>
-
 
     <form action="/RedactorCap/Acceptat/" method="post"> {% csrf_token %}
         <input type="hidden" name="slug" value={{ new.slug }}/>
