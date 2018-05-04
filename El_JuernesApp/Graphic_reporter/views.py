@@ -113,7 +113,6 @@ def edit_image(request, pk):
         edit_image_form = EditImageForm(request.POST, request.FILES, instance=image)
 
         if edit_image_form.is_valid():
-
             image.name = edit_image_form.clean_name()
             image.category = edit_image_form.clean_category()
 
