@@ -17,8 +17,12 @@
 {% block content %}
     <h2>L'article s'ha enviat correctament</h2>
 
+    <h3>Article:<a href="{{ article.file.url }}"> {{ article.file.name }} </a></h3>
     <input class="button" type="button" value="Tornar a les notícies assignades"
            onclick="location.href='{% url 'assigned' %}'"/>
+    &nbsp
+    <input class="button" type="button" value="Reenviar l'article"
+           onclick="location.href='http://127.0.0.1:8000/Redactor/assigned/{{ new.slug }}'"/>
 {% endblock %}
 
 {% block sidebar %}
