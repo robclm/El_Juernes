@@ -17,23 +17,27 @@
 {% block content %}
 
     <p>
-    <h4>Redactor assignat: {{ new.assigned}}</h4>
-    <h4>Prioritat: {{ new.priority}}</h4>
-    <h1>{{ new.title }}</h1>
-    <h4>{{ new.description }}</h4><br/>
-    {{ new.body }}
+        <h1>{{ new.title }}</h1>
+        <h4>{{ new.description }}</h4><br/>
+        {{ new.body }}
     </p>
-
+    <hr/>
     <h3>
         <form action="/AFE/" method="post"> {% csrf_token %}
-            <h4> Assignació de Noticia: </h4>
-            <p>
+            <h3>Assignació de Noticia: </h3>
+            <div class="ass-noticia">
+                <p>
+                    <h5>Redactor assignat: {{ new.assigned}} &nbsp Prioritat: {{ new.priority}}</h5>
+                </p>
+            </div>
+
             <label for="team_name"> Redactor: </label>
             <select name="copywriters">
                 {% for redactor in redactors %}
                     <option value={{ redactor.user }}>{{ redactor.user }}</option>
                 {% endfor %}
             </select>
+            &nbsp
             <label for="team_name"> Prioritat </label>
             <select name="priority">
                     <option value="alta">Alta</option>
@@ -44,6 +48,7 @@
             <input type="hidden" name="new" value={{ new.slug }}/>
         </form>
     </h3>
+
 {% endblock %}
 
 {% block sidebar %}

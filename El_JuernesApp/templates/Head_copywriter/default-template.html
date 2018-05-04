@@ -12,27 +12,14 @@
         <p><a class="link" href="{% url 'login' %}">login</a></p>
         {% endif %}
     </li>
+
 {% endblock %}
 
 {% block content %}
-    <h2>Afe News List</h2>
-
-    {% if articles %}
-        <ul class="articles-AFE">
-            {% for article in articles %}
-                <h4><a href="/AFE/new/{{ article.slug }}">{{ article.title }}</a></h4>
-                <ul class="articles-AFE-description">
-                    {{ article.description }}
-                </ul>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>No hi ha noves notícies.</p>
-    {% endif %}
 
 {% endblock %}
 
 {% block sidebar %}
-    <li><a href="{% url 'AFE' %}" class="current">Noves notícies</a></li>
-    <li><a href="{% url 'Articles' %}">Article a revisar</a></li>
+    <li><a href="{% url 'AFE' %}" class="">Noves notícies</a></li>
+    <li><a href="{% url 'Articles' %}" class="">Article a revisar</a></li>
 {% endblock %}
