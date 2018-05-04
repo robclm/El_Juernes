@@ -1,6 +1,5 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-
 from django.shortcuts import redirect
 from django.shortcuts import render
 from django.views import generic
@@ -86,12 +85,17 @@ def send_new(request):
 
         if form.is_valid():
             var = request.POST.dict()
-            article = Article()
-            article.file = form.clean_file()
-            article.slug = var['slug']
-
-            # Must be saved before adding the images
-            article.save()
+            try:
+                article = Article.objects.get(slug=var['slug'])
+                article.file = form.clean_file()
+                # Must be saved before adding the images
+                article.save()
+            except:
+                article = Article()
+                article.slug = var['slug']
+                article.file = form.clean_file()
+                # Must be saved before adding the images
+                article.save()
 
             for pk in selected_images_pk:
                 image = Image.objects.get(pk=pk)
@@ -102,9 +106,12 @@ def send_new(request):
             new = New.objects.get(slug=var['slug'])
             new.state = "Per validar"
             new.save()
+            context = {
+                "article": article,
+                "new": new,
+            }
 
-
-            return redirect('cw_correct_send_article')
+            return render(request, 'Copywriter/correct_send.html', context)
 
     return redirect('new_copywriter')
 

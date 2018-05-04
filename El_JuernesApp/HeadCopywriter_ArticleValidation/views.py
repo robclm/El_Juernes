@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.views import generic
 
 from AfeNews.models import New
+from Copywriter.models import Article
 from HeadCopywriter_ArticleValidation.forms import ArticleComentatForm
 from HeadCopywriter_ArticleValidation.models import Article_comentat
 
@@ -37,6 +38,7 @@ class Article_validation(generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super(Article_validation, self).get_context_data(**kwargs)
         context['new'] = New.objects.get(slug=self.kwargs['slug'])
+        context['article'] = Article.objects.get(slug=self.kwargs['slug'])
         context['form'] = ArticleComentatForm()
         return context
 
