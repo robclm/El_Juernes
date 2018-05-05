@@ -2,15 +2,16 @@ import codecs
 import json
 from urllib.request import urlopen
 
-from Accounts.models import User_profile
-from AfeNews.models import New, Author
 from django.contrib.auth.models import User
-from django.shortcuts import redirect
 from django.shortcuts import render
 from django.views import generic
 
+from Accounts.models import User_profile
+from AfeNews.models import New, Author
+
 
 def Afe_News_List(request):
+    # Assignar notícia
     if request.method == 'POST':
         var = request.POST.dict()
         name = var['new'].split('/')
@@ -20,22 +21,33 @@ def Afe_News_List(request):
         user = User.objects.get(username=writer)
         new_obj.assigned = user.username
         new_obj.priority = prioritat
+        new_obj.state = "Assignada"
         new_obj.save()
-        template = 'http://127.0.0.1:8000/AFE/new/' + name[0]
-        return redirect(template)
+
+        # FIXME: Heroku deployment could be problematic
+        template = 'Head_copywriter/Correct_Assigned.html'
+        context = {
+            "new": New.objects.get(slug=name[0])
+        }
+        return render(request, template, context)
     else:
-        template = 'home.html'
+        template = 'Home_News.html'
         json_data = None
+
         try:
             user = User.objects.get(username=request.user.username)
             rol = user.user_profile.role
+
             if rol == "Head_copywriter":
                 template = 'AfeNews/AfeNewsList.html'
-            json_data = get_json_AFE_news()
-        except:
-            template = 'home.html'
 
-        return render(request, template, json_data)
+            context = {
+                "articles": get_json_AFE_news(),
+            }
+        except:
+            template = 'Home_News.html'
+
+        return render(request, template, context)
 
 
 
@@ -44,8 +56,9 @@ def get_json_AFE_news():
     reader = codecs.getreader("utf-8")
     json_data = json.load(reader(json_obj))
     save_news_to_db(json_data)
+    new = New.objects.filter(state="Nova notícia")
 
-    return json_data
+    return new
 
 
 def save_news_to_db(json_data):
@@ -89,13 +102,13 @@ class full_new_and_assignations(generic.DetailView):
         return context
 
     def get_template_names(self):
-        template = 'home.html'
+        template = 'Home_News.html'
         try:
             user = User.objects.get(username=self.request.user.username)
             rol = user.user_profile.role
             if rol == "Head_copywriter":
                 template = 'AfeNews/New.html'
         except:
-            template = 'home.html'
+            template = 'Home_News.html'
 
         return template

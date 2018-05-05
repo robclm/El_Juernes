@@ -1,10 +1,19 @@
 {% extends "base.html" %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ new.title }}</title>
-</head>
-<br>
+
+{% block navbar %}
+    <li><a href="{% url 'account-redirect' %}">El meu espai de treball</a></li>
+    <li><a href="{% url 'Home_News' %}">Noticies</a></li>
+    <li><a href="#">Contacta'ns</a></li>
+    <li class="login">
+        {% if user.is_authenticated %}
+            <p>Benvingut: {{ user.username }} |
+                <a class="link" href="{% url 'logout' %}">logout</a></p>
+        {% else %}
+            <p><a class="link" href="{% url 'login' %}">login</a></p>
+        {% endif %}
+    </li>
+{% endblock %}
+
 {% block content %}
     <p>
     <h4>Prioritat: {{ new.priority }}</h4>
@@ -14,15 +23,55 @@
     </p>
 
 
-    <h4>Entrega l'article</h4>
-    <form action="/Redactor/" method="post"> {% csrf_token %}
-        <input type="text" size="50" maxlength="140" value="Introdueix el titol del article" name="title"> <input
-                type="submit" value="Entrega"><br>
-        <input type="text" size="50" maxlength="140" value="Introdueix la descripcio de l'article" name="description">
-        <br><br>
-        <textarea name="body" rows="10" cols="40">Introdueix el cos de l'article</textarea>
-        <input type="hidden" name="new" value="{{ new.slug }}"/>
+
+    <h3>Petició d'imatges</h3>
+
+    {% if image_request is None %}
+
+
+        <form action="/Redactor/request_send/" method="post"> {% csrf_token %}
+            <textarea name="body" rows="10" cols="40"
+                      placeholder=" Escriu un comentari al Reporter Gràfic (Opcional)"></textarea>
+            <input type="submit" value="Demanar Imatges">
+            <br>
+            <input type="hidden" name="slug" value="{{ new.slug }}"/>
+        </form>
+
+
+    {% else %}
+        <form action="/Redactor/send_article/" method="post" enctype="multipart/form-data">{% csrf_token %}
+        {% if images %}
+            {% for img in images %}
+
+                <div style="display: inline-table;">
+                    {% csrf_token %}
+                    <a href="{{ img.image.url }} ">
+                        <img src="{{ img.image.url }}" width="200" height="200"/>
+                    </a>
+
+                    <br>
+                    <input type="checkbox" name="selected_image" value={{ img.pk }}>
+                    <b>{{ img.name }}</b>
+
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+            <p>Ja s'ha fet la petició. Encara no s'ha rebut cap imatge.</p>
+        {% endif %}
+
+    {% endif %}
+
+
+<h3>Entrega l'article</h3>
+        {{ form.as_p }}
+        <input type="hidden" name="slug" value="{{ new.slug }}"/>
+        <button type="submit">Enviar</button>
     </form>
+    </body>
+
 {% endblock %}
-</body>
-</html>
+{% block sidebar %}
+    <li><a href="{% url 'assigned' %}" class="current">Noticies assignades</a></li>
+{% endblock %}

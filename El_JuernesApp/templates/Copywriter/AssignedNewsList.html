@@ -1,57 +1,61 @@
 {% extends "base.html" %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Notícies assignades</title>
-</head>
-<body>
+
+{% block navbar %}
+    <li><a href="{% url 'account-redirect' %}">El meu espai de treball</a></li>
+    <li><a href="{% url 'Home_News' %}">Noticies</a></li>
+    <li><a href="#">Contacta'ns</a></li>
+    <li class="login">
+        {% if user.is_authenticated %}
+        <p>Benvingut: {{ user.username }} |
+            <a class="link" href="{% url 'logout' %}">logout</a></p>
+        {% else %}
+        <p><a class="link" href="{% url 'login' %}">login</a></p>
+        {% endif %}
+    </li>
+{% endblock %}
+
 {% block content %}
     <h1>Notícies assignades</h1>
 
-    {% if articles %}
-        <ul>
+    {% if articles_alta or articles_mitjana or articles_baixa %}
 
-            {% for article in articles %}
-                {% if article.priority == "alta" %}
-                    <h4><a href="/Redactor/assigned/{{ article.slug }}">{{ article.title }}</a></h4>
-                    <ul>
-                        {{ article.description }}
-                    </ul>
+        {% if articles_alta %}
+            <h3>Prioritat: Alta</h3>
+            {% for article in articles_alta %}
+                <ul>
+                <h4><a href="assigned/{{ article.slug }}">{{ article.title }}</a></h4>
+                {{ article.description }}
+                </ul>
+            {% endfor %}
+        {% endif %}
 
-                    <ul>
-                        <h4> Prioritat: {{ article.priority }} </h4>
-                    </ul>
-                {% endif %}
+        {% if articles_mitjana %}
+            <h3>Prioritat: Mitjana</h3>
+            {% for article in articles_mitjana %}
+                <ul>
+                <h4><a href="assigned/{{ article.slug }}">{{ article.title }}</a></h4>
+                {{ article.description }}
+                </ul>
             {% endfor %}
-            {% for article in articles %}
-                {% if article.priority == "mitjana" %}
-                    <h4><a href="/Redactor/assigned/{{ article.slug }}">{{ article.title }}</a></h4>
-                    <ul>
-                        {{ article.description }}
-                    </ul>
-                    <ul>
-                        <h4> Prioritat: {{ article.priority }} </h4>
-                    </ul>
-                {% endif %}
-            {% endfor %}
-            {% for article in articles %}
-                {% if article.priority == "baixa" %}
-                    <h4><a href="/Redactor/assigned/{{ article.slug }}">{{ article.title }}</a></h4>
-                    <ul>
-                        {{ article.description }}
-                    </ul>
-                    <ul>
-                        <h4> Prioritat: {{ article.priority }} </h4>
-                    </ul>
-                {% endif %}
-            {% endfor %}
+        {% endif %}
 
-        </ul>
+        {% if articles_baixa %}
+            <h3>Prioritat:Baixa</h3>
+            {% for article in articles_baixa %}
+                <ul>
+                <h4><a href="assigned/{{ article.slug }}">{{ article.title }}</a></h4>
+                {{ article.description }}
+                </ul>
+            {% endfor %}
+        {% endif %}
 
     {% else %}
-        <p>There are no news in AFE.</p>
+
+        <p>No s'ha assignat cap notícia.</p>
+
     {% endif %}
 
 {% endblock %}
-</body>
-</html>
+{% block sidebar %}
+    <li><a href="{% url 'assigned' %}" class="current">Noticies assignades</a></li>
+{% endblock %}

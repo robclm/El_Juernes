@@ -3,7 +3,7 @@
 <html lang="en">
     <head>
         <title>
-            {% block title %} El Juernes {% endblock %}
+            {% block title %}  El Juernes {% endblock %}
         </title>
         <!--Meta information-->
         {% block head-meta %}
@@ -15,16 +15,24 @@
         <!--Add additional CSS in static file-->
         {% load static %}
         <link rel="stylesheet" href="{% static 'css/base.css' %}"/>
+
         <style>
-            ul {
+
+            /*Barra menu horitzontal*/
+            .bar-nav{
                 list-style-type: none;
                 margin: 0;
                 padding: 0;
                 overflow: hidden;
-                background-color: #333;
+                background-color: #50B85F;
+                height: 47px;
+            }
+            ul{
+                 text-decoration: none;
             }
             li {
                 float: left;
+                background-color: #50B85F;
             }
             li a {
                 display: inline-block;
@@ -33,25 +41,34 @@
                 padding: 14px 16px;
                 text-decoration: none;
             }
+
             li a:hover {
-                background-color: green;
+                background-color: gainsboro;
+                color:black
             }
             h2{
                 color: green;
+                /*padding-left: 5px;*/
+            }
+            #title{
+                font-family: Verdana;
                 padding-left: 5px;
+            }
+            #title a{
+                color: #FFFFFF;
+                text-decoration: none;
+                font-size: large;
             }
             #header{
                 text-align: left;
-                background-color: green;
+                background-color: black;
             }
             #header p{
                 list-style-type: none;
                 margin: 0;
-                padding: 0;
                 overflow: hidden;
                 display: inline-block;
                 color: white;
-                color
                 text-align: center;
                 padding: 14px 16px;
                 text-decoration: none;
@@ -59,50 +76,138 @@
             .link{
                 color: white;
             }
+            .login{
+                margin-top: 0px;
+                float: right;
+
+            }
+            .login p{
+                color: #FFFFFF;
+                margin-top: 0px;
+            }
+            .login a{
+                color: #FFFFFF;
+            }
+
+            /*Scroll-content*/
+
+            .content{
+                position: relative;
+                margin-top: -915px;
+                margin-left:150px;
+                margin-bottom: 100px;
+                min-height: 800px;
+                overflow-x: auto;
+                overflow-y: auto;
+                padding-left: 5px;
+                /*flex-direction: column;*/
+                /*border-style: dashed;*/
+            }
+
+            /*---AfeNewsList---*/
+
+            .articles-AFE{
+
+            }
+            .articles-AFE a{
+                text-decoration: none;
+            }
+
+            .articles-AFE-description{
+
+            }
+
+            /*---New.html---*/
+
+            .ass-noticia{
+
+            }
+            /*Barra lateral*/
+
+            .sidebar{
+                width: 140px;
+                /*border-style: dashed;*/
+            }
+
+            .sidebar-nav{
+                padding-left: 0px;
+                min-height: 900px;
+                list-style:none;
+                background-color: #50B85F;
+                {% block css %}
+
+                {% endblock %}
+                /*border-style: dashed;*/
+            }
+            .sidebar li a{
+                display: block;
+                text-align: center;
+                text-decoration: none;
+                max-width: 120px;
+            }
+            #footer{
+                text-align: center;
+                background: #f3f3f3;
+                position: fixed;
+                bottom: 0px;
+                width: 100%;
+            }
+            a.current:link, a.current:visited {
+                color: black;
+                background-color: gainsboro;
+            }
+            a{
+                font-size: large;
+            }
+
+
         </style>
+
     </head>
     <body>
         <!--Insert default navigation text for every page-->
-        <h2>EL JUERNES</h2>
+        <div id="title">
+            <a href="{% url 'account-redirect' %}"><h2>EL JUERNES</h2></a>
+        </div>
         <div id="header">
-            {% block header %}
-                {% if user.is_authenticated %}
-                    <p>Benvingut: {{ user.username }} |
-                        <a class="link" href="{% url 'logout' %}">logout</a></p>
-                {% else %}
-                    <p><a class="link" href="{% url 'login' %}">login</a></p>
-                {% endif %}
-            {% endblock %}
+
         </div>
 
-        <div class="sidebar">
-            {% block sidebar %}
-            <ul class="sidebar-nav">
-                <li><a href="{% url 'account-redirect' %}">Inici</a></li>
-                <li><a href="">News</a></li>
-                <li><a href="">Contact with us</a></li>
+        <div class="navbar">
+
+            <ul class="bar-nav">
+                {% block navbar %}
+
+                {% endblock %}
             </ul>
-            {% endblock %}
+
         </div>
-        <!--Default content text-->
+
+        <!-- Barra lateral-->
+
+        <div class="sidebar">
+            <ul class="sidebar-nav">
+                {% block sidebar %}
+
+                {% endblock %}
+            </ul>
+        </div>
+
+        <!--Contingut-->
+
         <div class="content">
             {% block content %}
 
             {% endblock %}
         </div>
-        <footer style="
-            text-align: center;
-            background: #f3f3f3;
-            margin-top: 3rem;
-            padding: 1rem 0;
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            ">
+
+        <!--Footer-->
+
+        <div id="footer">
             <a class="footer-page">El Juernes</a>
             <span class="attribution">
-                <p> © 2018. An University of Lleida project by GR-5 Join Project</p>
+                <p> © 2018. An University of Lleida project by GR-5 Joint Project</p>
             </span>
-        </footer>
+        </div>
     </body>
 </html>

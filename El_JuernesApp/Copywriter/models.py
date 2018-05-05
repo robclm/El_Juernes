@@ -1,11 +1,12 @@
 from django.db import models
 
-# Create your models here.
+from Graphic_reporter.models import Image
+
 
 class Article(models.Model):
     slug = models.CharField(max_length=140)
-    title = models.CharField(max_length=140)
-    description = models.CharField(max_length=140)
-    body = models.TextField()
-    assigned = models.CharField(max_length=140, default="Cap redactor assignat")
-    priority = models.CharField(max_length=140, default='')
+    file = models.FileField(upload_to='articles')
+    images = models.ManyToManyField(Image)
+
+    def __str__(self):
+        return 'Article: ' + self.slug

@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block navbar %}
+    {% if user.is_authenticated %}
+        <li><a href="{% url 'account-redirect' %}">El meu espai de treball</a></li>
+    {% endif %}
+    <li><a href="{% url 'Home_News' %}" class="current">Noticies</a></li>
+    <li><a href="#">Contacta'ns</a></li>
+    <li class="login">
+        {% if user.is_authenticated %}
+        <p>Benvingut: {{ user.username }} |
+            <a class="link" href="{% url 'logout' %}">logout</a></p>
+        {% else %}
+        <p><a class="link" href="{% url 'login' %}">login</a></p>
+        {% endif %}
+    </li>
+{% endblock %}
+
+{% block content %}
+<h2>Notícies</h2>
+    <p>
+
+
+    </p>
+{% endblock %}
+
+{% block sidebar %}
+
+{% endblock %}
+
+<!--Sidebar noticies-->
+{% block css %}
+    background-color: white;
+{% endblock %}

@@ -28,7 +28,7 @@ ALLOWED_HOSTS = []
 
 # Redirect login to home page
 LOGIN_REDIRECT_URL = 'account-redirect'
-LOGOUT_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'Home_News'
 
 # Application definition
 
@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     'AfeNews',
     'Accounts',
     'Copywriter',
+    'HeadCopywriter_ArticleValidation',
+    'Graphic_reporter',
+
 ]
 
 MIDDLEWARE = [
@@ -126,3 +129,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

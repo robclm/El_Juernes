@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block navbar %}
+    <li><a href="{% url 'account-redirect' %}">El meu espai de treball</a></li>
+    <li><a href="{% url 'Home_News' %}">Noticies</a></li>
+    <li><a href="#">Contacta'ns</a></li>
+    <li class="login">
+        {% if user.is_authenticated %}
+        <p>Benvingut: {{ user.username }} |
+            <a class="link" href="{% url 'logout' %}">logout</a></p>
+        {% else %}
+        <p><a class="link" href="{% url 'login' %}">login</a></p>
+        {% endif %}
+    </li>
+{% endblock %}
+
+{% block content %}
+    <h2>Pujar imatge</h2>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ upload_image_form.as_p }}
+        <button type="submit">Pujar</button>
+    </form>
+
+{% endblock %}
+
+{% block sidebar %}
+    <li><a href="{% url 'gr_assigned_news' %}">Notícies assignades</a></li>
+    <li><a href="{% url 'gr_image_bank' %}" class="current">Banc d'imatges</a></li>
+{% endblock %}
