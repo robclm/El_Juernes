@@ -6,16 +6,16 @@
     <li><a href="#">Contacta'ns</a></li>
     <li class="login">
         {% if user.is_authenticated %}
-        <p>Benvingut: {{ user.username }} |
-            <a class="link" href="{% url 'logout' %}">logout</a></p>
+            <p>Benvingut: {{ user.username }} |
+                <a class="link" href="{% url 'logout' %}">logout</a></p>
         {% else %}
-        <p><a class="link" href="{% url 'login' %}">login</a></p>
+            <p><a class="link" href="{% url 'login' %}">login</a></p>
         {% endif %}
     </li>
 {% endblock %}
 
 {% block content %}
-    <h1>Notícies assignades</h1>
+    <h1>Notícies a revisar</h1>
 
     {% if articles_alta or articles_mitjana or articles_baixa %}
 
@@ -23,8 +23,8 @@
             <h3>Prioritat: Alta</h3>
             {% for article in articles_alta %}
                 <ul>
-                <h4><a href="assigned/{{ article.slug }}">{{ article.title }}</a></h4>
-                {{ article.description }}
+                    <h4><a href="assigned/{{ article.slug }}">{{ article.title }}</a></h4>
+                    {{ article.description }}
                 </ul>
             {% endfor %}
         {% endif %}
@@ -33,8 +33,8 @@
             <h3>Prioritat: Mitjana</h3>
             {% for article in articles_mitjana %}
                 <ul>
-                <h4><a href="assigned/{{ article.slug }}">{{ article.title }}</a></h4>
-                {{ article.description }}
+                    <h4><a href="assigned/{{ article.slug }}">{{ article.title }}</a></h4>
+                    {{ article.description }}
                 </ul>
             {% endfor %}
         {% endif %}
@@ -43,20 +43,20 @@
             <h3>Prioritat:Baixa</h3>
             {% for article in articles_baixa %}
                 <ul>
-                <h4><a href="assigned/{{ article.slug }}">{{ article.title }}</a></h4>
-                {{ article.description }}
+                    <h4><a href="assigned/{{ article.slug }}">{{ article.title }}</a></h4>
+                    {{ article.description }}
                 </ul>
             {% endfor %}
         {% endif %}
 
     {% else %}
 
-        <p>No s'ha assignat cap notícia.</p>
+        <p>No hi ha cap notícia ha revisar.</p>
 
     {% endif %}
 
 {% endblock %}
 {% block sidebar %}
-    <li><a href="{% url 'assigned' %}" class="current">Noticies assignades</a></li>
-    <li><a href="{% url 'revisions' %}">Notícies a revisar</a></li>
+    <li><a href="{% url 'assigned' %}">Noticies assignades</a></li>
+    <li><a href="{% url 'revisions' %}" class="current">Notícies a revisar</a></li>
 {% endblock %}

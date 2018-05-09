@@ -147,3 +147,23 @@ class new_copywriter(generic.DetailView):
             template = 'Home_News.html'
 
         return template
+
+
+def News_review(request):
+    template = 'Home_News.html'
+    context = None
+    try:
+        user = User.objects.get(username=request.user.username)
+        rol = user.user_profile.role
+        if rol == "Copywriter":
+            template = 'Copywriter/ReviewNewsList.html'
+        context = {
+            "articles_alta": New.objects.filter(assigned=request.user.username, priority='alta', state="Comentat"),
+            "articles_mitjana": New.objects.filter(assigned=request.user.username, priority='mitjana',
+                                                   state="Comentat"),
+            "articles_baixa": New.objects.filter(assigned=request.user.username, priority='baixa', state="Comentat")
+        }
+    except Exception as e:
+        print("%s (%s)" % (e.args, type(e)))
+
+    return render(request, template, context)
