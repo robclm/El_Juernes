@@ -1,4 +1,5 @@
 import codecs
+import datetime
 import json
 from urllib.request import urlopen
 
@@ -22,9 +23,11 @@ def Afe_News_List(request):
         new_obj.assigned = user.username
         new_obj.priority = prioritat
         new_obj.state = "Assignada"
+
+        new_obj.assignation_date = datetime.datetime.now()
+
         new_obj.save()
 
-        # FIXME: Heroku deployment could be problematic
         template = 'Head_copywriter/Correct_Assigned.html'
         context = {
             "new": New.objects.get(slug=name[0])
@@ -48,7 +51,6 @@ def Afe_News_List(request):
             template = 'Home_News.html'
 
         return render(request, template, context)
-
 
 
 def get_json_AFE_news():

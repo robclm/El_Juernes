@@ -24,6 +24,7 @@ class New(models.Model):
     type = models.CharField(max_length=140)
     author = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
     assigned = models.CharField(max_length=140,default="Cap redactor assignat")
+    assignation_date = models.DateTimeField(null=True)
     priority = models.CharField(max_length=140, default="")
     state = models.CharField(max_length=140, default="Nova notícia", choices=STATES)
 
