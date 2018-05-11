@@ -49,22 +49,22 @@ def Afe_News_List(request):
 
     else:
         template = 'Home_News.html'
-        json_data = None
+    json_data = None
 
-        try:
-            user = User.objects.get(username=request.user.username)
-            rol = user.user_profile.role
+    try:
+        user = User.objects.get(username=request.user.username)
+        rol = user.user_profile.role
 
-            if rol == "Head_copywriter":
-                template = 'AfeNews/AfeNewsList.html'
+        if rol == "Head_copywriter":
+            template = 'AfeNews/AfeNewsList.html'
 
-            context = {
-                "articles": get_json_AFE_news(),
-            }
-        except:
-            template = 'Home_News.html'
+        context = {
+            "articles": get_json_AFE_news(),
+        }
+    except:
+        template = 'Home_News.html'
 
-        return render(request, template, context)
+    return render(request, template, context)
 
 
 def get_json_AFE_news():
