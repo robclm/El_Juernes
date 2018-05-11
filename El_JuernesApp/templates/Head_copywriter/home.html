@@ -18,6 +18,21 @@
 
     <h2>Redactor en cap</h2>
 
+    <h3>Notícies a punt de vèncer el termini.</h3>
+
+    {% if assigned_news %}
+        <ul>
+            {% for new in assigned_news %}
+                <p>
+                    {{ new.title }} - {{ new.assigned }} - {{ new.countdown }}
+                </p>
+            {% endfor %}
+        </ul>
+
+    {% else %}
+        <p> Els redactors no tenen cap notícia assignada.</p>
+
+    {% endif %}
 
 {% endblock %}
 
