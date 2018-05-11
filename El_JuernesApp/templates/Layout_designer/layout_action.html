@@ -21,13 +21,20 @@
 
 
 
-        <h3>Descargar l'article:<h3>Article:<a href="{{ article.file.url }}" download> {{ article.file.name }} </a></h3>
+        <h3>Descarrega l'article:<a href="{{ article.file.url }}" download> {{ article.file.name }} </a></h3>
     </h3>
 
 
     <form action ="/Maquetador/layout/{{ new.slug }}/" method="post" >{% csrf_token %}
+        <p><textarea name="title" rows="1" cols="40"
+                      placeholder=" Introdueix el titol"></textarea></p>
+        <p><textarea name="description" rows="1" cols="40"
+                      placeholder=" Introdueix la descripcio"></textarea><p>
+        <p><textarea name="body" rows="10" cols="40"
+                      placeholder=" Introdueix el cos"></textarea><p>
         <input type="hidden" name="slug" value="{{ new.slug }}"/>
-        <button type="submit">Maqueta l'article</button>
+        <p><button type="submit">Previsualitza l'article</button></p>
+
         </form>
 
 {% endblock %}
