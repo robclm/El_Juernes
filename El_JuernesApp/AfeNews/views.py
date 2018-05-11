@@ -25,6 +25,7 @@ def set_limit_date(priority):
 
 
 def Afe_News_List(request):
+    context = None
     # Assignar notícia
     if request.method == 'POST':
         var = request.POST.dict()
