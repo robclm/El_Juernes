@@ -25,7 +25,7 @@
     </h3>
 
 
-    <form action ="/Maquetador/layout/{{ new.slug }}/" method="post" >{% csrf_token %}
+    <form action ="/Maquetador/preview/{{ new.slug }}/" method="post" >{% csrf_token %}
         <p><textarea name="title" rows="1" cols="40"
                       placeholder=" Introdueix el titol"></textarea></p>
         <p><textarea name="description" rows="1" cols="40"
