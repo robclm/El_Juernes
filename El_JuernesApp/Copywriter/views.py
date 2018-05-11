@@ -8,9 +8,11 @@ from AfeNews.models import New
 from Copywriter.forms import ArticleForm
 from Copywriter.models import Article
 from Graphic_reporter.models import Image_request, Image
+from HeadCopywriter.models import Article_comentat
 
 
 # Create your views here.
+
 
 def News_assigned(request):
     template = 'Home_News.html'
@@ -167,3 +169,26 @@ def News_review(request):
         print("%s (%s)" % (e.args, type(e)))
 
     return render(request, template, context)
+
+
+class Review_new(generic.DetailView):
+    model = New
+    context_object_name = 'Review_new'
+
+    def get_context_data(self, **kwargs):
+        context = super(Review_new, self).get_context_data(**kwargs)
+        context['new'] = New.objects.get(slug=self.kwargs['slug'])
+        context['article'] = Article_comentat.objects.get(slug=self.kwargs['slug'])
+        return context
+
+    def get_template_names(self):
+        template = 'Home_News.html'
+        try:
+            user = User.objects.get(username=self.request.user.username)
+            rol = user.user_profile.role
+            if rol == "Copywriter":
+                template = 'Copywriter/ReviewNew.html'
+        except:
+            template = 'Home_News.html'
+
+        return template
