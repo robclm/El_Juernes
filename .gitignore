@@ -109,4 +109,13 @@ ENV/
 # Database sqlite3
 El_JuernesApp/db.sqlite3
 
+# migrations
+/El_JuernesApp/Accounts/migrations/
+/El_JuernesApp/AfeNews/migrations/
+/El_JuernesApp/Copywriter/migrations/
+/El_JuernesApp/Graphic_reporter/migrations/
+/El_JuernesApp/HeadCopywriter/migrations/
+/El_JuernesApp/Layout_designer/migrations/
 
+# media
+/El_JuernesApp/media/
