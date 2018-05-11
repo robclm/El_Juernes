@@ -16,8 +16,18 @@
 
 {% block content %}
     <h2>Notícies assignades</h2>
+    {% for acceptada in Acceptades %}
+        <br>
+        <h4><a href="accepted/{{ acceptada.slug }}"> {{ acceptada.title }}</a></h4>
+        </br>
+        {{ acceptada.description }}
+
+
+    {% endfor %}
 
 {% endblock %}
 {% block sidebar %}
-    <li><a href="">Articles a maquetat</a></li>
+    <li><a href="{% url 'ld_assigned_news' %}">Articles a maquetar</a></li>
+
+
 {% endblock %}
