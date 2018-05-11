@@ -18,7 +18,8 @@ def Home(request, pk, name):
         elif rol == "Copywriter":
             template = 'Accounts/Home/copywriter.html'
         elif rol == "Head_copywriter":
-            template = 'Accounts/Home/head_copywriter.html'
+            return redirect('hc_home_page')
+
         elif rol == "Graphic_reporter":
             template = 'Accounts/Home/graphic_reporter.html'
         elif rol == "Layout_designer":

@@ -4,8 +4,8 @@ from django.views import generic
 
 from AfeNews.models import New
 from Copywriter.models import Article
-from HeadCopywriter_ArticleValidation.forms import ArticleComentatForm
-from HeadCopywriter_ArticleValidation.models import Article_comentat
+from HeadCopywriter.forms import ArticleComentatForm
+from HeadCopywriter.models import Article_comentat
 
 
 # Create your views here.
@@ -130,3 +130,10 @@ def Article_rejected(request):
         new.save()
 
     return render(request, template)
+
+
+def home_page(request):
+    template = 'Head_copywriter/home.html'
+    context = {'new': 'hi', 'new2': 'hi2'}
+
+    return render(request, template, context)
