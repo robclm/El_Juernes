@@ -138,6 +138,7 @@ def countdown_format(countdown):
 
     # Days in catalan
     countdown = countdown.replace("days", "dies")
+    countdown = countdown.replace("day", "dia")
 
     return countdown
 
