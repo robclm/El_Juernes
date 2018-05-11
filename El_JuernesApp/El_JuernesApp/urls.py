@@ -16,7 +16,8 @@ urlpatterns = [
                   path('Maquetador/', include('Layout_designer.urls')),
                   path('access_denegat/', TemplateView.as_view(template_name="access_denied.html"),
                        name="access_denied"),
-                  path('RedactorCap/', include('HeadCopywriter_ArticleValidation.urls')),
+
+                  path('Redactor_cap/', include('HeadCopywriter.urls')),
 
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

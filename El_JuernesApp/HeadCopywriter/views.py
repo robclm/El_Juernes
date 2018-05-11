@@ -1,15 +1,15 @@
 from django.contrib.auth.models import User
 from django.shortcuts import render
+from django.utils import timezone
 from django.views import generic
 
 from AfeNews.models import New
 from Copywriter.models import Article
-from HeadCopywriter_ArticleValidation.forms import ArticleComentatForm
-from HeadCopywriter_ArticleValidation.models import Article_comentat
+from HeadCopywriter.forms import ArticleComentatForm
+from HeadCopywriter.models import Article_comentat
 
 
 # Create your views here.
-
 
 
 def Article_validation_list(request):
@@ -130,3 +130,33 @@ def Article_rejected(request):
         new.save()
 
     return render(request, template)
+
+
+def countdown_format(countdown):
+    # Eliminate microseconds
+    countdown = countdown[:countdown.rfind(".")]
+
+    # Days in catalan
+    countdown = countdown.replace("days", "dies")
+
+    return countdown
+
+
+def update_countdown(assigned_news):
+    for new in assigned_news:
+        countdown = new.limit_date - timezone.now()
+        new.countdown = countdown_format(str(countdown))
+        new.save()
+
+    return assigned_news
+
+
+def home_page(request):
+    template = 'Head_copywriter/home.html'
+
+    assigned_news = New.objects.all()
+    assigned_news = assigned_news.filter(state='Assignada')
+    assigned_news = assigned_news.order_by('limit_date')
+    assigned_news = update_countdown(assigned_news)
+
+    return render(request, template, {'assigned_news': assigned_news})
