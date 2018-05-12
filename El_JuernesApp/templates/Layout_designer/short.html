@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block navbar %}
-    <li><a href="{% url 'account-redirect' %}" class="current">El meu espai de treball</a></li>
+    <li><a href="{% url 'account-redirect' %}">El meu espai de treball</a></li>
     <li><a href="{% url 'Home_News' %}">Noticies</a></li>
     <li><a href="#">Contacta'ns</a></li>
     <li class="login">
@@ -15,9 +15,21 @@
 {% endblock %}
 
 {% block content %}
-    <h2>Maquetador</h2>
+<h2>Mida article: Curt</h2>
+
+    <h4>Numero de paraules: {{ wordcount }}</h4>
+        <h1>{{ title }}</h1>
+            <h3>{{ description }}</h3>
+                <p>{{ body }}</p>
+
+
+    <a href="/Maquetador/layout/{{ slug }}">
+        <button type="button">Torna</button></a>
+
 {% endblock %}
+
 
 {% block sidebar %}
     <li><a href="{% url 'ld_assigned_news' %}">Articles a maquetar</a></li>
+
 {% endblock %}
