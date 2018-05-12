@@ -20,7 +20,17 @@
 <h4>Numero de paraules: {{ wordcount }}</h4>
         <h1>{{ title }}</h1>
             <h3>{{ description }}</h3>
-                <p>{{ body }}</p>
+                <p>{{ firstparagraph }}</p>
+
+                {% if image1 %}
+
+                <div>
+                        <img src="{{ image1.image.url }}" width="200" height="200"/>
+
+
+                </div>
+                {% endif %}
+                <p>{{ secondparagraph }}</p>
 
 
     <a href="/Maquetador/layout/{{ slug }}">
