@@ -15,21 +15,25 @@
 {% endblock %}
 
 {% block content %}
-
     <h4>Prioritat: {{ new.priority }}</h4>
-    <h1>{{ new.title }}</h1>
+    <h2>Teletip AFE: {{ new.title }}</h2>
     <h4>{{ new.description }}</h4>
     <h4>{{ new.body }}</h4>
 
 
-        <h3>Descargar l'article:<h3>Article:<a href="{{ article.file.url }}" download> {{ article.file.name }} </a></h3>
-    </h3>
+        <h2>Descarrega l'article a maquetar:</h2>
+        <h3> Article: <a href="{{ article.file.url }}" download> {{ article.file.name }} </a></h3>
+
 
 
     <form action ="/Maquetador/layout/{{ new.slug }}/" method="post" >{% csrf_token %}
         <input type="hidden" name="slug" value="{{ new.slug }}"/>
         <button type="submit">Maqueta l'article</button>
         </form>
+
+    <a href={% url 'ld_assigned_news' %}>
+        <button type="button">Torna a la llista</button></a>
+
 
 {% endblock %}
 

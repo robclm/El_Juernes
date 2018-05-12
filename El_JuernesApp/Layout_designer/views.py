@@ -36,11 +36,19 @@ def maquetar(request,slug):
     return render(request,template,context)
 
 def preview(request,slug):
+
     var = request.POST.dict()
+
+    context = {}
+    context['slug'] = var['slug']
+    context['body'] = var['body']
+    context['title'] = var['title']
+    context['description'] = var['description']
+
+    template = ""
     toParse = var['body']
     wordcount = toParse.split(" ")
-    context = {}
-    template = ""
+
     if len(wordcount) <= 100:
         template = 'Layout_designer/short.html'
         context['wordcount'] = len(wordcount)
@@ -50,5 +58,6 @@ def preview(request,slug):
     elif len(wordcount) > 400:
         template = 'Layout_designer/long.html'
         context['wordcount'] = len(wordcount)
+
 
     return render(request,template,context)

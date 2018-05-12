@@ -15,8 +15,16 @@
 {% endblock %}
 
 {% block content %}
-<h1>Long</h1>
-<h1>Numero de paraules: {{ wordcount }}</h1>
+<h2>Mida article: Llarg</h2>
+
+<h4>Numero de paraules: {{ wordcount }}</h4>
+        <h1>{{ title }}</h1>
+            <h3>{{ description }}</h3>
+                <p>{{ body }}</p>
+
+    <a href="/Maquetador/layout/{{ slug }}">
+        <button type="button">Torna</button></a>
+
 
 {% endblock %}
 
@@ -25,3 +33,4 @@
     <li><a href="{% url 'ld_assigned_news' %}">Articles a maquetar</a></li>
 
 {% endblock %}
+
