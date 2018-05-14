@@ -139,6 +139,10 @@ def preview(request,slug):
         try:
             context['image1'], context['image2'] = getImages(2, slug)
         except:
-            """Nothing"""
+
+            try:
+                context['image1'] = getImages(1, slug)
+            except:
+                """Nothing"""
 
     return render(request,template,context)
