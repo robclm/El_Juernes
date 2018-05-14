@@ -44,6 +44,17 @@
     <a href="/Maquetador/layout/{{ slug }}">
         <button type="button">Torna</button></a>
 
+    <form action="{% url 'published' %}" method="post"> {% csrf_token %}
+        <input type="hidden" name="image1" value="{{ image1 }}"/>
+        <input type="hidden" name="image2" value="{{ image2 }}"/>
+        <input type="hidden" name="slug" value="{{ slug }}"/>
+        <input type="hidden" name="body" value="{{ body }}"/>
+        <input type="hidden" name="title" value="{{ title }}"/>
+        <input type="hidden" name="description" value="{{ description }}"/>
+            <input type="submit" value="Publica l'article">
+            <br>
+        </form>
+
 
 {% endblock %}
 

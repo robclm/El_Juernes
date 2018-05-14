@@ -3,7 +3,7 @@ from django.shortcuts import render
 from AfeNews.models import New
 from Copywriter.models import Article
 from Graphic_reporter.models import Image
-
+from Layout_designer.models import *
 
 def getImages(number,slug):
 
@@ -119,7 +119,7 @@ def preview(request,slug):
 
         template = 'Layout_designer/medium.html'
         context['wordcount'] = len(wordcount)
-
+        context['body'] = editedArticleData['body']
         context['firstparagraph'],\
         context['secondparagraph'] = mediumSizePharagraphs(editedArticleData['body'])
 
@@ -132,7 +132,7 @@ def preview(request,slug):
 
         template = 'Layout_designer/long.html'
         context['wordcount'] = len(wordcount)
-
+        context['body'] = editedArticleData['body']
         context['firstparagraph'], context['secondparagraph'], \
         context['thirdparagraph'] = largeSizePharagraphs(editedArticleData['body'])
 
@@ -146,3 +146,18 @@ def preview(request,slug):
                 """Nothing"""
 
     return render(request,template,context)
+
+def publishArticle(request):
+
+    if request.method == "POST":
+
+        dictionariRequest = request.POST.dict()
+        publishedArticle = Published_Article()
+        publishedArticle.slug = dictionariRequest['slug']
+        publishedArticle.body = dictionariRequest['body']
+        publishedArticle.title = dictionariRequest['title']
+        publishedArticle.description = dictionariRequest['description']
+        publishedArticle.save()
+
+
+        return render(request,'Layout_designer/published_succesful.html')
