@@ -235,7 +235,7 @@ def Home(request):
     assigned_news = New.objects.all()
     assigned_news = assigned_news.filter(state='Assignada', assigned=request.user.username)
     num_assigned_news = assigned_news.count()
-    
+
     assigned_news = assigned_news.order_by('limit_date')[:5]
     assigned_news = update_countdown(assigned_news)
 
