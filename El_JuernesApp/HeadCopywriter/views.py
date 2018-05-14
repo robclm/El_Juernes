@@ -157,7 +157,7 @@ def home_page(request):
 
     assigned_news = New.objects.all()
     assigned_news = assigned_news.filter(state='Assignada')
-    assigned_news = assigned_news.order_by('limit_date')
+    assigned_news = assigned_news.order_by('limit_date')[:5]
     assigned_news = update_countdown(assigned_news)
 
     return render(request, template, {'assigned_news': assigned_news})

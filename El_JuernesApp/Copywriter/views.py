@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import redirect
 from django.shortcuts import render
+from django.utils import timezone
 from django.views import generic
 
 from AfeNews.models import New
@@ -33,6 +34,18 @@ def News_assigned(request):
 
     return render(request, template, context)
 
+##############################################################################
+def priority_news(request):
+    template = 'Accounts/Home/home.html'
+    user = User.objects.get(username=request.user.username)
+    rol = user.user_profile.role
+    new = News_assigned()
+    context = {
+        "articles_alta": New.objects.filter(assigned=request.user.username, value="1")
+    }
+    return render(request, template, context)
+
+###############################################################################
 
 def send_request(request):
     template = 'Copywriter/correct_request.html'
@@ -192,3 +205,34 @@ class Review_new(generic.DetailView):
             template = 'Home_News.html'
 
         return template
+
+def countdown_format(countdown):
+    # Eliminate microseconds
+    countdown = countdown[:countdown.rfind(".")]
+
+    # Days in catalan
+    countdown = countdown.replace("days", "dies")
+    countdown = countdown.replace("day", "dia")
+
+    return countdown
+
+
+def update_countdown(assigned_news):
+    for new in assigned_news:
+        countdown = new.limit_date - timezone.now()
+        new.countdown = countdown_format(str(countdown))
+        new.save()
+
+    return assigned_news
+
+
+
+def Home(request):
+    template = 'Copywriter/home.html'
+
+    assigned_news = New.objects.all()
+    assigned_news = assigned_news.filter(state='Assignada', assigned=request.user.username)
+    assigned_news = assigned_news.order_by('limit_date')[:5]
+    assigned_news = update_countdown(assigned_news)
+
+    return render(request, template, {'assigned_news': assigned_news})

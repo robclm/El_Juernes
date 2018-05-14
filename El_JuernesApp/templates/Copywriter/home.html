@@ -16,6 +16,22 @@
 
 {% block content %}
     <h2>Redactor</h2>
+
+    <h3>Notícies urgents d'entregar</h3>
+
+    {% if assigned_news %}
+        <ul>
+            {% for new in assigned_news %}
+                <p>
+                    {{ new.title }} - {{ new.countdown }}
+                </p>
+            {% endfor %}
+        </ul>
+
+    {% else %}
+        <p> No tens cap notícia assignada.</p>
+
+    {% endif %}
 {% endblock %}
 
 {% block sidebar %}
