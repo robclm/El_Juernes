@@ -1,10 +1,12 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.shortcuts import render
+from django.shortcuts import render , redirect
 from django.utils import timezone
 from django.views import generic
 
 from AfeNews.models import New
 from Copywriter.models import Article
+from Copywriter.views import role_is_copywriter
 from HeadCopywriter.forms import ArticleComentatForm
 from HeadCopywriter.models import Article_comentat
 
@@ -132,6 +134,17 @@ def Article_rejected(request):
     return render(request, template)
 
 
+def role_is_head_copywriter(username):
+    # Check if the user is a copywriter
+    user = User.objects.get(username=username)
+
+    if user.user_profile.role == "Head_copywriter":
+        return True
+    else:
+        return False
+
+
+
 def countdown_format(countdown):
     # Eliminate microseconds
     countdown = countdown[:countdown.rfind(".")]
@@ -151,13 +164,16 @@ def update_countdown(assigned_news):
 
     return assigned_news
 
-
+@login_required(login_url='/accounts/login')
 def home_page(request):
+    if not role_is_head_copywriter(request.user.username):
+        return redirect('access_denied')
+
     template = 'Head_copywriter/home.html'
 
     assigned_news = New.objects.all()
     assigned_news = assigned_news.filter(state='Assignada')
-    assigned_news = assigned_news.order_by('limit_date')
+    assigned_news = assigned_news.order_by('limit_date')[:5]
     assigned_news = update_countdown(assigned_news)
 
     return render(request, template, {'assigned_news': assigned_news})
