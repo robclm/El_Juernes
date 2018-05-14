@@ -75,7 +75,7 @@ def send_request(request):
 
 
 def role_is_copywriter(username):
-    # Check if the user is a graphic reporter
+    # Check if the user is a copywriter
     user = User.objects.get(username=username)
 
     if user.user_profile.role == "Copywriter":
@@ -226,13 +226,18 @@ def update_countdown(assigned_news):
     return assigned_news
 
 
-
+@login_required(login_url='/accounts/login')
 def Home(request):
+    if not role_is_copywriter(request.user.username):
+        return redirect('access_denied')
     template = 'Copywriter/home.html'
 
     assigned_news = New.objects.all()
     assigned_news = assigned_news.filter(state='Assignada', assigned=request.user.username)
+    num_assigned_news = assigned_news.count()
+    
     assigned_news = assigned_news.order_by('limit_date')[:5]
     assigned_news = update_countdown(assigned_news)
 
-    return render(request, template, {'assigned_news': assigned_news})
+    return render(request, template, {'assigned_news': assigned_news,
+                                      'num_assigned_news': num_assigned_news})
