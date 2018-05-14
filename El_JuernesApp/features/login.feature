@@ -9,4 +9,4 @@ Feature: Login
 
   Scenario: Headcopywriter wants to login to the system
     Given I login as user "user" with password "password"
-    Then I'm viewing user "username" workspace
+    Then I'm viewing user "user" workspace

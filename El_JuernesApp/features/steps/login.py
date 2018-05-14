@@ -13,13 +13,13 @@ def step_impl(context, username, password):
     context.browser.visit(context.get_url('/accounts/login/'))
     form = context.browser.find_by_tag('form').first
 
-
     context.browser.fill('username', username)
     context.browser.fill('password', password)
-    form.find_by_css('button.btn-post').click()
+
+    form.find_by_css('button.btn-post').first.click()
 
 @then('I\'m viewing user "{username}" workspace')
 def step_impl(context, username):
-    assert context.browser.is_text_present('Benvingut: ' + username)
+    assert context.browser.is_text_present(username)
 
 
