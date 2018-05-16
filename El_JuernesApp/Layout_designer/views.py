@@ -152,6 +152,8 @@ def publishArticle(request):
     if request.method == "POST":
 
         dictionariRequest = request.POST.dict()
+
+
         publishedArticle = Published_Article()
         publishedArticle.slug = dictionariRequest['slug']
         publishedArticle.body = dictionariRequest['body']

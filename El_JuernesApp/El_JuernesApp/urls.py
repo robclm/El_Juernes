@@ -4,10 +4,10 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
-from El_JuernesApp.views import home
+from El_JuernesApp.views import home, front_new
 
 urlpatterns = [
-
+                  url(r'^new/(?P<slug>[\w-]+)/$',front_new,name='front_new'),
                   path('admin/', admin.site.urls),
                   url(r'^accounts/', include('Accounts.urls')),
                   path('', home, name="Home_News"),
