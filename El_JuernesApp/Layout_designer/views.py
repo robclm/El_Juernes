@@ -152,9 +152,11 @@ def publishArticle(request):
     if request.method == "POST":
 
         dictionariRequest = request.POST.dict()
-
-        new_to_delete = New.objects.get(slug=dictionariRequest['slug'])
-        new_to_delete.delete()
+        try:
+            new_to_delete = New.objects.get(slug=dictionariRequest['slug'])
+            new_to_delete.delete()
+        except:
+            """Nothing"""
 
         publishedArticle = Published_Article()
         publishedArticle.slug = dictionariRequest['slug']
