@@ -24,7 +24,7 @@
         <h3>Descarrega l'article:<a href="{{ article.file.url }}" download> {{ article.file.name }} </a></h3>
     </h3>
 
-
+    <h3>Publica l'article:</h3>
     <form action ="/Maquetador/preview/{{ new.slug }}/" method="post" >{% csrf_token %}
         <p><textarea name="title" rows="1" cols="40"
                       placeholder=" Introdueix el titol"></textarea></p>
@@ -33,7 +33,7 @@
         <p><textarea name="body" rows="10" cols="40"
                       placeholder=" Introdueix el cos"></textarea><p>
         <input type="hidden" name="slug" value="{{ new.slug }}"/>
-        <p><button type="submit">Previsualitza l'article</button></p>
+        <p><button type="submit">Previsualitza'l</button></p>
 
         </form>
 

@@ -20,6 +20,10 @@
 <h2>Notícies</h2>
     <p>
 
+    {% for article in published %}
+        <p><h1><a href="new/{{ article.slug }}">{{ article.title }}</a></h1></p>
+            <h4>{{ article.description }}</h4>
+    {% endfor %}
 
     </p>
 {% endblock %}

@@ -4,12 +4,13 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
+from El_JuernesApp.views import home, front_new
 
 urlpatterns = [
-
+                  url(r'^new/(?P<slug>[\w-]+)/$',front_new,name='front_new'),
                   path('admin/', admin.site.urls),
                   url(r'^accounts/', include('Accounts.urls')),
-                  path('', TemplateView.as_view(template_name="Home_News.html"), name="Home_News"),
+                  path('', home, name="Home_News"),
                   path('AFE/', include('AfeNews.urls')),
                   path('Redactor/', include('Copywriter.urls')),
                   path('Reporter_grafic/', include('Graphic_reporter.urls')),

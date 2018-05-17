@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'Copywriter',
     'HeadCopywriter',
     'Graphic_reporter',
+    'Layout_designer',
 
 ]
 

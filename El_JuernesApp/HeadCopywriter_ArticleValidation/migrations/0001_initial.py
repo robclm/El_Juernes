@@ -8,17 +8,15 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('Graphic_reporter', '0001_initial'),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Article',
+            name='Article_comentat',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('slug', models.CharField(max_length=140)),
-                ('file', models.FileField(upload_to='articles')),
-                ('images', models.ManyToManyField(to='Graphic_reporter.Image')),
+                ('file', models.FileField(upload_to='commented_articles')),
             ],
         ),
     ]

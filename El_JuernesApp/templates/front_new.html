@@ -15,41 +15,44 @@
 {% endblock %}
 
 {% block content %}
-<h2>Mida article: Mitjà</h2>
 
-<h4>Numero de paraules: {{ wordcount }}</h4>
         <h1>{{ title }}</h1>
             <h3>{{ description }}</h3>
+
+        {% if user.is_authenticated %}
+
                 <p>{{ firstparagraph }}</p>
 
                 {% if image1 %}
-
                 <div>
                         <img src="{{ image1.image.url }}" width="200" height="200"/>
 
                 </div>
                 {% endif %}
 
-                <p>{{ secondparagraph }}</p>
+                {% if secondparagraph %}
+                    <p>{{ secondparagraph }}</p>
+                {% endif %}
 
+                {% if image2 %}
+                <div>
+                    <img src="{{ image2.image.url }}" width="200" height="200"/>
 
-    <a href="/Maquetador/layout/{{ slug }}">
-        <button type="button">Torna</button></a>
+                </div>
+                {% endif %}
 
-    <form action="{% url 'published' %}" method="post"> {% csrf_token %}
-        <input type="hidden" name="image1" value="{{ image1 }}"/>
-        <input type="hidden" name="slug" value="{{ slug }}"/>
-        <input type="hidden" name="body" value="{{ body }}"/>
-        <input type="hidden" name="title" value="{{ title }}"/>
-        <input type="hidden" name="description" value="{{ description }}"/>
-            <input type="submit" value="Publica l'article">
-            <br>
-        </form>
+                {% if thirdparagraph %}
+                    <p>{{ thirdparagraph }}</p>
+                {% endif %}
+        {% else %}
+
+            {{ firstparagraph1 }}
+            <h2>Per a llegir la resta de l'article autentifica't o crea una nova subscripció...</h2>
+
+        {% endif %}
 
 {% endblock %}
 
 
-{% block sidebar %}
-    <li><a href="{% url 'ld_assigned_news' %}">Articles a maquetar</a></li>
 
-{% endblock %}
+
