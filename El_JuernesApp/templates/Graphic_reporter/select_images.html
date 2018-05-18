@@ -1,18 +1,35 @@
 {% extends "base.html" %}
 
 {% block navbar %}
-    <li><a href="{% url 'account-redirect' %}" class="">Home</a></li>
-    <li><a href="{% url 'Home_News' %}">News</a></li>
-    <li><a href="#">Contact with us</a></li>
-    <li class="login">
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'account-redirect' %}">El meu espai de treball</a></li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'Home_News' %}">Noticies</a></li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="#">Contacta'ns</a></li>
+    <li class="nav-item">
         {% if user.is_authenticated %}
-            <p>Benvingut: {{ user.username }} |
-                <a class="link" href="{% url 'logout' %}">logout</a></p>
+        <p class="nav-link" data-toggle="modal" data-target="#exampleModal">Benvingut: {{ user.username }} |
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'logout' %}">Logout
+                    <i class="fa fa-fw fa-sign-out"></i>
+                </a>
+            </li>
+        </p>
         {% else %}
-            <p><a class="link" href="{% url 'login' %}">login</a></p>
+            <p><a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'login' %}">Login</a></p>
         {% endif %}
     </li>
+
 {% endblock %}
+
+{% block breadcrumb %}
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="{% url 'gr_assigned_news' %}">Noticies assignades</a>
+        </li>
+    </ol>
+{% endblock %}}
 
 {% block content %}
     <h2>Notícia</h2>
@@ -71,6 +88,14 @@
 {% endblock %}
 
 {% block sidebar %}
-    <li><a href="{% url 'gr_assigned_news' %}" class="current">Notícies assignades</a></li>
-    <li><a href="{% url 'gr_image_bank' %}">Banc d'imatges</a></li>
+    <li class="nav-item" data-toogle="tooltip" data-placement="right" title="" data-original-title="Noticies assignades">
+        <a class="nav-link" href="{% url 'gr_assigned_news' %}">
+            <span class="nav-link-text">Noticies assignades</span>
+        </a>
+    </li>
+    <li class="nav-item" data-toogle="tooltip" data-placement="right" title="" data-original-title="Banc d'imatges">
+        <a class="nav-link" href="{% url 'gr_image_bank' %}">
+           <span class="nav-link-text">Banc d'imatges</span>
+        </a>
+    </li>
 {% endblock %}

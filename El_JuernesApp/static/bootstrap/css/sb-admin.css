@@ -145,7 +145,6 @@ body.fixed-nav {
 
 @media (min-width: 992px) {
   #mainNav .navbar-brand {
-    margin-top: -25px;
     width: 250px;
   }
   #mainNav .navbar-collapse {

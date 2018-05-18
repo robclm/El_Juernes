@@ -2,7 +2,7 @@
 
 {% block navbar %}
     <li class="nav-item">
-        <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'account-redirect' %}" class="current">El meu espai de treball</a></li>
+        <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'account-redirect' %}">El meu espai de treball</a></li>
     <li class="nav-item">
         <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'Home_News' %}">Noticies</a></li>
     <li class="nav-item">
@@ -11,23 +11,33 @@
         {% if user.is_authenticated %}
         <p class="nav-link" data-toggle="modal" data-target="#exampleModal">Benvingut: {{ user.username }} |
             <li class="nav-item">
-                <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'logout' %}">logout</a>
+                <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'logout' %}">Logout
+                    <i class="fa fa-fw fa-sign-out"></i>
+                </a>
             </li>
         </p>
         {% else %}
-            <p><a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'login' %}">login</a></p>
+            <p><a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'login' %}">Login</a></p>
         {% endif %}
+    </li>
 
+{% endblock %}
 
+{% block breadcrumb %}
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="{% url 'account-redirect' %}">El meu espai de treball</a>
+        </li>
+    </ol>
 {% endblock %}
 
 {% block content %}
     <h2>Redactor</h2>
-
+    <hr/>
     <h3>Numero de notícies assignades: {{ num_assigned_news }} </h3>
-
+    <hr/>
     <h3>Notícies urgents d'entregar</h3>
-
+    <hr/>
     {% if assigned_news %}
         <ul>
             {% for new in assigned_news %}
