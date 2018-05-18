@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^Comentat/$', views.Article_Comentat, name='Comentat'),
     url(r'^Rebutjat/$', views.Article_rejected, name='Rebutjada'),
     path('', views.home_page, name="hc_home_page"),
+    path('carrega_de_treball/', views.work_load, name='work_load')
 ]

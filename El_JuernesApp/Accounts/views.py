@@ -15,7 +15,7 @@ def Home(request, pk, name):
         rol = user.user_profile.role
 
         if rol == "Subscriber":
-            template = 'Accounts/Home/subscriber.html'
+            return redirect('Home_News')
 
         elif rol == "Copywriter":
             return redirect('cw_home_page')
