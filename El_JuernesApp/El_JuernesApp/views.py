@@ -1,3 +1,7 @@
+import codecs
+import json
+from urllib.request import urlopen
+
 from django.contrib.auth.models import User
 from django.shortcuts import render
 from django.utils import timezone
@@ -20,6 +24,11 @@ def front_new(request,slug):
     context = {}
     wordcount = len(front_new.body)
 
+    json_obj = urlopen("http://enigmatic-waters-71955.herokuapp.com/api/images")
+    reader = codecs.getreader("utf-8")
+    json_data = json.load(reader(json_obj))
+
+    context['url'] = json_data['images'][0]['imageUrl']
     context['title']=front_new.title
     context['description']=front_new.description
 
