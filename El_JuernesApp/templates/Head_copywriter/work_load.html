@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block navbar %}
-    <li><a href="{% url 'account-redirect' %}" class="current">El meu espai de treball</a></li>
+    <li><a href="{% url 'account-redirect' %}">El meu espai de treball</a></li>
     <li><a href="{% url 'Home_News' %}">Noticies</a></li>
     <li><a href="#">Contacta'ns</a></li>
     <li class="login">
@@ -16,17 +16,28 @@
 
 {% block content %}
 
-    <h2>Redactor en cap</h2>
-
-    <h3>Notícies a punt de vèncer el termini.</h3>
+    <h2>Càrrega de treball dels redactors</h2>
 
     {% if assigned_news %}
         <ul>
-            {% for new in assigned_news %}
-                <p>
-                    {{ new.title }} - {{ new.assigned }} - {{ new.countdown }}
-                </p>
+
+            {% for cw in copywriters %}
+                <p>Redactor: {{ cw.user.username }}</p>
+                {% for new in assigned_news %}
+
+                    {% if new.assigned == cw.user.username %}
+                        <ul>
+                            <p>
+                                {{ new.title }} - Prioritat: {{ new.priority }}
+                            </p>
+                        </ul>
+
+
+                    {% endif %}
+                {% endfor %}
+                <br>
             {% endfor %}
+
         </ul>
 
     {% else %}
@@ -37,13 +48,11 @@
 
 
 
-
 {% endblock %}
 
 {% block sidebar %}
     <li><a href="{% url 'AFE' %}">Noves notícies</a></li>
     <li><a href="{% url 'Articles' %}">Article a revisar</a></li>
-    <li><a href="{% url 'work_load' %}">Càrrega de treball</a></li>
-
+    <li><a href="{% url 'work_load' %}" class="current">Càrrega de treball</a></li>
 {% endblock %}
 
