@@ -9,7 +9,7 @@ from AfeNews.models import New
 from Copywriter.models import Article
 from Graphic_reporter.models import Image
 from HeadCopywriter.forms import ArticleComentatForm
-from HeadCopywriter.models import Article_comentat
+from HeadCopywriter.models import Article_comentat, Images_sended
 
 
 # Create your views here.
@@ -43,7 +43,8 @@ class Article_validation(generic.DetailView):
         context['new'] = New.objects.get(slug=self.kwargs['slug'])
         context['article'] = Article.objects.get(slug=self.kwargs['slug'])
         context['form'] = ArticleComentatForm()
-        context['images'] = Article.objects.get(slug=self.kwargs['slug']).images.all()
+        context['images'] = Images_sended.objects.get(slug=self.kwargs['slug']).images.all()
+
 
         return context
 
