@@ -2,12 +2,10 @@
 
 {% block navbar %}
     <li class="nav-item">
-        <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'account-redirect' %}">El meu espai de treball</a></li>
-    <li class="nav-item">
         <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'Home_News' %}">Noticies</a></li>
     <li class="nav-item">
         <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="#">Contacta'ns</a></li>
-    <li class="nav-item">
+   <li class="nav-item">
         {% if user.is_authenticated %}
         <p class="nav-link" data-toggle="modal" data-target="#exampleModal">Benvingut: {{ user.username }} |
             <li class="nav-item">
@@ -54,6 +52,11 @@
 {% endblock %}
 
 {% block sidebar %}
+    <li class="nav-item" data-toggle="modal" data-placement="right" title="">
+        <a class="nav-link"  href="{% url 'account-redirect' %}">
+            <span class="nav-link-text">El meu espai de treball</span>
+        </a>
+    </li>
     <li class="nav-item" data-toogle="tooltip" data-placement="right" title="" data-original-title="Noticies assignades">
         <a class="nav-link" href="{% url 'assigned' %}">
             <span class="nav-link-text">Noticies assignades</span>

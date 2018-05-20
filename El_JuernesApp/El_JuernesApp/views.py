@@ -12,7 +12,7 @@ def home(request):
     published = Published_Article.objects.all()
     context = {'published': published}
 
-    return render(request,'Home_News.html',context)
+    return render(request , 'Home_News.html' , context)
 
 
 def front_new(request,slug):
