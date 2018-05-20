@@ -26,6 +26,38 @@
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
 
+        <!----jQuery desplegables--->
+
+        <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+        <script>
+            // jQuery articles per prioritat- Redactor
+
+            // prioritat alta
+            $(document).ready(function(){
+               $('#pr_alta').on('click',function(){
+                  $('#alta').toggle();
+               });
+            });
+
+            //prioritat mitjana
+            $(document).ready(function(){
+               $('#pr_mitjana').on('click',function(){
+                  $('#mitjana').toggle();
+               });
+            });
+
+            //prioritat baixa
+            $(document).ready(function(){
+               $('#pr_baixa').on('click',function(){
+                  $('#baixa').toggle();
+               });
+            });
+
+
+        </script>
+
     </head>
     <body id="page-top" class="fixed-nav sticky-footer">
 

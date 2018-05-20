@@ -21,6 +21,14 @@
 
 {% endblock %}
 
+{% block breadcrumb %}
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="{% url 'revisions' %}">Noticies a revisar</a> /  <a href="">Article a revisar</a>
+        </li>
+    </ol>
+{% endblock %}
+
 {% block content %}
     <p>
     <h4>Prioritat: {{ new.priority }}</h4>

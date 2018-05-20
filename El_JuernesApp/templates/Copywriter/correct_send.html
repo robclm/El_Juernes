@@ -21,6 +21,14 @@
 
 {% endblock %}
 
+{% block breadcrumb %}
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+           <a href="{% url 'assigned' %}">Noticies assignades</a> / <a href="">Article</a> /  <a href="">Article enviat</a>
+        </li>
+    </ol>
+{% endblock %}
+
 {% block content %}
     <h2>L'article s'ha enviat correctament</h2>
 
