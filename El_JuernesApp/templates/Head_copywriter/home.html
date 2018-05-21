@@ -37,21 +37,23 @@
     <hr/>
     <h3>Notícies a punt de vèncer el termini.</h3>
     <hr/>
+
     {% if assigned_news %}
-        </p>
+        <ul>
             {% for new in assigned_news %}
                 <p>
                     {{ new.title }} - {{ new.assigned }} -
-                {% if new.countdown.0 == '-' %}
-                    <b style="color: red;">
+                    {% if new.countdown.0 == '-' %}
+                        <b style="color: red;">
+                            {{ new.countdown }}
+                        </b>
+                    {% else %}
                         {{ new.countdown }}
-                    </b>
-                {% else %}
-                    {{ new.countdown }}
-                {% endif %}
+                    {% endif %}
                 </p>
             {% endfor %}
         </ul>
+
 
     {% else %}
         <p> Els redactors no tenen cap notícia assignada.</p>
@@ -81,4 +83,12 @@
             <span class="nav-link-text">Articles pendents</span>
         </a>
     </li>
+
+    <li class="nav-item" data-toogle="tooltip" data-placement="right" title="" data-original-title="Notícies a revisar">
+        <a class="nav-link" href="{% url 'work_load' %}">
+            <span class="nav-link-text">Càrrega de treball</span>
+        </a>
+    </li>
+
+
 {% endblock %}
