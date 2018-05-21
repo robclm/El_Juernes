@@ -112,9 +112,13 @@ def send_new(request):
                 # Must be saved before adding the images
                 article.save()
 
-            images_sended = Images_sended()
-            images_sended.slug = var['slug']
-            images_sended.save()
+            try:
+                images_sended = Images_sended.objects.get(slug=var['slug'])
+
+            except:
+                images_sended = Images_sended()
+                images_sended.slug = var['slug']
+                images_sended.save()
 
             for pk in selected_images_pk:
                 image = Image.objects.get(pk=pk)

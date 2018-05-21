@@ -8,6 +8,7 @@ class Published_Article(models.Model):
     title = models.CharField(max_length=140)
     description = models.CharField(max_length=140)
     body = models.TextField()
+    publishedtime = models.DateTimeField(auto_now_add=True)
     images = models.ManyToManyField('Graphic_reporter.Image')
 
 
