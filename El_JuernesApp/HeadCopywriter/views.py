@@ -7,8 +7,9 @@ from django.views import generic
 from Accounts.models import User_profile
 from AfeNews.models import New
 from Copywriter.models import Article
+from Graphic_reporter.models import Image
 from HeadCopywriter.forms import ArticleComentatForm
-from HeadCopywriter.models import Article_comentat
+from HeadCopywriter.models import Article_comentat, Images_sended
 
 
 # Create your views here.
@@ -42,6 +43,9 @@ class Article_validation(generic.DetailView):
         context['new'] = New.objects.get(slug=self.kwargs['slug'])
         context['article'] = Article.objects.get(slug=self.kwargs['slug'])
         context['form'] = ArticleComentatForm()
+        context['images'] = Images_sended.objects.get(slug=self.kwargs['slug']).images.all()
+
+
         return context
 
     def get_template_names(self):
@@ -61,6 +65,7 @@ class Article_validation(generic.DetailView):
 
 def Article_accepted(request):
     template = 'Home_News.html'
+    selected_images_pk = request.POST.getlist('selected_image')
 
     try:
         user = User.objects.get(username=request.user.username)
@@ -77,6 +82,11 @@ def Article_accepted(request):
         new = New.objects.get(slug=name[0])
         new.state = "Acceptat"
         new.save()
+
+        article = Article.objects.get(slug=name[0])
+        for pk in selected_images_pk:
+            image = Image.objects.get(pk=pk)
+            article.images.add(image)
 
     return render(request, template)
 
