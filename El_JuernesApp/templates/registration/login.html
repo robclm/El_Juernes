@@ -3,69 +3,28 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>El Juernes</title>
-    <style>
-        body{
-            background-color: white;
-        }
-        .login{
-            margin: 250px auto;
-            width: 600px;
-            padding: 30px 25px;
-            background-color: #57b846;
-            border: 1px solid #c4c4c4;
-            border-radius: 20px;
-        }
-        .log1{
-            text-align: center;
-            font-family: Arial;
-            color: white;
-        }
-        #title-page{
-            font-family: Verdana;
-            margin-top: 1px;
-            padding-left: 5px;
-            font-size: large;
-        }
-        #title-page a{
-            color: #FFFFFF;
-            text-decoration: none;
-            color: green;
-        }
-        .title{
-            font-family: Arial
-        }
-        .post{
-            text-align: center;
-            color: white;
-            font-size: large;
-            font-weight: bolder;
-        }
-        .btn-post{
-            color: black;
-            align-items: center;
-            padding: 0 20px;
-            width: 100%;
-            height: 50px;
-            background-color: darkslategray;
-            border-radius: 15px;
-            font-family: Ubuntu-Bold;
-            font-size: 20px;
-            color: #fff;
-        }
-        #footer{
-            text-align: center;
-            background: #f3f3f3;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            margin: 0 auto;
-        }
-    </style>
+
+     {% load staticfiles %}
+     <!-- Bootstrap -->
+
+        <link href="{% static 'bootstrap/vendor/bootstrap/css/bootstrap.min.css'%}" rel="stylesheet">
+        <link href="{% static 'bootstrap/css/sb-admin.css' %}" rel="stylesheet">
+        <link href="{% static 'login/login.css' %}" rel="stylesheet">
 </head>
-<body>
-        <div id="title-page">
-            <a href="{% url 'account-redirect' %}"><h2>EL JUERNES</h2></a>
-        </div>
+<body id="page-top" class="fixed-nav sticky-footer">
+         <nav id="mainNav" class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+             <a class="navbar-brand" href="{% url 'account-redirect' %}"><h2>EL JUERNES</h2></a>
+             <div id="navbarResponsive" class="collapse navbar-collapse">
+                 <ul class="navbar-nav ml-auto">
+                     <li class="nav-item">
+                        <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'Home_News' %}" class="current">Noticies</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="#">Contacta'ns</a>
+                    </li>
+                </ul>
+             </div>
+         </nav>
         <div class="login">
                     <span class="log1">
                         <h1 class="title"> El Juernes</h1>
@@ -78,11 +37,12 @@
                 </button>
             </form>
         </div>
-        <div id="footer">
-            <a class="footer-page">El Juernes</a>
-            <span class="attribution">
-                <p> © 2018. An University of Lleida project by GR-5 Joint Project</p>
-            </span>
-        </div>
+        <footer class=sticky-footer">
+            <div class="container">
+                <div class="text-center">
+                    <small>© 2018. An University of Lleida project by GR-5 Joint Project</small>
+                </div>
+            </div>
+        </footer>
 </body>
 </html>

@@ -188,6 +188,7 @@ def home_page(request):
 
     return render(request, template, {'assigned_news': assigned_news})
 
+
 @login_required(login_url='/accounts/login')
 def work_load(request):
     if not role_is_head_copywriter(request.user.username):
@@ -196,9 +197,7 @@ def work_load(request):
     assigned_news = New.objects.all()
     assigned_news = assigned_news.filter(state='Assignada')
     assigned_news = assigned_news.order_by('assigned')
-    copywriters  = User_profile.objects.filter(role='Copywriter')
-
-
+    copywriters = User_profile.objects.filter(role='Copywriter')
 
     template = 'Head_copywriter/work_load.html'
     return render(request, template, {'assigned_news': assigned_news,

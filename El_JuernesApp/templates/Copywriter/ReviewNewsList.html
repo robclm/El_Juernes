@@ -1,22 +1,37 @@
 {% extends "base.html" %}
 
 {% block navbar %}
-    <li><a href="{% url 'account-redirect' %}">El meu espai de treball</a></li>
-    <li><a href="{% url 'Home_News' %}">Noticies</a></li>
-    <li><a href="#">Contacta'ns</a></li>
-    <li class="login">
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'Home_News' %}">Noticies</a></li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="#">Contacta'ns</a></li>
+    <li class="nav-item">
         {% if user.is_authenticated %}
-            <p>Benvingut: {{ user.username }} |
-                <a class="link" href="{% url 'logout' %}">logout</a></p>
+        <p class="nav-link" data-toggle="modal" data-target="#exampleModal">Benvingut: {{ user.username }} |
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'logout' %}">Logout
+                    <i class="fa fa-fw fa-sign-out"></i>
+                </a>
+            </li>
+        </p>
         {% else %}
-            <p><a class="link" href="{% url 'login' %}">login</a></p>
+            <p><a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'login' %}">Login</a></p>
         {% endif %}
     </li>
+
+{% endblock %}
+
+{% block breadcrumb %}
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="{% url 'revisions' %}">Noticies a revisar</a>
+        </li>
+    </ol>
 {% endblock %}
 
 {% block content %}
     <h1>Notícies a revisar</h1>
-
+    <hr/>
     {% if articles_alta or articles_mitjana or articles_baixa %}
 
         {% if articles_alta %}
@@ -56,7 +71,21 @@
     {% endif %}
 
 {% endblock %}
+
 {% block sidebar %}
-    <li><a href="{% url 'assigned' %}">Noticies assignades</a></li>
-    <li><a href="{% url 'revisions' %}" class="current">Notícies a revisar</a></li>
+    <li class="nav-item" data-toggle="modal" data-placement="right" title="">
+        <a class="nav-link"  href="{% url 'account-redirect' %}">
+            <span class="nav-link-text">El meu espai de treball</span>
+        </a>
+    </li>
+    <li class="nav-item" data-toogle="tooltip" data-placement="right" title="" data-original-title="Noticies assignades">
+        <a class="nav-link" href="{% url 'assigned' %}">
+            <span class="nav-link-text">Noticies assignades</span>
+        </a>
+    </li>
+    <li class="nav-item" data-toogle="tooltip" data-placement="right" title="" data-original-title="Notícies a revisar">
+        <a class="nav-link" href="{% url 'revisions' %}">
+           <span class="nav-link-text">Noticies a revisar</span>
+        </a>
+    </li>
 {% endblock %}

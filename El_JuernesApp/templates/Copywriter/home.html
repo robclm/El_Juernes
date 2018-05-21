@@ -1,33 +1,57 @@
 {% extends "base.html" %}
 
 {% block navbar %}
-    <li><a href="{% url 'account-redirect' %}" class="current">El meu espai de treball</a></li>
-    <li><a href="{% url 'Home_News' %}">Noticies</a></li>
-    <li><a href="#">Contacta'ns</a></li>
-    <li class="login">
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'Home_News' %}">Noticies</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="#">Contacta'ns</a></li>
+    <li class="nav-item">
         {% if user.is_authenticated %}
-        <p>Benvingut: {{ user.username }} |
-            <a class="link" href="{% url 'logout' %}">logout</a></p>
+            <p class="nav-link" data-toggle="modal" data-target="#exampleModal">Benvingut: {{ user.username }} |
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'logout' %}">Logout
+                    <i class="fa fa-fw fa-sign-out"></i>
+                </a>
+            </li>
+            </p>
         {% else %}
-        <p><a class="link" href="{% url 'login' %}">login</a></p>
+            <p><a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'login' %}">Login</a>
+            </p>
         {% endif %}
     </li>
+
+{% endblock %}
+
+{% block breadcrumb %}
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="{% url 'account-redirect' %}">El meu espai de treball</a>
+        </li>
+    </ol>
 {% endblock %}
 
 {% block content %}
     <h2>Redactor</h2>
-
+    <hr/>
     <h3>Numero de notícies assignades: {{ num_assigned_news }} </h3>
-
+    <hr/>
     <h3>Notícies urgents d'entregar</h3>
-
+    <hr/>
     {% if assigned_news %}
-        <ul>
-            {% for new in assigned_news %}
-                <p>
-                    {{ new.title }} - {{ new.countdown }}
-                </p>
-            {% endfor %}
+
+        {% for new in assigned_news %}
+            <p>
+                {{ new.title }} -
+                {% if new.countdown.0 == '-' %}
+                    <b style="color: red;">
+                        {{ new.countdown }}
+                    </b>
+                {% else %}
+                    {{ new.countdown }}
+                {% endif %}
+            </p>
+        {% endfor %}
         </ul>
 
     {% else %}
@@ -37,6 +61,20 @@
 {% endblock %}
 
 {% block sidebar %}
-    <li><a href="{% url 'assigned' %}">Noticies assignades</a></li>
-    <li><a href="{% url 'revisions' %}">Notícies a revisar</a></li>
+    <li class="nav-item" data-toggle="modal" data-placement="right" title="">
+        <a class="nav-link" href="{% url 'account-redirect' %}">
+            <span class="nav-link-text">El meu espai de treball</span>
+        </a>
+    </li>
+    <li class="nav-item" data-toogle="tooltip" data-placement="right" title=""
+        data-original-title="Noticies assignades">
+        <a class="nav-link" href="{% url 'assigned' %}">
+            <span class="nav-link-text">Noticies assignades</span>
+        </a>
+    </li>
+    <li class="nav-item" data-toogle="tooltip" data-placement="right" title="" data-original-title="Notícies a revisar">
+        <a class="nav-link" href="{% url 'revisions' %}">
+            <span class="nav-link-text">Noticies a revisar</span>
+        </a>
+    </li>
 {% endblock %}

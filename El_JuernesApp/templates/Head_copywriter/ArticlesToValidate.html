@@ -1,21 +1,42 @@
 {% extends "base.html" %}
 
 {% block navbar %}
-    <li><a href="{% url 'account-redirect' %}">El meu espai de treball</a></li>
-    <li><a href="{% url 'Home_News' %}">Noticies</a></li>
-    <li><a href="#">Contacta'ns</a></li>
-    <li class="login">
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'Home_News' %}">Noticies</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="#">Contacta'ns</a></li>
+    <li class="nav-item">
         {% if user.is_authenticated %}
-            <p>Benvingut: {{ user.username }} |
-                <a class="link" href="{% url 'logout' %}">logout</a></p>
+            <p class="nav-link" data-toggle="modal" data-target="#exampleModal">Benvingut: {{ user.username }} |
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'logout' %}">Logout
+                    <i class="fa fa-fw fa-sign-out"></i>
+                </a>
+            </li>
+            </p>
         {% else %}
-            <p><a class="link" href="{% url 'login' %}">login</a></p>
+            <p><a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'login' %}">Login</a>
+            </p>
+
+
         {% endif %}
     </li>
+
+
+{% endblock %}
+
+{% block breadcrumb %}
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="{% url 'Articles' %}">Articles pendents</a>
+        </li>
+    </ol>
 {% endblock %}
 
 {% block content %}
     <h1>Articles pendents de validació</h1>
+    <hr/>
 
     {% if articles_alta or articles_mitjana or articles_baixa %}
 
@@ -53,9 +74,27 @@
         <p>No hi ha articles a validar.</p>
     {% endif %}
 {% endblock %}
-{% block sidebar %}
-    <li><a href="{% url 'AFE' %}">Noves notícies</a></li>
-    <li><a href="{% url 'Articles' %}" class="current">Article a revisar</a></li>
-    <li><a href="{% url 'work_load' %}">Càrrega de treball</a></li>
 
+{% block sidebar %}
+    <li class="nav-item" data-toggle="modal" data-placement="right" title="">
+        <a class="nav-link" href="{% url 'account-redirect' %}">
+            <span class="nav-link-text">El meu espai de treball</span>
+        </a>
+    </li>
+    <li class="nav-item" data-toogle="tooltip" data-placement="right" title=""
+        data-original-title="Noticies assignades">
+        <a class="nav-link" href="{% url 'AFE' %}">
+            <span class="nav-link-text">Noves notícies</span>
+        </a>
+    </li>
+    <li class="nav-item" data-toogle="tooltip" data-placement="right" title="" data-original-title="Notícies a revisar">
+        <a class="nav-link" href="{% url 'Articles' %}">
+            <span class="nav-link-text">Articles pendents</span>
+        </a>
+    </li>
+    <li class="nav-item" data-toogle="tooltip" data-placement="right" title="" data-original-title="Notícies a revisar">
+        <a class="nav-link" href="{% url 'work_load' %}">
+            <span class="nav-link-text">Càrrega de treball</span>
+        </a>
+    </li>
 {% endblock %}
