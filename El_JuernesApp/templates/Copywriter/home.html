@@ -40,12 +40,13 @@
     <hr/>
     {% if assigned_news %}
 
+        <ul>
         {% for new in assigned_news %}
             <p>
                 {{ new.title }} -
                 {% if new.countdown.0 == '-' %}
                     <b style="color: red;">
-                        {{ new.countdown }}
+                        S'ha vençut el termini.
                     </b>
                 {% else %}
                     {{ new.countdown }}
