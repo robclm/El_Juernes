@@ -2,20 +2,22 @@
 
 {% block navbar %}
     <li class="nav-item">
-        <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'Home_News' %}">Noticies</a></li>
+        <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'Home_News' %}">Noticies</a>
+    </li>
     <li class="nav-item">
         <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="#">Contacta'ns</a></li>
     <li class="nav-item">
         {% if user.is_authenticated %}
-        <p class="nav-link" data-toggle="modal" data-target="#exampleModal">Benvingut: {{ user.username }} |
+            <p class="nav-link" data-toggle="modal" data-target="#exampleModal">Benvingut: {{ user.username }} |
             <li class="nav-item">
                 <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'logout' %}">Logout
                     <i class="fa fa-fw fa-sign-out"></i>
                 </a>
             </li>
-        </p>
+            </p>
         {% else %}
-            <p><a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'login' %}">Login</a></p>
+            <p><a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'login' %}">Login</a>
+            </p>
         {% endif %}
     </li>
 
@@ -32,54 +34,58 @@
 {% block content %}
 
     <p>
-        <h1>{{ new.title }}</h1><hr/>
-        <h4>{{ new.description }}</h4><br/>
-        {{ new.body }}
+    <h1>{{ new.title }}</h1>
+    <hr/>
+    <h4>{{ new.description }}</h4><br/>
+    {{ new.body }}
     </p>
     <hr/>
-    <h3>
-        <form action="/AFE/" method="post"> {% csrf_token %}
-            <h3>Assignació de Noticia: </h3>
-            <div class="ass-noticia">
-                <p>
-                    <h5>Redactor assignat: {{ new.assigned}} &nbsp Prioritat: {{ new.priority}}</h5>
-                </p>
-            </div>
 
-            <label for="team_name"> Redactor: </label>
-            <select name="copywriters">
-                {% for redactor in redactors %}
-                    <option value={{ redactor.user }}>{{ redactor.user }}</option>
-                {% endfor %}
-            </select>
-            &nbsp
-            <label for="team_name"> Prioritat </label>
-            <select name="priority">
-                    <option value="alta">Alta</option>
-                    <option value="mitjana">Mitjana</option>
-                    <option value="baixa">Baixa</option>
-            </select>
-            <input type="submit" value="Assignar">
-            <input type="hidden" name="new" value={{ new.slug }}/>
-        </form>
-    </h3>
+    <form action="/AFE/" method="post"> {% csrf_token %}
+        <h4>Assignació de Noticia: </h4>
+
+        <label for="team_name"> Redactor: </label>
+        <select name="copywriters">
+            {% for redactor in redactors %}
+                <option value={{ redactor.user }}>{{ redactor.user }}</option>
+            {% endfor %}
+        </select>
+        &nbsp
+        <label for="team_name"> Prioritat </label>
+        <select name="priority">
+            <option value="alta">Alta</option>
+            <option value="mitjana">Mitjana</option>
+            <option value="baixa">Baixa</option>
+        </select>
+        <input type="submit" value="Assignar">
+        <input type="hidden" name="new" value={{ new.slug }}/>
+    </form>
+
 
 {% endblock %}
 
 {% block sidebar %}
     <li class="nav-item" data-toggle="modal" data-placement="right" title="">
-        <a class="nav-link"  href="{% url 'account-redirect' %}">
+        <a class="nav-link" href="{% url 'account-redirect' %}">
             <span class="nav-link-text">El meu espai de treball</span>
         </a>
     </li>
-    <li class="nav-item" data-toogle="tooltip" data-placement="right" title="" data-original-title="Noticies assignades">
+    <li class="nav-item" data-toogle="tooltip" data-placement="right" title=""
+        data-original-title="Noticies assignades">
         <a class="nav-link" href="{% url 'AFE' %}">
             <span class="nav-link-text">Noves notícies</span>
         </a>
     </li>
     <li class="nav-item" data-toogle="tooltip" data-placement="right" title="" data-original-title="Notícies a revisar">
         <a class="nav-link" href="{% url 'Articles' %}">
-           <span class="nav-link-text">Articles pendents</span>
+            <span class="nav-link-text">Articles pendents</span>
         </a>
     </li>
+
+    <li class="nav-item" data-toogle="tooltip" data-placement="right" title="" data-original-title="Notícies a revisar">
+        <a class="nav-link" href="{% url 'work_load' %}">
+            <span class="nav-link-text">Càrrega de treball</span>
+        </a>
+    </li>
+
 {% endblock %}

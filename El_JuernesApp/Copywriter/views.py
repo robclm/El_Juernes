@@ -9,7 +9,7 @@ from AfeNews.models import New
 from Copywriter.forms import ArticleForm
 from Copywriter.models import Article
 from Graphic_reporter.models import Image_request, Image
-from HeadCopywriter.models import Article_comentat
+from HeadCopywriter.models import Article_comentat, Images_sended
 
 
 # Create your views here.
@@ -112,11 +112,15 @@ def send_new(request):
                 # Must be saved before adding the images
                 article.save()
 
+            images_sended = Images_sended()
+            images_sended.slug = var['slug']
+            images_sended.save()
+
             for pk in selected_images_pk:
                 image = Image.objects.get(pk=pk)
-                article.images.add(image)
+                images_sended.images.add(image)
 
-            article.save()
+            images_sended.save()
 
             new = New.objects.get(slug=var['slug'])
             new.state = "Per validar"
