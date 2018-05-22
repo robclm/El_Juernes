@@ -36,7 +36,7 @@
     {% if articles_alta or articles_mitjana or articles_baixa %}
 
         {% if articles_alta %}
-            <a href="#" id="pr_alta"><h3>Prioritat: Alta</h3></a>
+            <h3>Prioritat: Alta <a href="#" id="pr_alta">*</a> </h3>
             <div id="alta" style="display:none">
                 {% for article in articles_alta %}
                     <ul>
@@ -48,7 +48,7 @@
         {% endif %}
         <hr/>
         {% if articles_mitjana %}
-            <a href="#" id="pr_mitjana"><h3>Prioritat: Mitjana</h3></a>
+            <h3>Prioritat: Mitjana <a href="#" id="pr_mitjana">*</a> </h3>
             <div id="mitjana" style="display:none">
                 {% for article in articles_mitjana %}
                     <ul>
@@ -60,7 +60,7 @@
         {% endif %}
         <hr/>
         {% if articles_baixa %}
-            <a href="#" id="pr_baixa"><h3>Prioritat:Baixa</h3></a>
+            <h3>Prioritat:Baixa <a href="#" id="pr_baixa">*</a> </h3>
             <div id="baixa" style="display:none">
                 {% for article in articles_baixa %}
                     <ul>
