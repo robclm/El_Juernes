@@ -12,9 +12,6 @@ from Graphic_reporter.models import Image_request, Image
 from HeadCopywriter.models import Article_comentat, Images_sended
 
 
-# Create your views here.
-
-
 def News_assigned(request):
     template = 'Home_News.html'
     context = None
@@ -34,18 +31,6 @@ def News_assigned(request):
 
     return render(request, template, context)
 
-##############################################################################
-def priority_news(request):
-    template = 'Accounts/Home/home.html'
-    user = User.objects.get(username=request.user.username)
-    rol = user.user_profile.role
-    new = News_assigned()
-    context = {
-        "articles_alta": New.objects.filter(assigned=request.user.username, value="1")
-    }
-    return render(request, template, context)
-
-###############################################################################
 
 def send_request(request):
     template = 'Copywriter/correct_request.html'
