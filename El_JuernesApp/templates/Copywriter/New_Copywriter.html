@@ -81,17 +81,16 @@
                 </div>
 
             {% endfor %}
-
-
         {% endif %}
-
-
-
         <hr/>
         <h3>Entrega l'article</h3>
+        {% if article %}
+            Article Guardat: <a href="{{ article.file.url }}"> {{ article.file.name }} </a>
+        {% endif %}
         {{ form.as_p }}
+        <input type="submit" name="guardar" value="Guardar Article"/>
         <input type="hidden" name="slug" value="{{ new.slug }}"/>
-        <button type="submit">Enviar</button>
+        <button type="submit">Enviar al redactor en cap</button>
     </form>
     </body>
 
