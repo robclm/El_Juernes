@@ -1,17 +1,33 @@
 {% extends "base.html" %}
 
 {% block navbar %}
-   <li><a href="{% url 'account-redirect' %}">El meu espai de treball</a></li>
-    <li><a href="{% url 'Home_News' %}">Noticies</a></li>
-    <li><a href="#">Contacta'ns</a></li>
-    <li class="login">
-        {% if user.is_authenticated %}
-        <p>Benvingut: {{ user.username }} |
-            <a class="link" href="{% url 'logout' %}">logout</a></p>
-        {% else %}
-        <p><a class="link" href="{% url 'login' %}">login</a></p>
-        {% endif %}
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'Home_News' %}">Noticies</a>
     </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="#">Contacta'ns</a></li>
+    <li class="nav-item">
+        {% if user.is_authenticated %}
+            <p class="nav-link" data-toggle="modal" data-target="#exampleModal">Benvingut: {{ user.username }} |
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'logout' %}">Logout
+                    <i class="fa fa-fw fa-sign-out"></i>
+                </a>
+            </li>
+            </p>
+        {% else %}
+            <p><a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'login' %}">Login</a>
+            </p>
+
+        {% endif %}
+{% endblock %}
+
+{% block breadcrumb %}
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="{% url 'Articles' %}">Articles pendents</a> / <a href="#">Article</a>
+        </li>
+    </ol>
 {% endblock %}
 
 {% block content %}
@@ -23,25 +39,40 @@
     </p>
 
     <hr/>
-    <h3>Descargar l'article:<h3>Article:<a href="{{ article.file.url }}" download> {{ article.file.name }} </a></h3>
-    </h3>
+    <h3>Descargar l'article:<a href="{{ article.file.url }}" download> {{ article.file.name }} </a></h3>
+    <p>
+        <form action="{% url 'Acceptat' %}" method="post" enctype="multipart/form-data"
+              style="display: inline">{% csrf_token %}
+            {% if images %}
+                {% for img in images %}
 
-    <button type="button">Escollir imatges</button> Imatges asociades | </p>
+                    <div style="display: inline-table;">
+                        {% csrf_token %}
+                        <a href="{{ img.image.url }} ">
+                            <img src="{{ img.image.url }}" width="200" height="200"/>
+                        </a>
 
+                        <br>
+                        <input type="checkbox" name="selected_image" value={{ img.pk }}>
+                        <b>{{ img.name }}</b>
 
-    <h4>Introdueix els comentaris pel redactor:</h4>
-    <form action="/RedactorCap/Comentat/" method="post" enctype="multipart/form-data">{% csrf_token %}
-        {{ form.as_p }}
-        <input type="hidden" name="slug" value="{{ new.slug }}"/>
-        <button type="submit">Enviar comentaris al redactor</button>
-    </form>
+                    </div>
 
-    <form action="/RedactorCap/Acceptat/" method="post"> {% csrf_token %}
+                {% endfor %}
+
+            {% else %}
+                <p>No hi ha imatges associades.</p>
+            {% endif %}
+    <hr/>
+
         <input type="hidden" name="slug" value={{ new.slug }}/>
-        <input type="submit" value="Acceptar">
+
+    <input type="submit" value="Acceptar">
     </form>
 
-    <form action="/RedactorCap/Rebutjat/" method="post"> {% csrf_token %}
+
+
+    <form action="{% url 'Rebutjada' %}" method="post" style="display: inline"> {% csrf_token %}
         <input type="hidden" name="slug" value={{ new.slug }}/>
         <input type="submit" value="Rebutjar">
     </form>
@@ -50,10 +81,45 @@
     <a href="/AFE/new/{{ new.slug }}">
         <button type="button">Reassignar</button>
     </a>
+    </p>
+
+
+
+    <h4>Introdueix els comentaris pel redactor:</h4>
+    <form action="{% url 'Comentat' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
+        {{ form.as_p }}
+        <input type="hidden" name="slug" value="{{ new.slug }}"/>
+        <button type="submit">Enviar comentaris al redactor</button>
+    </form>
+
+
+
 
 
 {% endblock %}
+
 {% block sidebar %}
-    <li><a href="{% url 'AFE' %}">Noves notícies</a></li>
-    <li><a href="{% url 'Articles' %}" class="current">Article a revisar</a></li>
+    <li class="nav-item" data-toggle="modal" data-placement="right" title="">
+        <a class="nav-link" href="{% url 'account-redirect' %}">
+            <span class="nav-link-text">El meu espai de treball</span>
+        </a>
+    </li>
+    <li class="nav-item" data-toogle="tooltip" data-placement="right" title=""
+        data-original-title="Noticies assignades">
+        <a class="nav-link" href="{% url 'AFE' %}">
+            <span class="nav-link-text">Noves notícies</span>
+        </a>
+    </li>
+    <li class="nav-item" data-toogle="tooltip" data-placement="right" title="" data-original-title="Notícies a revisar">
+        <a class="nav-link" href="{% url 'Articles' %}">
+            <span class="nav-link-text">Articles pendents</span>
+        </a>
+    </li>
+
+    <li class="nav-item" data-toogle="tooltip" data-placement="right" title="" data-original-title="Notícies a revisar">
+        <a class="nav-link" href="{% url 'work_load' %}">
+            <span class="nav-link-text">Càrrega de treball</span>
+        </a>
+    </li>
+
 {% endblock %}

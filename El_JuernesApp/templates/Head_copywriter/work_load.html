@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block navbar %}
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'Home_News' %}">Noticies</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="#">Contacta'ns</a></li>
+    <li class="nav-item">
+        {% if user.is_authenticated %}
+            <p class="nav-link" data-toggle="modal" data-target="#exampleModal">Benvingut: {{ user.username }} |
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'logout' %}">Logout
+                    <i class="fa fa-fw fa-sign-out"></i>
+                </a>
+            </li>
+            </p>
+        {% else %}
+            <p><a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'login' %}">Login</a>
+            </p>
+        {% endif %}
+    </li>
+
+{% endblock %}
+
+{% block breadcrumb %}
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="{% url 'account-redirect' %}">El meu espai de treball</a>
+        </li>
+    </ol>
+{% endblock %}
+{% block content %}
+
+    <h2>Càrrega de treball dels redactors</h2>
+
+    {% if assigned_news %}
+        <ul>
+
+            {% for cw in copywriters %}
+                <p>Redactor: {{ cw.user.username }}</p>
+                {% for new in assigned_news %}
+
+                    {% if new.assigned == cw.user.username %}
+                        <ul>
+                            <p>
+                                {{ new.title }} - Prioritat: {{ new.priority }}
+                            </p>
+                        </ul>
+
+
+                    {% endif %}
+                {% endfor %}
+                <br>
+            {% endfor %}
+
+        </ul>
+
+    {% else %}
+        <p> Els redactors no tenen cap notícia assignada.</p>
+
+    {% endif %}
+
+
+
+
+{% endblock %}
+
+{% block sidebar %}
+    <li class="nav-item" data-toggle="modal" data-placement="right" title="">
+        <a class="nav-link" href="{% url 'account-redirect' %}">
+            <span class="nav-link-text">El meu espai de treball</span>
+        </a>
+    </li>
+    <li class="nav-item" data-toogle="tooltip" data-placement="right" title=""
+        data-original-title="Noticies assignades">
+        <a class="nav-link" href="{% url 'AFE' %}">
+            <span class="nav-link-text">Noves notícies</span>
+        </a>
+    </li>
+    <li class="nav-item" data-toogle="tooltip" data-placement="right" title="" data-original-title="Notícies a revisar">
+        <a class="nav-link" href="{% url 'Articles' %}">
+            <span class="nav-link-text">Articles pendents</span>
+        </a>
+    </li>
+
+    <li class="nav-item" data-toogle="tooltip" data-placement="right" title="" data-original-title="Notícies a revisar">
+        <a class="nav-link" href="{% url 'work_load' %}">
+            <span class="nav-link-text">Càrrega de treball</span>
+        </a>
+    </li>
+
+
+{% endblock %}

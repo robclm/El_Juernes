@@ -13,201 +13,97 @@
         {% endblock %}
 
         <!--Add additional CSS in static file-->
-        {% load static %}
-        <link rel="stylesheet" href="{% static 'css/base.css' %}"/>
+        {% load staticfiles %}
 
-        <style>
+        <!-- Bootstrap -->
 
-            /*Barra menu horitzontal*/
-            .bar-nav{
-                list-style-type: none;
-                margin: 0;
-                padding: 0;
-                overflow: hidden;
-                background-color: #50B85F;
-                height: 47px;
-            }
-            ul{
-                 text-decoration: none;
-            }
-            li {
-                float: left;
-                background-color: #50B85F;
-            }
-            li a {
-                display: inline-block;
-                color: white;
-                text-align: center;
-                padding: 14px 16px;
-                text-decoration: none;
-            }
+        <link href="{% static 'bootstrap/vendor/bootstrap/css/bootstrap.min.css'%}" rel="stylesheet">
+        <link href="{% static 'bootstrap/css/sb-admin.css' %}" rel="stylesheet">
 
-            li a:hover {
-                background-color: gainsboro;
-                color:black
-            }
-            h2{
-                color: green;
-                /*padding-left: 5px;*/
-            }
-            #title{
-                font-family: Verdana;
-                padding-left: 5px;
-            }
-            #title a{
-                color: #FFFFFF;
-                text-decoration: none;
-                font-size: large;
-            }
-            #header{
-                text-align: left;
-                background-color: black;
-            }
-            #header p{
-                list-style-type: none;
-                margin: 0;
-                overflow: hidden;
-                display: inline-block;
-                color: white;
-                text-align: center;
-                padding: 14px 16px;
-                text-decoration: none;
-            }
-            .link{
-                color: white;
-            }
-            .login{
-                margin-top: 0px;
-                float: right;
+        <!--link href="{% static 'bootstrap/css/sb-admin.min.css' %}" rel="stylesheet">
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
 
-            }
-            .login p{
-                color: #FFFFFF;
-                margin-top: 0px;
-            }
-            .login a{
-                color: #FFFFFF;
-            }
+        <!----jQuery desplegables--->
 
-            /*Scroll-content*/
+        <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 
-            .content{
-                position: relative;
-                margin-top: -915px;
-                margin-left:150px;
-                margin-bottom: 100px;
-                min-height: 800px;
-                overflow-x: auto;
-                overflow-y: auto;
-                padding-left: 5px;
-                /*flex-direction: column;*/
-                /*border-style: dashed;*/
-            }
+        <script>
+            // jQuery articles per prioritat- Redactor
 
-            /*---AfeNewsList---*/
+            // prioritat alta
+            $(document).ready(function(){
+               $('#pr_alta').on('click',function(){
+                  $('#alta').toggle();
+               });
+            });
 
-            .articles-AFE{
+            //prioritat mitjana
+            $(document).ready(function(){
+               $('#pr_mitjana').on('click',function(){
+                  $('#mitjana').toggle();
+               });
+            });
 
-            }
-            .articles-AFE a{
-                text-decoration: none;
-            }
-
-            .articles-AFE-description{
-
-            }
-
-            /*---New.html---*/
-
-            .ass-noticia{
-
-            }
-            /*Barra lateral*/
-
-            .sidebar{
-                width: 140px;
-                /*border-style: dashed;*/
-            }
-
-            .sidebar-nav{
-                padding-left: 0px;
-                min-height: 900px;
-                list-style:none;
-                background-color: #50B85F;
-                {% block css %}
-
-                {% endblock %}
-                /*border-style: dashed;*/
-            }
-            .sidebar li a{
-                display: block;
-                text-align: center;
-                text-decoration: none;
-                max-width: 120px;
-            }
-            #footer{
-                text-align: center;
-                background: #f3f3f3;
-                position: fixed;
-                bottom: 0px;
-                width: 100%;
-            }
-            a.current:link, a.current:visited {
-                color: black;
-                background-color: gainsboro;
-            }
-            a{
-                font-size: large;
-            }
+            //prioritat baixa
+            $(document).ready(function(){
+               $('#pr_baixa').on('click',function(){
+                  $('#baixa').toggle();
+               });
+            });
 
 
-        </style>
+        </script>
 
     </head>
-    <body>
-        <!--Insert default navigation text for every page-->
-        <div id="title">
-            <a href="{% url 'account-redirect' %}"><h2>EL JUERNES</h2></a>
-        </div>
-        <div id="header">
+    <body id="page-top" class="fixed-nav sticky-footer">
 
-        </div>
+        <!--Navigation-->
+        <nav id="mainNav" class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 
-        <div class="navbar">
+            <a class="navbar-brand" href="{% url 'account-redirect' %}"><h2>EL JUERNES</h2></a>
 
-            <ul class="bar-nav">
-                {% block navbar %}
+            <div id="navbarResponsive" class="collapse navbar-collapse">
+            <!--Sidebar-->
+                <ul id="exampleAccordion" class="navbar-nav navbar-sidenav">
+                    {% block sidebar %}
 
-                {% endblock %}
-            </ul>
+                    {% endblock %}
+                </ul>
+                <ul class="navbar-nav sidenav-toogler">
+                    <li class="nav-item">
+                        <a id="sidenavToggler" class="nav-link text-center">
 
-        </div>
+                        </a>
+                    </li>
+                </ul>
+            <!---Navbar-->
+                <ul class="navbar-nav ml-auto">
+                    {% block navbar %}
 
-        <!-- Barra lateral-->
-
-        <div class="sidebar">
-            <ul class="sidebar-nav">
-                {% block sidebar %}
-
-                {% endblock %}
-            </ul>
-        </div>
+                    {% endblock %}
+                </ul>
+            </div>
+        </nav>
 
         <!--Contingut-->
+        <div class="content-wrapper">
+            <div class="container-fluid">
+                {% block breadcrumb %}{% endblock %}
 
-        <div class="content">
-            {% block content %}
-
-            {% endblock %}
+                {% block content %}{% endblock %}
+            </div>
         </div>
-
         <!--Footer-->
-
-        <div id="footer">
-            <a class="footer-page">El Juernes</a>
-            <span class="attribution">
-                <p> © 2018. An University of Lleida project by GR-5 Joint Project</p>
-            </span>
-        </div>
+        <footer class=sticky-footer">
+            <div class="container">
+                <div class="text-center">
+                    <small>© 2018. An University of Lleida project by GR-5 Joint Project</small>
+                </div>
+            </div>
+        </footer>
     </body>
 </html>

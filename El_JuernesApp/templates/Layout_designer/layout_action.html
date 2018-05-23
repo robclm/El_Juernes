@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block navbar %}
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'Home_News' %}">Noticies</a></li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="#">Contacta'ns</a></li>
+    <li class="nav-item">
+        {% if user.is_authenticated %}
+        <p class="nav-link" data-toggle="modal" data-target="#exampleModal">Benvingut: {{ user.username }} |
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'logout' %}">Logout
+                    <i class="fa fa-fw fa-sign-out"></i>
+                </a>
+            </li>
+        </p>
+        {% else %}
+            <p><a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'login' %}">Login</a></p>
+        {% endif %}
+    </li>
+
+{% endblock %}
+
+{% block breadcrumb %}
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="{% url 'account-redirect' %}">El meu espai de treball</a>
+        </li>
+    </ol>
+{% endblock %}
+
+{% block content %}
+
+    <h4>Prioritat: {{ new.priority }}</h4>
+    <h1>{{ new.title }}</h1>
+
+
+
+        <h3>Descarrega l'article:<a href="{{ article.file.url }}" download> {{ article.file.name }} </a></h3>
+    </h3>
+
+    <h3>Publica l'article:</h3>
+    <form action ="/Maquetador/preview/{{ new.slug }}/" method="post" >{% csrf_token %}
+        <p><textarea name="title" rows="1" cols="40"
+                      placeholder=" Introdueix el titol"></textarea></p>
+        <p><textarea name="description" rows="1" cols="40"
+                      placeholder=" Introdueix la descripcio"></textarea><p>
+        <p><textarea name="body" rows="10" cols="40"
+                      placeholder=" Introdueix el cos"></textarea><p>
+        <input type="hidden" name="slug" value="{{ new.slug }}"/>
+        <p><button type="submit">Previsualitza'l</button></p>
+
+        </form>
+
+    <a href="/Maquetador/noticies_assignades/accepted/{{ new.slug }}">
+        <button type="button">Torna a la noticia</button></a>
+
+
+{% endblock %}
+
+
+
+{% block sidebar %}
+    <li class="nav-item" data-toggle="modal" data-placement="right" title="">
+        <a class="nav-link"  href="{% url 'account-redirect' %}">
+            <span class="nav-link-text">El meu espai de treball</span>
+        </a>
+    </li>
+    <li class="nav-item" data-toogle="tooltip" data-placement="right" title="" data-original-title="Noticies assignades">
+        <a class="nav-link" href="{% url 'ld_assigned_news' %}">
+            <span class="nav-link-text">Articles a maquetar</span>
+        </a>
+    </li>
+{% endblock %}

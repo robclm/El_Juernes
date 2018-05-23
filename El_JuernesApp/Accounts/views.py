@@ -13,12 +13,16 @@ def Home(request, pk, name):
     try:
         user = User.objects.get(username=request.user.username)
         rol = user.user_profile.role
+
         if rol == "Subscriber":
-            template = 'Accounts/Home/subscriber.html'
+            return redirect('Home_News')
+
         elif rol == "Copywriter":
-            template = 'Accounts/Home/copywriter.html'
+            return redirect('cw_home_page')
+
         elif rol == "Head_copywriter":
-            template = 'Accounts/Home/head_copywriter.html'
+            return redirect('hc_home_page')
+
         elif rol == "Graphic_reporter":
             template = 'Accounts/Home/graphic_reporter.html'
         elif rol == "Layout_designer":

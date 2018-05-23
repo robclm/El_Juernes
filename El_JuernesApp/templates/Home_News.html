@@ -1,34 +1,46 @@
 {% extends "base.html" %}
 
 {% block navbar %}
-    {% if user.is_authenticated %}
-        <li><a href="{% url 'account-redirect' %}">El meu espai de treball</a></li>
-    {% endif %}
-    <li><a href="{% url 'Home_News' %}" class="current">Noticies</a></li>
-    <li><a href="#">Contacta'ns</a></li>
-    <li class="login">
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'Home_News' %}" class="current">Noticies</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="#">Contacta'ns</a>
+    </li>
+    <li class="nav-item">
         {% if user.is_authenticated %}
-        <p>Benvingut: {{ user.username }} |
-            <a class="link" href="{% url 'logout' %}">logout</a></p>
+        <p class="nav-link" data-toggle="modal" data-target="#exampleModal">Benvingut: {{ user.username }} |
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'logout' %}">Logout</a>
+            </li>
+        </p>
         {% else %}
-        <p><a class="link" href="{% url 'login' %}">login</a></p>
+            <p><a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'login' %}">Login</a></p>
         {% endif %}
     </li>
 {% endblock %}
 
 {% block content %}
-<h2>Notícies</h2>
+<h2>Notícies</h2><hr/>
     <p>
 
+    {% for article in published %}
+        <p><h1><a href="new/{{ article.slug }}">{{ article.title }}</a></h1></p>
+            <h4>{{ article.description }}</h4>
+    {% endfor %}
 
     </p>
 {% endblock %}
 
 {% block sidebar %}
-
+    {% if user.is_authenticated and user.rol.is_not_subscriber%}
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'account-redirect' %}">El meu espai de treball</a>
+        </li>
+    {% endif %}
 {% endblock %}
 
 <!--Sidebar noticies-->
 {% block css %}
-    background-color: white;
+     
 {% endblock %}

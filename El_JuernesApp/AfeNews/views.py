@@ -4,13 +4,28 @@ from urllib.request import urlopen
 
 from django.contrib.auth.models import User
 from django.shortcuts import render
+from django.utils import timezone
 from django.views import generic
 
 from Accounts.models import User_profile
 from AfeNews.models import New, Author
 
 
+def set_limit_date(priority):
+    if priority == 'alta':
+        limit = timezone.now() + timezone.timedelta(hours=1)
+
+    elif priority == 'mitjana':
+        limit = timezone.now() + timezone.timedelta(days=1)
+
+    else:
+        limit = timezone.now() + timezone.timedelta(days=30)
+
+    return limit
+
+
 def Afe_News_List(request):
+    context = None
     # Assignar notícia
     if request.method == 'POST':
         var = request.POST.dict()
@@ -22,14 +37,17 @@ def Afe_News_List(request):
         new_obj.assigned = user.username
         new_obj.priority = prioritat
         new_obj.state = "Assignada"
+
+        new_obj.limit_date = set_limit_date(new_obj.priority)
+
         new_obj.save()
 
-        # FIXME: Heroku deployment could be problematic
         template = 'Head_copywriter/Correct_Assigned.html'
         context = {
             "new": New.objects.get(slug=name[0])
         }
         return render(request, template, context)
+
     else:
         template = 'Home_News.html'
         json_data = None
@@ -48,7 +66,6 @@ def Afe_News_List(request):
             template = 'Home_News.html'
 
         return render(request, template, context)
-
 
 
 def get_json_AFE_news():

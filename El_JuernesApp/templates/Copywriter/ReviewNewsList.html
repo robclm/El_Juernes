@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block navbar %}
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'Home_News' %}">Noticies</a></li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="#">Contacta'ns</a></li>
+    <li class="nav-item">
+        {% if user.is_authenticated %}
+        <p class="nav-link" data-toggle="modal" data-target="#exampleModal">Benvingut: {{ user.username }} |
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'logout' %}">Logout
+                    <i class="fa fa-fw fa-sign-out"></i>
+                </a>
+            </li>
+        </p>
+        {% else %}
+            <p><a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'login' %}">Login</a></p>
+        {% endif %}
+    </li>
+
+{% endblock %}
+
+{% block breadcrumb %}
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="{% url 'revisions' %}">Noticies a revisar</a>
+        </li>
+    </ol>
+{% endblock %}
+
+{% block content %}
+    <h1>Notícies a revisar</h1>
+    <hr/>
+    {% if articles_alta or articles_mitjana or articles_baixa %}
+
+        {% if articles_alta %}
+            <h3>Prioritat: Alta</h3>
+            {% for article in articles_alta %}
+                <ul>
+                    <h4><a href="{{ article.slug }}">{{ article.title }}</a></h4>
+                    {{ article.description }}
+                </ul>
+            {% endfor %}
+        {% endif %}
+
+        {% if articles_mitjana %}
+            <h3>Prioritat: Mitjana</h3>
+            {% for article in articles_mitjana %}
+                <ul>
+                    <h4><a href="{{ article.slug }}">{{ article.title }}</a></h4>
+                    {{ article.description }}
+                </ul>
+            {% endfor %}
+        {% endif %}
+
+        {% if articles_baixa %}
+            <h3>Prioritat:Baixa</h3>
+            {% for article in articles_baixa %}
+                <ul>
+                    <h4><a href="{{ article.slug }}">{{ article.title }}</a></h4>
+                    {{ article.description }}
+                </ul>
+            {% endfor %}
+        {% endif %}
+
+    {% else %}
+
+        <p>No hi ha cap notícia a revisar.</p>
+
+    {% endif %}
+
+{% endblock %}
+
+{% block sidebar %}
+    <li class="nav-item" data-toggle="modal" data-placement="right" title="">
+        <a class="nav-link"  href="{% url 'account-redirect' %}">
+            <span class="nav-link-text">El meu espai de treball</span>
+        </a>
+    </li>
+    <li class="nav-item" data-toogle="tooltip" data-placement="right" title="" data-original-title="Noticies assignades">
+        <a class="nav-link" href="{% url 'assigned' %}">
+            <span class="nav-link-text">Noticies assignades</span>
+        </a>
+    </li>
+    <li class="nav-item" data-toogle="tooltip" data-placement="right" title="" data-original-title="Notícies a revisar">
+        <a class="nav-link" href="{% url 'revisions' %}">
+           <span class="nav-link-text">Noticies a revisar</span>
+        </a>
+    </li>
+{% endblock %}

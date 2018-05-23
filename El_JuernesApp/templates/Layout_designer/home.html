@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block navbar %}
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'Home_News' %}">Noticies</a></li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="#">Contacta'ns</a></li>
+    <li class="nav-item">
+        {% if user.is_authenticated %}
+        <p class="nav-link" data-toggle="modal" data-target="#exampleModal">Benvingut: {{ user.username }} |
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'logout' %}">Logout
+                    <i class="fa fa-fw fa-sign-out"></i>
+                </a>
+            </li>
+        </p>
+        {% else %}
+            <p><a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'login' %}">Login</a></p>
+        {% endif %}
+    </li>
+
+{% endblock %}
+
+{% block breadcrumb %}
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="{% url 'account-redirect' %}">El meu espai de treball</a>
+        </li>
+    </ol>
+{% endblock %}
+
+{% block content %}
+    <h2>Maquetador</h2>
+    <h3>Numero de notícies assignades: {{ num_assigned_news }} </h3>
+    <hr/>
+    <h3>Notícies urgents d'entregar</h3>
+    <hr/>
+    {% if assigned_news %}
+        <ul>
+            {% for new in assigned_news %}
+                <p>
+                    {{ new.title }} -
+                    {% if new.countdown.0 == '-' %}
+                        <b style="color: red;">
+                            S'ha vençut el termini.
+                        </b>
+                    {% else %}
+                        {{ new.countdown }}
+                    {% endif %}
+                </p>
+            {% endfor %}
+        </ul>
+
+    {% else %}
+        <p> No tens cap notícia assignada.</p>
+
+    {% endif %}
+{% endblock %}
+
+
+{% block sidebar %}
+    <li class="nav-item" data-toggle="modal" data-placement="right" title="">
+        <a class="nav-link"  href="{% url 'account-redirect' %}">
+            <span class="nav-link-text">El meu espai de treball</span>
+        </a>
+    </li>
+    <li class="nav-item" data-toogle="tooltip" data-placement="right" title="" data-original-title="Noticies assignades">
+        <a class="nav-link" href="{% url 'ld_assigned_news' %}">
+            <span class="nav-link-text">Articles a maquetar</span>
+        </a>
+    </li>
+{% endblock %}

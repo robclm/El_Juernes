@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block navbar %}
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'Home_News' %}">Noticies</a></li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="#">Contacta'ns</a></li>
+    <li class="nav-item">
+        {% if user.is_authenticated %}
+        <p class="nav-link" data-toggle="modal" data-target="#exampleModal">Benvingut: {{ user.username }} |
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'logout' %}">Logout
+                    <i class="fa fa-fw fa-sign-out"></i>
+                </a>
+            </li>
+        </p>
+        {% else %}
+            <p><a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'login' %}">Login</a></p>
+        {% endif %}
+    </li>
+
+{% endblock %}
+
+{% block breadcrumb %}
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="{% url 'revisions' %}">Noticies a revisar</a> /  <a href="">Article a revisar</a>
+        </li>
+    </ol>
+{% endblock %}
+
+{% block content %}
+    <p>
+    <h4>Prioritat: {{ new.priority }}</h4>
+    <h1>{{ new.title }}</h1>
+    <h4>{{ new.description }}</h4><br/>
+    <p align="justify">{{ new.body }}</p>
+    </p>
+
+    <h3>Descargar l'article comentat:<a href="{{ article.file.url }}" download> {{ article.file.name }} </a></h3>
+
+    <a href="/Redactor/assigned/{{ new.slug }}/">
+        <button type="button">Reenviar</button>
+    </a>
+
+{% endblock %}
+
+{% block sidebar %}
+    <li class="nav-item" data-toggle="modal" data-placement="right" title="">
+        <a class="nav-link"  href="{% url 'account-redirect' %}">
+            <span class="nav-link-text">El meu espai de treball</span>
+        </a>
+    </li>
+    <li class="nav-item" data-toogle="tooltip" data-placement="right" title="" data-original-title="Noticies assignades">
+        <a class="nav-link" href="{% url 'assigned' %}">
+            <span class="nav-link-text">Noticies assignades</span>
+        </a>
+    </li>
+    <li class="nav-item" data-toogle="tooltip" data-placement="right" title="" data-original-title="Notícies a revisar">
+        <a class="nav-link" href="{% url 'revisions' %}">
+           <span class="nav-link-text">Noticies a revisar</span>
+        </a>
+    </li>
+{% endblock %}

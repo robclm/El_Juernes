@@ -2,15 +2,15 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import redirect
 from django.shortcuts import render
+from django.utils import timezone
 from django.views import generic
 
 from AfeNews.models import New
 from Copywriter.forms import ArticleForm
 from Copywriter.models import Article
 from Graphic_reporter.models import Image_request, Image
+from HeadCopywriter.models import Article_comentat, Images_sended
 
-
-# Create your views here.
 
 def News_assigned(request):
     template = 'Home_News.html'
@@ -60,7 +60,7 @@ def send_request(request):
 
 
 def role_is_copywriter(username):
-    # Check if the user is a graphic reporter
+    # Check if the user is a copywriter
     user = User.objects.get(username=username)
 
     if user.user_profile.role == "Copywriter":
@@ -97,11 +97,19 @@ def send_new(request):
                 # Must be saved before adding the images
                 article.save()
 
+            try:
+                images_sended = Images_sended.objects.get(slug=var['slug'])
+
+            except:
+                images_sended = Images_sended()
+                images_sended.slug = var['slug']
+                images_sended.save()
+
             for pk in selected_images_pk:
                 image = Image.objects.get(pk=pk)
-                article.images.add(image)
+                images_sended.images.add(image)
 
-            article.save()
+            images_sended.save()
 
             new = New.objects.get(slug=var['slug'])
             new.state = "Per validar"
@@ -147,3 +155,82 @@ class new_copywriter(generic.DetailView):
             template = 'Home_News.html'
 
         return template
+
+
+def News_review(request):
+    template = 'Home_News.html'
+    context = None
+    try:
+        user = User.objects.get(username=request.user.username)
+        rol = user.user_profile.role
+        if rol == "Copywriter":
+            template = 'Copywriter/ReviewNewsList.html'
+        context = {
+            "articles_alta": New.objects.filter(assigned=request.user.username, priority='alta', state="Comentat"),
+            "articles_mitjana": New.objects.filter(assigned=request.user.username, priority='mitjana',
+                                                   state="Comentat"),
+            "articles_baixa": New.objects.filter(assigned=request.user.username, priority='baixa', state="Comentat")
+        }
+    except Exception as e:
+        print("%s (%s)" % (e.args, type(e)))
+
+    return render(request, template, context)
+
+
+class Review_new(generic.DetailView):
+    model = New
+    context_object_name = 'Review_new'
+
+    def get_context_data(self, **kwargs):
+        context = super(Review_new, self).get_context_data(**kwargs)
+        context['new'] = New.objects.get(slug=self.kwargs['slug'])
+        context['article'] = Article_comentat.objects.get(slug=self.kwargs['slug'])
+        return context
+
+    def get_template_names(self):
+        template = 'Home_News.html'
+        try:
+            user = User.objects.get(username=self.request.user.username)
+            rol = user.user_profile.role
+            if rol == "Copywriter":
+                template = 'Copywriter/ReviewNew.html'
+        except:
+            template = 'Home_News.html'
+
+        return template
+
+def countdown_format(countdown):
+    # Eliminate microseconds
+    countdown = countdown[:countdown.rfind(".")]
+
+    # Days in catalan
+    countdown = countdown.replace("days", "dies")
+    countdown = countdown.replace("day", "dia")
+
+    return countdown
+
+
+def update_countdown(assigned_news):
+    for new in assigned_news:
+        countdown = new.limit_date - timezone.now()
+        new.countdown = countdown_format(str(countdown))
+        new.save()
+
+    return assigned_news
+
+
+@login_required(login_url='/accounts/login')
+def Home(request):
+    if not role_is_copywriter(request.user.username):
+        return redirect('access_denied')
+    template = 'Copywriter/home.html'
+
+    assigned_news = New.objects.all()
+    assigned_news = assigned_news.filter(state='Assignada', assigned=request.user.username)
+    num_assigned_news = assigned_news.count()
+
+    assigned_news = assigned_news.order_by('limit_date')[:5]
+    assigned_news = update_countdown(assigned_news)
+
+    return render(request, template, {'assigned_news': assigned_news,
+                                      'num_assigned_news': num_assigned_news})
