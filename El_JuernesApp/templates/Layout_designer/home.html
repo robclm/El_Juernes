@@ -31,6 +31,30 @@
 
 {% block content %}
     <h2>Maquetador</h2>
+    <h3>Numero de notícies assignades: {{ num_assigned_news }} </h3>
+    <hr/>
+    <h3>Notícies urgents d'entregar</h3>
+    <hr/>
+    {% if assigned_news %}
+        <ul>
+            {% for new in assigned_news %}
+                <p>
+                    {{ new.title }} -
+                    {% if new.countdown.0 == '-' %}
+                        <b style="color: red;">
+                            S'ha vençut el termini.
+                        </b>
+                    {% else %}
+                        {{ new.countdown }}
+                    {% endif %}
+                </p>
+            {% endfor %}
+        </ul>
+
+    {% else %}
+        <p> No tens cap notícia assignada.</p>
+
+    {% endif %}
 {% endblock %}
 
 
