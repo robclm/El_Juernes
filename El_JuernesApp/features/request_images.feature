@@ -4,6 +4,6 @@ Feature: Request_images
   In order to send an article
 
   Scenario: Copywriter wants request images for the article
-    Given I login as user "CW1" with password "password""
+    Given I login as copywriter "CW" with password "password""
     When I request images
     Then I'm viewing the "Ja s'ha fet la petició Encara no s'ha rebut cap imatge" mesage

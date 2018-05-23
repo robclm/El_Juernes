@@ -1,6 +1,6 @@
 from behave import *
 
-use_step_matcher("re")
+use_step_matcher("parse")
 
 
 @when("I request images")
@@ -15,3 +15,14 @@ def step_impl(context):
 def step_impl(context):
     context.browser.visit(context.get_url('/Redactor/assigned/test-txf15k/'))
     assert context.browser.is_text_present("Ja s'ha fet la petició. Encara no s'ha rebut cap imatge.")
+
+
+@given('I login as copywriter "{CW}" with password "{password}""')
+def step_impl(context, CW, password):
+    context.browser.visit(context.get_url('/accounts/login/'))
+    form = context.browser.find_by_tag('form').first
+    context.browser.fill('username', CW)
+    context.browser.fill('password', password)
+
+    form.find_by_css('button.btn-post').first.click()
+    assert context.browser.is_text_present(CW)
