@@ -82,9 +82,7 @@
         <button type="button">Reassignar</button>
     </a>
     </p>
-
-
-
+    <hr/>
     <h4>Introdueix els comentaris pel redactor:</h4>
     <form action="{% url 'Comentat' %}" method="post" enctype="multipart/form-data">{% csrf_token %}
         {{ form.as_p }}
