@@ -41,33 +41,39 @@
     {% if articles_alta or articles_mitjana or articles_baixa %}
 
         {% if articles_alta %}
-            <h3>Prioritat: Alta</h3>
-            {% for article in articles_alta %}
-                <ul>
-                    <h4><a href="/Redactor_cap/validació/{{ article.slug }}">{{ article.title }}</a></h4>
-                    {{ article.description }}
-                </ul>
-            {% endfor %}
+            <a href="#" id="pr_alta"><h3>Prioritat: Alta</h3></a>
+            <div id="alta" style="display:none">
+                {% for article in articles_alta %}
+                    <ul>
+                        <h4><a href="/Redactor_cap/validació/{{ article.slug }}">{{ article.title }}</a></h4>
+                        {{ article.description }}
+                    </ul>
+                {% endfor %}
+            </div>
         {% endif %}
 
         {% if articles_mitjana %}
-            <h3>Prioritat: Mitjana</h3>
-            {% for article in articles_mitjana %}
-                <ul>
-                    <h4><a href="/Redactor_cap/validació/{{ article.slug }}">{{ article.title }}</a></h4>
-                    {{ article.description }}
-                </ul>
-            {% endfor %}
+            <a href="#" id="pr_mitjana"><h3>Prioritat: Mitjana</h3></a>
+            <div id="mitjana" style="display:none">
+                {% for article in articles_mitjana %}
+                    <ul>
+                        <h4><a href="/Redactor_cap/validació/{{ article.slug }}">{{ article.title }}</a></h4>
+                        {{ article.description }}
+                    </ul>
+                {% endfor %}
+            </div>
         {% endif %}
 
         {% if articles_baixa %}
-            <h3>Prioritat:Baixa</h3>
-            {% for article in articles_baixa %}
-                <ul>
-                    <h4><a href="/Redactor_cap/validació/{{ article.slug }}">{{ article.title }}</a></h4>
-                    {{ article.description }}
-                </ul>
-            {% endfor %}
+            <a href="#" id="pr_baixa"><h3>Prioritat:Baixa</h3></a>
+            <div id="baixa" style="display:none">
+                {% for article in articles_baixa %}
+                    <ul>
+                        <h4><a href="/Redactor_cap/validació/{{ article.slug }}">{{ article.title }}</a></h4>
+                        {{ article.description }}
+                    </ul>
+                {% endfor %}
+            </div>
         {% endif %}
 
     {% else %}

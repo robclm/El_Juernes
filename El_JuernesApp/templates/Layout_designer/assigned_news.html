@@ -26,13 +26,13 @@
 {% block breadcrumb %}
     <ol class="breadcrumb">
         <li class="breadcrumb-item">
-            <a href="{% url 'account-redirect' %}">El meu espai de treball</a>
+            <a href="{% url 'ld_assigned_news' %}">Articles a maquetar</a>
         </li>
     </ol>
 {% endblock %}
 {% block content %}
-    <h2>Notícies assignades</h2>
-    <hr/>
+
+    <h2>Articles a maquetar</h2><hr/>
     {% if Acceptades %}
         {% for acceptada in Acceptades %}
             <br>
@@ -40,7 +40,6 @@
             </br>
             {{ acceptada.description }}
             <hr/>
-
         {% endfor %}
     {% else %}
         <p>No hi ha cap notícia pendent.</p>
