@@ -1,9 +1,10 @@
-from django.http import HttpResponse
 from django.shortcuts import render
+from django.utils import timezone
+
 from AfeNews.models import New
 from Copywriter.models import Article
-from Graphic_reporter.models import Image
 from Layout_designer.models import *
+
 
 def getImages(number,slug):
 
@@ -167,3 +168,37 @@ def publishArticle(request):
 
 
         return render(request,'Layout_designer/published_succesful.html')
+
+
+def countdown_format(countdown):
+    # Eliminate microseconds
+    countdown = countdown[:countdown.rfind(".")]
+
+    # Days in catalan
+    countdown = countdown.replace("days", "dies")
+    countdown = countdown.replace("day", "dia")
+
+    return countdown
+
+
+def update_countdown(assigned_news):
+    for new in assigned_news:
+        countdown = new.limit_date - timezone.now()
+        new.countdown = countdown_format(str(countdown))
+        new.save()
+
+    return assigned_news
+
+
+def home(request):
+    template = 'Layout_designer/home.html'
+
+    assigned_news = New.objects.all()
+    assigned_news = assigned_news.filter(state='Acceptat')
+    num_assigned_news = assigned_news.count()
+
+    assigned_news = assigned_news.order_by('limit_date')[:5]
+    assigned_news = update_countdown(assigned_news)
+
+    return render(request, template, {'assigned_news': assigned_news,
+                                      'num_assigned_news': num_assigned_news})

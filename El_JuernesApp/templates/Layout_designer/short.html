@@ -2,20 +2,22 @@
 
 {% block navbar %}
     <li class="nav-item">
-        <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'Home_News' %}">Noticies</a></li>
+        <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'Home_News' %}">Noticies</a>
+    </li>
     <li class="nav-item">
         <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="#">Contacta'ns</a></li>
     <li class="nav-item">
         {% if user.is_authenticated %}
-        <p class="nav-link" data-toggle="modal" data-target="#exampleModal">Benvingut: {{ user.username }} |
+            <p class="nav-link" data-toggle="modal" data-target="#exampleModal">Benvingut: {{ user.username }} |
             <li class="nav-item">
                 <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'logout' %}">Logout
                     <i class="fa fa-fw fa-sign-out"></i>
                 </a>
             </li>
-        </p>
+            </p>
         {% else %}
-            <p><a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'login' %}">Login</a></p>
+            <p><a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'login' %}">Login</a>
+            </p>
         {% endif %}
     </li>
 
@@ -30,37 +32,38 @@
 {% endblock %}
 
 {% block content %}
-<h2>Mida article: Curt</h2>
+    <h2>Mida article: Curt</h2>
 
     <h4>Numero de paraules: {{ wordcount }}</h4>
-        <h1>{{ title }}</h1>
-            <h3>{{ description }}</h3>
-                <p>{{ body }}</p>
+    <h1>{{ title }}</h1>
+    <h3>{{ description }}</h3>
+    <p>{{ body }}</p>
 
 
     <a href="/Maquetador/layout/{{ slug }}">
-        <button type="button">Torna</button></a>
+        <button type="button">Torna</button>
+    </a>
 
     <form action="{% url 'published' %}" method="post"> {% csrf_token %}
-            <input type="submit" value="Publica l'article">
-            <input type="hidden" name="slug" value="{{ slug }}"/>
-            <input type="hidden" name="body" value="{{ body }}"/>
-            <input type="hidden" name="title" value="{{ title }}"/>
-            <input type="hidden" name="description" value="{{ description }}"/>
-            <br>
-            <input type="hidden" name="slug" value="{{ new.slug }}"/>
-        </form>
+        <input type="hidden" name="slug" value="{{ slug }}"/>
+        <input type="hidden" name="body" value="{{ body }}"/>
+        <input type="hidden" name="title" value="{{ title }}"/>
+        <input type="hidden" name="description" value="{{ description }}"/>
+        <input type="submit" value="Publica l'article">
+        <br>
+    </form>
 
 {% endblock %}
 
 
 {% block sidebar %}
     <li class="nav-item" data-toggle="modal" data-placement="right" title="">
-        <a class="nav-link"  href="{% url 'account-redirect' %}">
+        <a class="nav-link" href="{% url 'account-redirect' %}">
             <span class="nav-link-text">El meu espai de treball</span>
         </a>
     </li>
-    <li class="nav-item" data-toogle="tooltip" data-placement="right" title="" data-original-title="Noticies assignades">
+    <li class="nav-item" data-toogle="tooltip" data-placement="right" title=""
+        data-original-title="Noticies assignades">
         <a class="nav-link" href="{% url 'ld_assigned_news' %}">
             <span class="nav-link-text">Articles a maquetar</span>
         </a>

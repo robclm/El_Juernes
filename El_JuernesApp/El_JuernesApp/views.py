@@ -10,8 +10,8 @@ from Layout_designer.views import mediumSizePharagraphs, largeSizePharagraphs, g
 
 def home(request):
 
-    published = Published_Article.objects.all()
-    context = {'published': published}
+    published = Published_Article.objects.all().order_by('publishedtime')
+    context = {'published': published.reverse()}
 
     return render(request , 'Home_News.html' , context)
 

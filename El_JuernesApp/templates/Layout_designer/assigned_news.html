@@ -2,20 +2,22 @@
 
 {% block navbar %}
     <li class="nav-item">
-        <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'Home_News' %}">Noticies</a></li>
+        <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'Home_News' %}">Noticies</a>
+    </li>
     <li class="nav-item">
         <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="#">Contacta'ns</a></li>
     <li class="nav-item">
         {% if user.is_authenticated %}
-        <p class="nav-link" data-toggle="modal" data-target="#exampleModal">Benvingut: {{ user.username }} |
+            <p class="nav-link" data-toggle="modal" data-target="#exampleModal">Benvingut: {{ user.username }} |
             <li class="nav-item">
                 <a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'logout' %}">Logout
                     <i class="fa fa-fw fa-sign-out"></i>
                 </a>
             </li>
-        </p>
+            </p>
         {% else %}
-            <p><a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'login' %}">Login</a></p>
+            <p><a class="nav-link" data-toggle="modal" data-target="#exampleModal" href="{% url 'login' %}">Login</a>
+            </p>
         {% endif %}
     </li>
 
@@ -29,25 +31,29 @@
     </ol>
 {% endblock %}
 {% block content %}
+
     <h2>Articles a maquetar</h2><hr/>
-    {% for acceptada in Acceptades %}
-        <br>
-        <h4><a href="accepted/{{ acceptada.slug }}"> {{ acceptada.title }}</a></h4>
-        </br>
-        {{ acceptada.description }}
-        <hr/>
-
-    {% endfor %}
-
+    {% if Acceptades %}
+        {% for acceptada in Acceptades %}
+            <br>
+            <h4><a href="accepted/{{ acceptada.slug }}"> {{ acceptada.title }}</a></h4>
+            </br>
+            {{ acceptada.description }}
+            <hr/>
+        {% endfor %}
+    {% else %}
+        <p>No hi ha cap notícia pendent.</p>
+    {% endif %}
 {% endblock %}
 
 {% block sidebar %}
     <li class="nav-item" data-toggle="modal" data-placement="right" title="">
-        <a class="nav-link"  href="{% url 'account-redirect' %}">
+        <a class="nav-link" href="{% url 'account-redirect' %}">
             <span class="nav-link-text">El meu espai de treball</span>
         </a>
     </li>
-    <li class="nav-item" data-toogle="tooltip" data-placement="right" title="" data-original-title="Noticies assignades">
+    <li class="nav-item" data-toogle="tooltip" data-placement="right" title=""
+        data-original-title="Noticies assignades">
         <a class="nav-link" href="{% url 'ld_assigned_news' %}">
             <span class="nav-link-text">Articles a maquetar</span>
         </a>
