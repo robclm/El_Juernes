@@ -6,6 +6,7 @@ TO_VALIDATE = "Per validar"
 ACCEPTED = "Acceptat"
 REJECTED = "Rebutjada"
 COMMENTED = "Comentat"
+PUBLICAT = "Publicat"
 
 class New(models.Model):
     STATES = (
@@ -14,7 +15,8 @@ class New(models.Model):
         (TO_VALIDATE, "Per validar"),
         (ACCEPTED, "Acceptat"),
         (REJECTED, "Rebutjada"),
-        (COMMENTED, "Comentat")
+        (COMMENTED, "Comentat"),
+        (PUBLICAT, "Publicat")
     )
 
     slug = models.CharField(max_length=140)

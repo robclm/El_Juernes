@@ -154,8 +154,8 @@ def publishArticle(request):
 
         dictionariRequest = request.POST.dict()
         try:
-            new_to_delete = New.objects.get(slug=dictionariRequest['slug'])
-            new_to_delete.delete()
+            new = New.objects.get(slug=dictionariRequest['slug'])
+            new.state = "Publicat"
         except:
             """Nothing"""
 
