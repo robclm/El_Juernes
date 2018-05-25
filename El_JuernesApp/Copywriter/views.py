@@ -98,28 +98,36 @@ def send_new(request):
                 article.save()
 
             try:
-                images_sended = Images_sended.objects.get(slug=var['slug'])
+                var['guardar']
+                new = New.objects.get(slug=var['slug'])
+                new.state = "Assignada"
+                new.save()
+                return redirect('new_copywriter', slug=var['slug'])
 
             except:
-                images_sended = Images_sended()
-                images_sended.slug = var['slug']
+                try:
+                    images_sended = Images_sended.objects.get(slug=var['slug'])
+
+                except:
+                    images_sended = Images_sended()
+                    images_sended.slug = var['slug']
+                    images_sended.save()
+
+                for pk in selected_images_pk:
+                    image = Image.objects.get(pk=pk)
+                    images_sended.images.add(image)
+
                 images_sended.save()
 
-            for pk in selected_images_pk:
-                image = Image.objects.get(pk=pk)
-                images_sended.images.add(image)
+                new = New.objects.get(slug=var['slug'])
+                new.state = "Per validar"
+                new.save()
+                context = {
+                    "article": article,
+                    "new": new,
+                }
 
-            images_sended.save()
-
-            new = New.objects.get(slug=var['slug'])
-            new.state = "Per validar"
-            new.save()
-            context = {
-                "article": article,
-                "new": new,
-            }
-
-            return render(request, 'Copywriter/correct_send.html', context)
+                return render(request, 'Copywriter/correct_send.html', context)
 
     return redirect('new_copywriter')
 
@@ -132,6 +140,11 @@ class new_copywriter(generic.DetailView):
         context = super(new_copywriter, self).get_context_data(**kwargs)
         context['new'] = New.objects.get(slug=self.kwargs['slug'])
         context['form'] = ArticleForm()
+
+        try:
+            context['article'] = Article.objects.get(slug=self.kwargs['slug'])
+        except Exception as e:
+            print("%s (%s)" % (e.args, type(e)))
 
         try:
             context['image_request'] = Image_request.objects.get(noticia=context['new'])
