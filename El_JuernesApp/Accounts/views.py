@@ -26,7 +26,7 @@ def Home(request, pk, name):
         elif rol == "Graphic_reporter":
             template = 'Accounts/Home/graphic_reporter.html'
         elif rol == "Layout_designer":
-            template = 'Accounts/Home/layout_designer.html'
+            return redirect('ld_home')
     except:
         template = 'Home_News.html'
 
