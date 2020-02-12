@@ -1,6 +1,6 @@
 behave==1.2.6
 certifi==2018.4.16
-Django==2.0.12
+Django==2.2.10
 parse==1.8.2
 parse-type==0.4.2
 Pillow==5.1.0
