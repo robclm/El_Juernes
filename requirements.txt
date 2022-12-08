@@ -1,5 +1,5 @@
 behave==1.2.6
-certifi==2018.4.16
+certifi==2022.12.7
 Django==2.0.12
 parse==1.8.2
 parse-type==0.4.2
